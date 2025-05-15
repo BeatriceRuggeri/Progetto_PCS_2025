@@ -12,14 +12,14 @@ namespace calcolo{
 namespace PolyhedralLibrary
 {
 
-bool ImportMesh(PolyhedralMesh& mesh);
+bool ExportMesh(PolyhedralMesh& mesh);
 
-bool ImportCell0Ds(PolyhedralMesh& mesh);
+bool ExportCell0Ds(PolyhedralMesh& mesh);
 
 
-bool ImportCell1Ds(PolyhedralMesh& mesh);
+bool ExportCell1Ds(PolyhedralMesh& mesh);
 
-bool ImportCell2Ds(PolyhedralMesh& mesh);
+bool EXportCell2Ds(PolyhedralMesh& mesh);
 
 bool CheckEdges(const PolyhedralMesh& mesh, const double& eps);
 

@@ -37,14 +37,44 @@ namespace PolyhedralLibrary
     
     
     
-//*********************************************** Importazione ********************* : Ancora d'adattare 
+//*********************************************** Esportazione ********************* : Ancora d'adattare 
 
 //**********CELL 0DS************
 
   
-    bool ImportCell0Ds(PolyhedrallMesh& mesh)
-    {
-        ifstream file("./Cell0Ds.txt");
+    bool ExportCell0Ds(const string& outputFilePath,
+					   const size_t& n,
+					   const unsigned int* const& v1,
+					   const unsigned int* const& v2)
+		ofstream file;
+		file.open(outputFilePath);
+
+		if (file.fail())
+		{
+			cerr<< "file open failed"<< endl;
+			return false;
+		}
+
+		file << "# Size of the two vectors"<< endl;
+		file << n << endl;
+
+		file << "# vector 1"<< endl;
+		for (unsigned int i = 0; i < n; i++)
+			file << (i != 0 ? " " : "") << v1[i];
+		file << endl;
+
+		file << "# vector 2 "<< endl;
+		for (unsigned int i = 0; i < n; i++)
+			file << (i != 0 ? " " : "") << v2[i];
+		file << endl;
+
+    // Close File
+    file.close();
+
+    return true;
+		/*
+		
+        ofstream file("./Cell0Ds.txt");
 
         if (file.fail())
             return false;
@@ -97,13 +127,12 @@ namespace PolyhedralLibrary
        }
 }
 
-
-        return true;
+*/
     }
 
 // *********************************** CELL 1 DS ***************************
 
-    bool ImportCell1Ds(PolygonalMesh& mesh)
+    bool ExportCell1Ds(PolygonalMesh& mesh)
     {
         ifstream file("./Cell1Ds.txt");
 
@@ -163,7 +192,7 @@ namespace PolyhedralLibrary
 
 //************************************************* CELL 2DS********************************************
 
-bool ImportCell2Ds(PolyhedrallMesh& mesh){
+bool ExportCell2Ds(PolyhedrallMesh& mesh){
 	
 	
 	
@@ -174,7 +203,7 @@ bool ImportCell2Ds(PolyhedrallMesh& mesh){
 
 //************************************************* CELL 3DS********************************************
 
-bool ImportCell3Ds(PolyhedrallMesh& mesh){
+bool ExportCell3Ds(PolyhedrallMesh& mesh){
 	
 	
 	
