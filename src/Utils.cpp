@@ -16,16 +16,16 @@ namespace PolyhedralLibrary
     // ***************************************************************************
     bool ImportMesh(PolygonalMesh& mesh)
     {
-        if (!ImportCell0Ds(mesh))
+        if (!ExportCell0Ds(mesh))
             return false;
 
-        if (!ImportCell1Ds(mesh))
+        if (!ExportCell1Ds(mesh))
             return false;
 
-        if (!ImportCell2Ds(mesh))
+        if (!ExportCell2Ds(mesh))
             return false;
             
-        if (!ImportCell3DS(mesh))
+        if (!ExportCell3DS(mesh))
             return false;
 
         return true;
