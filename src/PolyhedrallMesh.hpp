@@ -9,6 +9,8 @@ using namespace Eigen;
 namespace PolyhedralLibrary {
 	struct PolyhedralMesh
 {
+	
+	
 
 
 
