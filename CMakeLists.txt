@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 
-# facsimile is the project name
-project(Facsimile LANGUAGES C CXX VERSION 1.0.0)
+# ProgettoPCS is the project name
+project(ProgettoPCS LANGUAGES C CXX VERSION 1.0.0)
 
 # Set C++ Standard
 ################################################################################
@@ -21,19 +21,19 @@ endif (WIN32)
 
 ## Eigen3
 find_package(Eigen3 CONFIG REQUIRED)
-list(APPEND ${PROJECT_NAME}_LINKED_LIBRARIES PUBLIC Eigen3::Eigen)
+list(APPEND ProgettoPCS_LINKED_LIBRARIES PUBLIC Eigen3::Eigen)
 
 ## Threads
 find_package(Threads REQUIRED)
-list(APPEND ${PROJECT_NAME}_LINKED_LIBRARIES PRIVATE Threads::Threads)
+list(APPEND ProgettoPCS_LINKED_LIBRARIES PRIVATE Threads::Threads)
 
 ## GTest
 find_package(GTest REQUIRED)
 
-list(APPEND ${PROJECT_NAME}_LINKED_LIBRARIES PRIVATE GTest::gtest)
-list(APPEND ${PROJECT_NAME}_LINKED_LIBRARIES PRIVATE GTest::gtest_main)
-list(APPEND ${PROJECT_NAME}_LINKED_LIBRARIES PRIVATE GTest::gmock)
-list(APPEND ${PROJECT_NAME}_LINKED_LIBRARIES PRIVATE GTest::gmock_main)
+list(APPEND ProgettoPCS_LINKED_LIBRARIES PRIVATE GTest::gtest)
+list(APPEND ProgettoPCS_LINKED_LIBRARIES PRIVATE GTest::gtest_main)
+list(APPEND ProgettoPCS_LINKED_LIBRARIES PRIVATE GTest::gmock)
+list(APPEND ProgettoPCS_LINKED_LIBRARIES PRIVATE GTest::gmock_main)
 
 ################################################################################
 
@@ -58,15 +58,15 @@ add_subdirectory(src)
 add_subdirectory(src_test)
 add_subdirectory(ExportParaview)
 
-list(APPEND ${PROJECT_NAME}_sources ${src_sources} ${src_paraview_sources})
-list(APPEND ${PROJECT_NAME}_headers ${src_headers} ${src_paraview_headers})
-list(APPEND ${PROJECT_NAME}_includes ${src_includes} ${src_paraview_includes})
+list(APPEND ProgettoPCS_sources ${src_sources} ${src_paraview_sources})
+list(APPEND ProgettoPCS_headers ${src_headers} ${src_paraview_headers})
+list(APPEND ProgettoPCS_includes ${src_includes} ${src_paraview_includes})
 
-list(APPEND ${PROJECT_NAME}_TEST_sources ${${PROJECT_NAME}_sources} ${src_test_sources})
-list(APPEND ${PROJECT_NAME}_TEST_headers ${${PROJECT_NAME}_headers} ${src_test_headers})
-list(APPEND ${PROJECT_NAME}_TEST_includes ${${PROJECT_NAME}_includes} ${src_test_includes})
+list(APPEND ProgettoPCS_TEST_sources ${${PROJECT_NAME}_sources} ${src_test_sources})
+list(APPEND ProgettoPCS_TEST_headers ${${PROJECT_NAME}_headers} ${src_test_headers})
+list(APPEND ProgettoPCS_TEST_includes ${${PROJECT_NAME}_includes} ${src_test_includes})
 
-#################### Copy file ################################
+#################### Copy file ################################ DA CHIEDERE ####
 
 #file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ListPolygons DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -75,8 +75,8 @@ list(APPEND ${PROJECT_NAME}_TEST_includes ${${PROJECT_NAME}_includes} ${src_test
 # Add two executables: Facsimile and Facsimile_TEST
 
 add_executable(${PROJECT_NAME} main.cpp
-      ${${PROJECT_NAME}_sources}
-      ${${PROJECT_NAME}_headers})
+      ${ProgettoPCS_sources}
+      ${ProgettoPCS_headers})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${${CMAKE_PROJECT_NAME}_includes})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${${PROJECT_NAME}_LINKED_LIBRARIES})
