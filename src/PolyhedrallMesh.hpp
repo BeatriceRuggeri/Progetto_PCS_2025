@@ -44,6 +44,7 @@ namespace PolyhedralLibrary {
 
     const double phi = (1.0 + sqrt(5.0)) / 2.0;
     const double invPhi = 1.0 / phi;
+    
     double Vert_dodecahedron[20][3];
     double Vert_icosahedron[12][3]; //altrimenti sarebbero locali dei init
     
@@ -52,6 +53,7 @@ namespace PolyhedralLibrary {
     
 }
 
+// in teoria possiamo mettere questo su un PolyhedralMesh.cpp eventualmente boh
 
 //************************* initialization ********************//
 
