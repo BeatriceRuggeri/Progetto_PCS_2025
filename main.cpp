@@ -7,6 +7,9 @@ using namespace std;
 using namespace Eigen;
 using namespace PolyhedralLibrary;
 
+
+// cmake -S ./ -B ./Debug -DCMAKE_BUILD_TYPE="Debug"
+
 int main()
 {
 	int Matrix PQ[5][2] = {{3, 3}, {3, 4}, {4, 3}, {5, 3}, {3, 5}};
@@ -26,7 +29,20 @@ int main()
 			// CLASSE2 (P, Q, b, c)
 		}
 	}
+	
+	//trial
+	
+	PolyhedralLibrary::PolyhedralMesh mesh;
+	
+	bool success = ExportCell0Ds("Cell0Ds.txt",mesh.Vert_tetrahedron,3);
+	
+	if(!success){
+		cerr<<"Export failed."<<endl;
+		return 1;
+	}
 				
+	
+	
 	
 	return 0;
 }

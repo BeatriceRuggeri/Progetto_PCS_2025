@@ -6,7 +6,7 @@
 #include <string>
 
 using namespace std;
-using namespace PolyhedrallLibrary;
+using namespace PolyhedralLibrary;
 
 
 
@@ -33,20 +33,24 @@ namespace PolyhedralLibrary
     
     */
 
-//funzione che controlla che i vertici siano sulla sfera di raggio 1 centrata nell'origine.    
-bool ControlloSfera(x, y, z){
-	if (x^2+y^2+z^2==1)
+//funzione che controlla che i vertici siano sulla sfera di raggio 1 centrata nell'origine. 
+
+/*   
+bool ControlloSfera(double x, double y, double z){
+	if (x*x +y*y +z*z ==1)
 	else 
 		cerr << "Vertice non idoneo" << endl;
 	return true;
 }
+*/
     
 //*********************************************** Esportazione ********************* : Ancora d'adattare 
 
 //**********CELL 0DS************
 
   
-    bool ExportCell0Ds(const string& outputFilePath)
+  bool ExportCell0Ds(const string& outputFilePath, const double vertici[][3],int n)
+   {
 	
 		ofstream file;
 		file.open(outputFilePath);
@@ -57,11 +61,24 @@ bool ControlloSfera(x, y, z){
 			return false;
 		}
 		
-		unsigned int n = 5;
-
-		file << "id " << "x " << "y " << "z " << endl;
+		//unsigned int n = 5;
 		
-		for (i=0; i<=n; i++)
+		for (int i=0; i<n; i++)
+		{
+			
+		   double x = vertici[i][0];
+           double y = vertici[i][1];
+           double z = vertici[i][2];
+
+           //if (!ControlloSfera(x, y, z)) continue; // lasciamo per dopo
+	
+			
+		file <<"id: "<< i << 
+			"x: "<< vertici[i][0] << 
+			"y: "<< vertici[i][1] << 
+			"z: "<< vertici[i][2] <<endl;
+	    }
+		/*for (i=0; i<=n; i++)
 		{
 			//condizioni su x,y,z
 			double x = rand();
@@ -71,14 +88,16 @@ bool ControlloSfera(x, y, z){
 			if (ControlloSfera(x, y, z)= true){
 				file << i << x << y << z << endl;
 			}
-		}
+		}*/
 
     // Close File
     file.close();
+    
+    cout<< "Saved: "<< outputFile << endl;
 
     return true;
-    }
-
+   }
+/*
 // *********************************** CELL 1 DS ***************************
 
     bool ExportCell1Ds(const string& outputFilePath)
@@ -112,9 +131,11 @@ bool ControlloSfera(x, y, z){
 
     return true;
     }
+*/
 
 //************************************************* CELL 2DS********************************************
 
+/*
 bool ExportCell2Ds(PolyhedrallMesh& mesh){
 	
 	
@@ -122,7 +143,7 @@ bool ExportCell2Ds(PolyhedrallMesh& mesh){
 	
 	
 	return true;
-}
+ }
 
 //************************************************* CELL 3DS********************************************
 
@@ -131,34 +152,42 @@ bool ExportCell3Ds(PolyhedrallMesh& mesh){
 	
 	
 	return true;
-}
+ }
+*/
 
+/*
 //************************************** CLASSE1 *****************
 bool CLASSE1(...) {
 	
 	//fa le modifiche che deve avendo (p, q, b, c)
 	...
 	// fa le esportazioni per ogni poliedro
-	/*
+	
 	ExportCell0Ds
 	ExportCell1Ds
 	ExportCell2Ds
 	ExportCell3Ds
-	*/
+	
 	return true;
-}
+ }
 
+*/
+
+/*
 //************************************** CLASSE2 *****************
 bool CLASSE2(...) {
 	
 	//fa le modifiche che deve avendo (p, q, b, c)
 	...
 	// fa le esportazioni per ogni poliedro
-	/*
+	
 	ExportCell0Ds
 	ExportCell1Ds
 	ExportCell2Ds
 	ExportCell3Ds
-	*/
+	
 	return true;
+ }
+*/
+
 }

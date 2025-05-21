@@ -154,6 +154,8 @@ namespace PolyhedralLibrary {
         }
     }
    }
+ }; // end of struct
+ 
 }
 
 	
