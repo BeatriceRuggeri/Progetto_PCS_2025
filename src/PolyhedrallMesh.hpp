@@ -48,10 +48,14 @@ namespace PolyhedralLibrary {
     double Vert_dodecahedron[20][3];
     double Vert_icosahedron[12][3]; //altrimenti sarebbero locali dei init
     
-    init_Dodecahedron(); // non possiamo mettere dei for loop direttamente nel corpo di uno struct,quindi facciamo un costruttore fuori e poi lo richiamiamo
-    init_Icosahedron();
     
-}
+    //constructor
+    PolyhedralMesh(){
+	    init_Icosahedron();
+	    init_Dodecahedron();
+	    
+    }
+    
 
 // in teoria possiamo mettere questo su un PolyhedralMesh.cpp eventualmente boh
 
@@ -63,8 +67,8 @@ namespace PolyhedralLibrary {
     //int index = 0; //risking out of bounds array writing if we use it for different functions
 
     // Vertici (±1, ±1, ±1) — 8 vertici
-void init_Dodecahedron()
-{
+   void init_Dodecahedron()
+    {
 	int index=0;
     for (int sx = -1; sx <= 1; sx += 2)
         for (int sy = -1; sy <= 1; sy += 2)
@@ -98,14 +102,14 @@ void init_Dodecahedron()
                     Vert_dodecahedron[index][1] = y / len;
                     Vert_dodecahedron[index][2] = z / len;
                     index++;
-                }
-            }
-        }
+                 }
+             }
+         }
+      }
     }
-}
 
-void init_Icosahedron()
-{
+   void init_Icosahedron()
+    {
 	int index=0; // so we can initialize it in different contexts
     // Matrice 12x3 per i vertici
     //double Vert_icosahedron[12][3];
@@ -149,7 +153,7 @@ void init_Icosahedron()
             index++;
         }
     }
-
+   }
 }
 
 	
