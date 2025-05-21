@@ -38,25 +38,39 @@ namespace PolyhedralLibrary {
         { -1.0,  0.0,  0.0 },  // Vertice 2
         {  0.0,  1.0,  0.0 },  // Vertice 3
         {  0.0, -1.0,  0.0 },  // Vertice 4
-        {  0.0,  0.0,  1.0 },  // Vertice 5
+        {  0.0,  0.0,  1.0 },  // Vertice 5so 
         {  0.0,  0.0, -1.0 }   // Vertice 6
     };
 
     const double phi = (1.0 + sqrt(5.0)) / 2.0;
     const double invPhi = 1.0 / phi;
+    double Vert_dodecahedron[20][3];
+    double Vert_icosahedron[12][3]; //altrimenti sarebbero locali dei init
+    
+    init_Dodecahedron(); // non possiamo mettere dei for loop direttamente nel corpo di uno struct,quindi facciamo un costruttore fuori e poi lo richiamiamo
+    init_Icosahedron();
+    
+}
+
+
+//************************* initialization ********************//
+
 
     // Matrice 20x3: ogni riga è un vertice (x, y, z)
-    double Vert_dodecahedron[20][3];
-    int index = 0;
+    //double Vert_dodecahedron[20][3];
+    //int index = 0; //risking out of bounds array writing if we use it for different functions
 
     // Vertici (±1, ±1, ±1) — 8 vertici
+void init_Dodecahedron()
+{
+	int index=0;
     for (int sx = -1; sx <= 1; sx += 2)
         for (int sy = -1; sy <= 1; sy += 2)
             for (int sz = -1; sz <= 1; sz += 2) {
                 double x = sx * 1.0;
                 double y = sy * 1.0;
                 double z = sz * 1.0;
-                double len = std::sqrt(x*x + y*y + z*z);
+                double len = std::sqrt(x*x + y*y + z*z); //normalization
                 Vert_dodecahedron[index][0] = x / len;
                 Vert_dodecahedron[index][1] = y / len;
                 Vert_dodecahedron[index][2] = z / len;
@@ -77,7 +91,7 @@ namespace PolyhedralLibrary {
                     double x = coords[i][j];
                     double y = coords[(i + 1) % 3][k];
                     double z = coords[(i + 2) % 3][l];
-                    double len = std::sqrt(x*x + y*y + z*z);
+                    double len = std::sqrt(x*x + y*y + z*z); // normalization 
                     Vert_dodecahedron[index][0] = x / len;
                     Vert_dodecahedron[index][1] = y / len;
                     Vert_dodecahedron[index][2] = z / len;
@@ -86,9 +100,13 @@ namespace PolyhedralLibrary {
             }
         }
     }
+}
 
+void init_Icosahedron()
+{
+	int index=0; // so we can initialize it in different contexts
     // Matrice 12x3 per i vertici
-    double Vert_icosahedron[12][3];
+    //double Vert_icosahedron[12][3];
 
     // (0, ±1, ±φ)
     for (int i = -1; i <= 1; i += 2) {
