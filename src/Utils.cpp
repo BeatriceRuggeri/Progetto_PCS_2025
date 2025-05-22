@@ -85,33 +85,8 @@ bool ControlloSfera(double x, double y, double z){
    }
 // *********************************** CELL 1 DS ***************************
 
-    bool ExportCell1Ds(const string& outputFilePath, const double vertici[][3],int n)
-    {
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    // EXPORT
-	    
+    bool ExportCell1Ds(const string& outputFilePath, const vector<Edge>& edges)
+    {   
         ofstream file;
 		file.open(outputFilePath);
 
@@ -120,20 +95,12 @@ bool ControlloSfera(double x, double y, double z){
 			cerr<< "file open failed"<< endl;
 			return false;
 		}
-
-		unsigned int n = 7;
 		
-		file << "id " << "id_start" << "id_end " << endl;
+		file << "Id " << "Id_start " << "Id_end " << endl;
 		
-		for (i=0; i<=n; i++)
+		for (const auto& edge : edges)
 		{
-			//condizioni su inzio e file del lato
-			double id_start = rand()%n;
-			double id_end = rand()%n;
-				
-			if (id_end-id_start!=0){
-				file << i << id_start << id_end << endl;
-			}
+			file << edge.id << ";" <<  edge.origin << ";" << edges.end << endl;
 		}
 
     // Close File
@@ -141,6 +108,40 @@ bool ControlloSfera(double x, double y, double z){
 
     return true;
     }
+
+
+/*
+int main() {
+    // Lista di vertici (ognuno è un punto 2D)
+    std::vector<std::vector<float>> vertices = {
+        {0.0f, 0.0f},   // Vertice 0
+        {1.0f, 0.0f},   // Vertice 1
+        {1.0f, 1.0f},   // Vertice 2
+        {0.0f, 1.0f}    // Vertice 3
+    };
+
+    // Vettore per memorizzare gli edge
+    std::vector<Edge> edges;
+
+    // Definiamo gli edge (i lati del quadrato)
+    int numVertices = vertices.size();
+    for (int i = 0; i < numVertices; ++i) {
+        // Ogni edge collega il vertice i con il successivo, e l'ultimo con il primo
+        int startIdx = i;
+        int endIdx = (i + 1) % numVertices;  // Per creare il ciclo, % numVertices
+        edges.push_back(Edge(startIdx, endIdx));
+    }
+
+    // Stampa gli edge
+    for (const Edge& e : edges) {
+        std::cout << "Edge from vertex " << e.start << " to vertex " << e.end << std::endl;
+    }
+
+    return 0;
+}
+
+*/	    
+	    
 
 
 //************************************************* CELL 2DS********************************************

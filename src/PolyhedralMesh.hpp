@@ -47,14 +47,19 @@ namespace PolyhedralLibrary {
     
     double Vert_dodecahedron[20][3];
     double Vert_icosahedron[12][3]; //altrimenti sarebbero locali dei init
+	vector<Edge> Cell1Ds;
     
     
     //constructor
     PolyhedralMesh(){
 	    init_Icosahedron();
 	    init_Dodecahedron();
+		Cube_Edges();
 	    
     }
+	
+	
+	
     
 
 // in teoria possiamo mettere questo su un PolyhedralMesh.cpp eventualmente boh
@@ -154,8 +159,32 @@ namespace PolyhedralLibrary {
         }
     }
    }
+   
+   void Cube_Edges() = {
+	   vector<pair<int, int>> cube_edges = {
+		{0,1}, {0,2}, {0,4},
+        {1,3}, {1,5},
+        {2,3}, {2,6},
+        {3,7},
+        {4,5}, {4,6},
+        {5,7},
+        {6,7}
+	   };
+	   for (int i=0; i< cube_edges.size_t(); ++i) {
+		   Cell1Ds.push_back({i, cube_edges[i].first, cube_edges[i].second});
+	   }
+
+    }
+	
+	
+	
+	
  }; // end of struct
  
-}
+
+ 
+
+ 
+}//end library
 
 	

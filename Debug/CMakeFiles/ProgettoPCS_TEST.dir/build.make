@@ -108,12 +108,12 @@ ProgettoPCS_TEST_EXTERNAL_OBJECTS =
 ProgettoPCS_TEST: CMakeFiles/ProgettoPCS_TEST.dir/main_test.cpp.o
 ProgettoPCS_TEST: CMakeFiles/ProgettoPCS_TEST.dir/ExportParaview/UCDUtilities.cpp.o
 ProgettoPCS_TEST: CMakeFiles/ProgettoPCS_TEST.dir/build.make
-ProgettoPCS_TEST: /usr/local/lib/libgtest.a
-ProgettoPCS_TEST: /usr/local/lib/libgtest_main.a
-ProgettoPCS_TEST: /usr/local/lib/libgmock.a
-ProgettoPCS_TEST: /usr/local/lib/libgmock_main.a
-ProgettoPCS_TEST: /usr/local/lib/libgmock.a
-ProgettoPCS_TEST: /usr/local/lib/libgtest.a
+ProgettoPCS_TEST: /usr/lib/x86_64-linux-gnu/libgtest.a
+ProgettoPCS_TEST: /usr/lib/x86_64-linux-gnu/libgtest_main.a
+ProgettoPCS_TEST: /usr/lib/x86_64-linux-gnu/libgmock.a
+ProgettoPCS_TEST: /usr/lib/x86_64-linux-gnu/libgmock_main.a
+ProgettoPCS_TEST: /usr/lib/x86_64-linux-gnu/libgmock.a
+ProgettoPCS_TEST: /usr/lib/x86_64-linux-gnu/libgtest.a
 ProgettoPCS_TEST: CMakeFiles/ProgettoPCS_TEST.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ProgettoPCS_TEST"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ProgettoPCS_TEST.dir/link.txt --verbose=$(VERBOSE)

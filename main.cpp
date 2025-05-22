@@ -36,6 +36,14 @@ int main()
 	
 	PolyhedralLibrary::PolyhedralMesh mesh;
 	
+	bool success_edges_cube = ExportCell1Ds("C_Cell1Ds.txt",mesh.Cell1Ds);
+	
+	if(!success_edges_cube){
+		cerr<<"Export cube's edges failed."<<endl;
+		return 1;
+	}
+	
+	/*
 	bool success_tetrahedron = ExportCell0Ds("T_Cell0Ds.txt",mesh.Vert_tetrahedron,4);
 	
 	if(!success_tetrahedron){
@@ -71,7 +79,7 @@ int main()
 		cerr<<"Export icosahedron failed."<<endl;
 		return 1;
 	}
-				
+	*/			
 	
 	
 	
