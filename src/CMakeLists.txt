@@ -1,10 +1,15 @@
-list(APPEND polyhedralMesh_headers ${CMAKE_CURRENT_SOURCE_DIR}/Utils.hpp)
-list(APPEND polyhedralMesh_sources ${CMAKE_CURRENT_SOURCE_DIR}/Utils.cpp)
+##########src#######
 
-list(APPEND polyhedralMesh_headers ${CMAKE_CURRENT_SOURCE_DIR}/PolyhedralMesh.hpp)
 
-list(APPEND polyhedralMesh_includes ${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND PolyhedralMesh_sources ${CMAKE_CURRENT_SOURCE_DIR}/Utils.cpp)
 
-set(polygonalMesh_sources ${polyhedrallMesh_sources} PARENT_SCOPE)
-set(polygonalMesh_headers ${polyhedralMesh_headers} PARENT_SCOPE)
-set(polygonalMesh_includes ${polyhedralMesh_includes} PARENT_SCOPE)
+list(APPEND PolyhedralMesh_headers ${CMAKE_CURRENT_SOURCE_DIR}/PolyhedralMesh.hpp)
+list(APPEND PolyhedralMesh_headers ${CMAKE_CURRENT_SOURCE_DIR}/Utils.hpp)
+
+list(APPEND PolyhedralMesh_includes ${CMAKE_CURRENT_SOURCE_DIR})
+
+set(src_includes ${CMAKE_CURRENT_SOURCE_DIR})
+
+set(PolyhedralMesh_sources ${PolyhedralMesh_sources} PARENT_SCOPE)
+set(PolyhedralMesh_headers ${PolyhedralMesh_headers} PARENT_SCOPE)
+set(PolyhedralMesh_includes ${PolyhedralMesh_includes} PARENT_SCOPE)

@@ -62,6 +62,7 @@ bool ControlloSfera(double x, double y, double z){
 		}
 		
 		//unsigned int n = 5;
+		file <<"ID "<<"X "<<"Y "<<"Z "<<endl;
 		
 		for (int i=0; i<n; i++)
 		{
@@ -73,10 +74,7 @@ bool ControlloSfera(double x, double y, double z){
            //if (!ControlloSfera(x, y, z)) continue; // lasciamo per dopo
 	
 			
-		file <<"id: "<< i << 
-			"x: "<< vertici[i][0] << 
-			"y: "<< vertici[i][1] << 
-			"z: "<< vertici[i][2] <<endl;
+		file << i <<";"<<x<<";"<<y<<";"<<z<<endl;
 	    }
 		/*for (i=0; i<=n; i++)
 		{
@@ -93,7 +91,7 @@ bool ControlloSfera(double x, double y, double z){
     // Close File
     file.close();
     
-    cout<< "Saved: "<< outputFile << endl;
+    cout<< "Saved: "<< outputFilePath << endl;
 
     return true;
    }

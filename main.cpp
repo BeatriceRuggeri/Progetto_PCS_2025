@@ -12,6 +12,8 @@ using namespace PolyhedralLibrary;
 
 int main()
 {
+	
+	/*
 	int Matrix PQ[5][2] = {{3, 3}, {3, 4}, {4, 3}, {5, 3}, {3, 5}};
 	
 	for (i= 0; i<=5; i++)
@@ -29,7 +31,7 @@ int main()
 			// CLASSE2 (P, Q, b, c)
 		}
 	}
-	
+	*/
 	//trial
 	
 	PolyhedralLibrary::PolyhedralMesh mesh;

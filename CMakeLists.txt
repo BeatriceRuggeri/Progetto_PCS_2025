@@ -72,20 +72,37 @@ list(APPEND ProgettoPCS_TEST_includes ${${PROJECT_NAME}_includes} ${src_test_inc
 
 ############################## Add executable ##################################################
 
-# Add two executables: Facsimile and Facsimile_TEST
 
-add_executable(${PROJECT_NAME} main.cpp
-      ${ProgettoPCS_sources}
-      ${ProgettoPCS_headers})
+message(STATUS "SOURCES IN BUILD: ${ProgettoPCS_sources}")
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${${CMAKE_PROJECT_NAME}_includes})
+# Add two executables
+
+#add_executable(${PROJECT_NAME} main.cpp ${ProgettoPCS_sources} ${ProgettoPCS_headers})
+
+
+######BRUTE FORCE FIX FOR NOW########
+
+add_executable(${PROJECT_NAME}
+    main.cpp
+    src/Utils.cpp           
+)
+
+#${CMAKE_PROJECT_NAME} in target include ##erros####
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${ProgettoPCS_includes})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME} PUBLIC ${${PROJECT_NAME}_LINKED_LIBRARIES})
 target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
+
+############### test #########
 
 add_executable(${PROJECT_NAME}_TEST main_test.cpp
       ${${PROJECT_NAME}_TEST_sources}
       ${${PROJECT_NAME}_TEST_headers})
 
+
+
 target_include_directories(${PROJECT_NAME}_TEST PUBLIC ${${CMAKE_PROJECT_NAME}_TEST_includes})
+target_include_directories(${PROJECT_NAME}_TEST PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME}_TEST PUBLIC ${${PROJECT_NAME}_LINKED_LIBRARIES})
 target_compile_options(${PROJECT_NAME}_TEST PUBLIC -fPIC)

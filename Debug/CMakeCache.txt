@@ -145,7 +145,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Facsimile
+CMAKE_PROJECT_NAME:STATIC=ProgettoPCS
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=1.0.0
@@ -238,6 +238,15 @@ Facsimile_SOURCE_DIR:STATIC=/home/appuser/Data/Progetto_PCS_2025
 
 //The directory containing a CMake configuration file for GTest.
 GTest_DIR:PATH=/usr/local/lib/cmake/GTest
+
+//Value Computed by CMake
+ProgettoPCS_BINARY_DIR:STATIC=/home/appuser/Data/Progetto_PCS_2025/Debug
+
+//Value Computed by CMake
+ProgettoPCS_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+ProgettoPCS_SOURCE_DIR:STATIC=/home/appuser/Data/Progetto_PCS_2025
 
 
 ########################

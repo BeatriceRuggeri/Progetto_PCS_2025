@@ -1,5 +1,5 @@
-/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles/Facsimile.dir
-/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles/Facsimile_TEST.dir
+/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles/ProgettoPCS.dir
+/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles/ProgettoPCS_TEST.dir
 /home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles/edit_cache.dir
 /home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles/rebuild_cache.dir
 /home/appuser/Data/Progetto_PCS_2025/Debug/src/CMakeFiles/edit_cache.dir

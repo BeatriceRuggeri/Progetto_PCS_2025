@@ -66,6 +66,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/Facsimile.dir/DependInfo.cmake"
-  "CMakeFiles/Facsimile_TEST.dir/DependInfo.cmake"
+  "CMakeFiles/ProgettoPCS.dir/DependInfo.cmake"
+  "CMakeFiles/ProgettoPCS_TEST.dir/DependInfo.cmake"
   )
