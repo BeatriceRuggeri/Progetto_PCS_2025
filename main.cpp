@@ -36,10 +36,39 @@ int main()
 	
 	PolyhedralLibrary::PolyhedralMesh mesh;
 	
-	bool success = ExportCell0Ds("Cell0Ds.txt",mesh.Vert_tetrahedron,3);
+	bool success_tetrahedron = ExportCell0Ds("T_Cell0Ds.txt",mesh.Vert_tetrahedron,4);
 	
-	if(!success){
-		cerr<<"Export failed."<<endl;
+	if(!success_tetrahedron){
+		cerr<<"Export tetrahedron failed."<<endl;
+		return 1;
+	}
+	
+	
+	bool success_cube = ExportCell0Ds("C_Cell0Ds.txt",mesh.Vert_cube,8);
+	
+	if(!success_cube){
+		cerr<<"Export cube failed."<<endl;
+		return 1;
+	}
+	
+	bool success_octahedron = ExportCell0Ds("O_Cell0Ds.txt",mesh.Vert_octahedron,6);
+	
+	if(!success_octahedron){
+		cerr<<"Export octahedron failed."<<endl;
+		return 1;
+	}
+	
+	bool success_dodecahedron = ExportCell0Ds("D_Cell0Ds.txt",mesh.Vert_dodecahedron,20);
+	
+	if(!success_dodecahedron){
+		cerr<<"Export dodecahedron failed."<<endl;
+		return 1;
+	}
+	
+	bool success_icosahedron = ExportCell0Ds("I_Cell0Ds.txt",mesh.Vert_icosahedron,12);
+	
+	if(!success_icosahedron){
+		cerr<<"Export icosahedron failed."<<endl;
 		return 1;
 	}
 				
