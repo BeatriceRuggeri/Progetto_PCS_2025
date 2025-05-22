@@ -83,11 +83,35 @@ bool ControlloSfera(double x, double y, double z){
 
     return true;
    }
-/*
 // *********************************** CELL 1 DS ***************************
 
-    bool ExportCell1Ds(const string& outputFilePath)
+    bool ExportCell1Ds(const string& outputFilePath, const double vertici[][3],int n)
     {
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    // EXPORT
+	    
         ofstream file;
 		file.open(outputFilePath);
 
@@ -117,7 +141,7 @@ bool ControlloSfera(double x, double y, double z){
 
     return true;
     }
-*/
+
 
 //************************************************* CELL 2DS********************************************
 

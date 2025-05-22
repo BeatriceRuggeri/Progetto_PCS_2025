@@ -10,7 +10,7 @@ using namespace Eigen;
 namespace PolyhedralLibrary {
 	struct PolyhedralMesh
 {
-    const double invSqrt3 = 1.0 / sqrt(3.0);
+    const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
 
     // Matrice 4x3: 4 vertici, ciascuno con coordinate x, y, z
     double Vert_tetrahedron[4][3] = {
