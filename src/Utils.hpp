@@ -16,7 +16,7 @@ bool ExportMesh(PolyhedralMesh& mesh);
 
 bool ExportCell0Ds(const std::string& outputFilePath, const double vertici[][3], int n);
 
-bool ExportCell1Ds(const string& outputFilePath, const vector<Edge>& edges);
+bool ExportCell1Ds(const string& outputFilePath, const int lati[][2], int n);
 
 //bool ExportCell0Ds(PolyhedralMesh& mesh);
 

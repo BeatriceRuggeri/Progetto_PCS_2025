@@ -85,7 +85,7 @@ bool ControlloSfera(double x, double y, double z){
    }
 // *********************************** CELL 1 DS ***************************
 
-    bool ExportCell1Ds(const string& outputFilePath, const vector<Edge>& edges)
+    bool ExportCell1Ds(const string& outputFilePath, const int lati[][2], int n)
     {   
         ofstream file;
 		file.open(outputFilePath);
@@ -98,9 +98,11 @@ bool ControlloSfera(double x, double y, double z){
 		
 		file << "Id " << "Id_start " << "Id_end " << endl;
 		
-		for (const auto& edge : edges)
+		for (int i=0; i<n; ++i)
 		{
-			file << edge.id << ";" <<  edge.origin << ";" << edges.end << endl;
+			int id_start = lati[i][0];
+			int id_end = lati[i][1];
+			file << i << ";" <<  id_start << ";" << id_end << endl;
 		}
 
     // Close File

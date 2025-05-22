@@ -108,12 +108,12 @@ ProgettoPCS_EXTERNAL_OBJECTS =
 ProgettoPCS: CMakeFiles/ProgettoPCS.dir/main.cpp.o
 ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/Utils.cpp.o
 ProgettoPCS: CMakeFiles/ProgettoPCS.dir/build.make
-ProgettoPCS: /usr/lib/x86_64-linux-gnu/libgtest.a
-ProgettoPCS: /usr/lib/x86_64-linux-gnu/libgtest_main.a
-ProgettoPCS: /usr/lib/x86_64-linux-gnu/libgmock.a
-ProgettoPCS: /usr/lib/x86_64-linux-gnu/libgmock_main.a
-ProgettoPCS: /usr/lib/x86_64-linux-gnu/libgmock.a
-ProgettoPCS: /usr/lib/x86_64-linux-gnu/libgtest.a
+ProgettoPCS: /usr/local/lib/libgtest.a
+ProgettoPCS: /usr/local/lib/libgtest_main.a
+ProgettoPCS: /usr/local/lib/libgmock.a
+ProgettoPCS: /usr/local/lib/libgmock_main.a
+ProgettoPCS: /usr/local/lib/libgmock.a
+ProgettoPCS: /usr/local/lib/libgtest.a
 ProgettoPCS: CMakeFiles/ProgettoPCS.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ProgettoPCS"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ProgettoPCS.dir/link.txt --verbose=$(VERBOSE)

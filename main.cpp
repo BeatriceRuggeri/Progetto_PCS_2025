@@ -36,7 +36,7 @@ int main()
 	
 	PolyhedralLibrary::PolyhedralMesh mesh;
 	
-	bool success_edges_cube = ExportCell1Ds("C_Cell1Ds.txt",mesh.Cell1Ds);
+	bool success_edges_cube = ExportCell1Ds("C_Cell1Ds.txt",mesh.cube_edges,12);
 	
 	if(!success_edges_cube){
 		cerr<<"Export cube's edges failed."<<endl;

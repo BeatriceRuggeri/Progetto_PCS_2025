@@ -8,7 +8,27 @@ using namespace std;
 using namespace Eigen;
 
 namespace PolyhedralLibrary {
-	struct PolyhedralMesh
+	
+    struct Edge
+  {
+    unsigned int id;
+    unsigned int origin;
+    unsigned int end;
+  };//end of edge struct
+ 
+
+ 
+
+ 
+	
+	
+	
+	
+	
+	
+	
+	
+    struct PolyhedralMesh
 {
     const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
 
@@ -47,14 +67,22 @@ namespace PolyhedralLibrary {
     
     double Vert_dodecahedron[20][3];
     double Vert_icosahedron[12][3]; //altrimenti sarebbero locali dei init
-	vector<Edge> Cell1Ds;
-    
-    
+	
+	int cube_edges[12][2] = {
+		{0,1}, {0,2}, {0,4},
+        {1,3}, {1,5},
+        {2,3}, {2,6},
+        {3,7},
+        {4,5}, {4,6},
+        {5,7},
+        {6,7}
+	   };
+	   
     //constructor
     PolyhedralMesh(){
 	    init_Icosahedron();
 	    init_Dodecahedron();
-		Cube_Edges();
+
 	    
     }
 	
@@ -160,7 +188,10 @@ namespace PolyhedralLibrary {
     }
    }
    
-   void Cube_Edges() = {
+  /* void Cube_Edges(){
+	   
+	  
+	   
 	   vector<pair<int, int>> cube_edges = {
 		{0,1}, {0,2}, {0,4},
         {1,3}, {1,5},
@@ -170,20 +201,16 @@ namespace PolyhedralLibrary {
         {5,7},
         {6,7}
 	   };
-	   for (int i=0; i< cube_edges.size_t(); ++i) {
+	   for (std::size_t i=0; i< cube_edges.size(); ++i) {
 		   Cell1Ds.push_back({i, cube_edges[i].first, cube_edges[i].second});
 	   }
 
     }
 	
+	*/
 	
 	
-	
- }; // end of struct
- 
-
- 
-
+ }; // end of PolyhedralMesh struct
  
 }//end library
 
