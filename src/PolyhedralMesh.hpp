@@ -15,30 +15,40 @@ namespace PolyhedralLibrary {
     unsigned int origin;
     unsigned int end;
   };//end of edge struct
- 
-
- 
-
- 
-	
-	
-	
-	
-	
-	
-	
-	
-    struct PolyhedralMesh
-{
-    const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
-
-    // Matrice 4x3: 4 vertici, ciascuno con coordinate x, y, z
-    double Vert_tetrahedron[4][3] = {
+  
+  struct Tetrahedron {
+	  
+	  const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
+	  // Matrice 4x3: 4 vertici, ciascuno con coordinate x, y, z
+	  double Vert_tetrahedron[4][3] = {
         {  invSqrt3,  invSqrt3,  invSqrt3 },   // Vertice A
         {  invSqrt3, -invSqrt3, -invSqrt3 },   // Vertice B
         { -invSqrt3,  invSqrt3, -invSqrt3 },   // Vertice C
         { -invSqrt3, -invSqrt3,  invSqrt3 }    // Vertice D
-    };
+		};
+	  int tetrahedron_edges[6][2] = {
+		{0, 1},  // AB
+		{0, 2},  // AC
+		{0, 3},  // AD
+		{1, 2},  // BC
+		{1, 3},  // BD
+		{2, 3}   // CD
+		};
+	  int Tetrahedron_Face faces[4] = {
+		{ 0, 3, 3, {0, 2, 1}, {1, 3, 0} },  // Faccia A-C-B
+		{ 1, 3, 3, {0, 1, 3}, {0, 4, 2} },  // Faccia A-B-D
+		{ 2, 3, 3, {0, 3, 2}, {2, 5, 1} },  // Faccia A-D-C
+		{ 3, 3, 3, {1, 2, 3}, {3, 5, 4} }   // Faccia B-C-D
+		};
+	  int Tetrahedron_Polygonal[1]= {
+		  {0, 12, 6, 4, {0,1,2,3,4,5,6,7,8,9,10,11}, {0,1,2,3,4,5,6}, {0,1,2,3,4}}
+	  };
+	}; //end of struct
+
+
+    struct PolyhedralMesh
+{
+    const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
 
     // Matrice 8x3: 8 vertici, ciascuno con coordinate x, y, z
     double Vert_cube[8][3] = {

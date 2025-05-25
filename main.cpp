@@ -12,6 +12,44 @@ using namespace PolyhedralLibrary;
 
 int main()
 {
+    int P;
+	int Q;
+	int B;
+	int C;
+
+    cout << "Inserisci un valore per P: ";
+    cin >> P;
+	
+	if (P!=3 & P!= 4 & P!=5) {
+		cerr << "Valore di P non valido, si prega di riprovare" << endl;
+		cout << "Inserisci un valore per P: ";
+		cin >> P;
+	}
+	else {
+		cout << "Hai inserito: " << P << endl;
+	}
+	
+	cout << "Inserisci un valore per Q: ";
+    cin >> Q;
+	
+	if (Q!=3 & Q!= 4 & Q!=5) {
+		cerr << "Valore di Q non valido, si prega di riprovare" << endl;
+		cout << "Inserisci un valore per Q: ";
+		cin >> Q;
+	}
+	else {
+		cout << "Hai inserito: " << Q << endl;
+	}
+	
+	Vector<int> Quadrupla = {P, Q, B, C} 
+	
+
+    
+
+    return 0;
+}
+
+	
 	
 	/*
 	int Matrix PQ[5][2] = {{3, 3}, {3, 4}, {4, 3}, {5, 3}, {3, 5}};
@@ -35,7 +73,7 @@ int main()
 	//trial
 	
 	PolyhedralLibrary::PolyhedralMesh mesh;
-	
+	/*
 	bool success_edges_cube = ExportCell1Ds("C_Cell1Ds.txt",mesh.cube_edges,12);
 	
 	if(!success_edges_cube){
@@ -43,7 +81,6 @@ int main()
 		return 1;
 	}
 	
-	/*
 	bool success_tetrahedron = ExportCell0Ds("T_Cell0Ds.txt",mesh.Vert_tetrahedron,4);
 	
 	if(!success_tetrahedron){
