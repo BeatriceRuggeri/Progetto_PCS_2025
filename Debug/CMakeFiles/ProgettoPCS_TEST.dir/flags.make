@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/appuser/Data/Progetto_PCS_2025/ExportParaview -I/home/appuser/Data/Progetto_PCS_2025/src_test -I/home/appuser/Data/Progetto_PCS_2025/src -isystem /usr/local/include/eigen3
+CXX_INCLUDES = -I/home/appuser/Data/Progetto_PCS_2025/ExportParaview -I/home/appuser/Data/Progetto_PCS_2025/src_test -I/home/appuser/Data/Progetto_PCS_2025/src -isystem /usr/include/eigen3
 
-CXX_FLAGS = -g -Wall -Wextra -pedantic-errors -fPIC -std=gnu++20
+CXX_FLAGS = -g -Wall -Wextra -pedantic-errors -fPIC -DGTEST_HAS_PTHREAD=1 -std=gnu++20
 

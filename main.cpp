@@ -39,7 +39,12 @@ int main()
 	}
 	else {
 		cout << "Hai inserito: " << Q << endl;
-	}
+	
+	
+	cout << "Inserisci un valore per B: ";
+    cin >> B;
+	cout << "Inserisci un valore per C: ";
+    cin >> C;
 	
 	Vector<int> Quadrupla = {P, Q, B, C} 
 	

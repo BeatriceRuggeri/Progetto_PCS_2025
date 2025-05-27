@@ -20,29 +20,65 @@ namespace PolyhedralLibrary {
 	  
 	  const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
 	  // Matrice 4x3: 4 vertici, ciascuno con coordinate x, y, z
-	  double Vert_tetrahedron[4][3] = {
+	  double Tetrahedron_Vertices[4][3] = {
         {  invSqrt3,  invSqrt3,  invSqrt3 },   // Vertice A
         {  invSqrt3, -invSqrt3, -invSqrt3 },   // Vertice B
         { -invSqrt3,  invSqrt3, -invSqrt3 },   // Vertice C
         { -invSqrt3, -invSqrt3,  invSqrt3 }    // Vertice D
 		};
-	  int tetrahedron_edges[6][2] = {
+	  int Tetrahedron_Edges[6][2] = {
 		{0, 1},  // AB
 		{0, 2},  // AC
 		{0, 3},  // AD
 		{1, 2},  // BC
 		{1, 3},  // BD
 		{2, 3}   // CD
-		};
-	  int Tetrahedron_Face faces[4] = {
+		}
+	  int Tetrahedron_Face[4][5] = {
 		{ 0, 3, 3, {0, 2, 1}, {1, 3, 0} },  // Faccia A-C-B
 		{ 1, 3, 3, {0, 1, 3}, {0, 4, 2} },  // Faccia A-B-D
 		{ 2, 3, 3, {0, 3, 2}, {2, 5, 1} },  // Faccia A-D-C
 		{ 3, 3, 3, {1, 2, 3}, {3, 5, 4} }   // Faccia B-C-D
-		};
+		}
 	  int Tetrahedron_Polygonal[1]= {
 		  {0, 12, 6, 4, {0,1,2,3,4,5,6,7,8,9,10,11}, {0,1,2,3,4,5,6}, {0,1,2,3,4}}
 	  };
+	}; //end of struct
+	
+	struct Octahedron {
+	// Matrice 6x3: 6 vertici, ciascuno con coordinate x, y, z
+		double Vert_octahedron[6][3] = {
+        {  1.0,  0.0,  0.0 },  // Vertice 1
+        { -1.0,  0.0,  0.0 },  // Vertice 2
+        {  0.0,  1.0,  0.0 },  // Vertice 3
+        {  0.0, -1.0,  0.0 },  // Vertice 4
+        {  0.0,  0.0,  1.0 },  // Vertice 5 
+        {  0.0,  0.0, -1.0 }   // Vertice 6
+		}
+		
+		int Octahedron_Edges[12][2] = {
+		{0, 2}, {0, 3}, {0, 4}, {0, 5}, 
+		{1, 2}, {1, 3}, {1, 4}, {1, 5},
+		/*{2, 0}, {2, 1},*/ {2, 4}, {2, 5},
+		/*{3, 0}, {3, 1},*/ {3, 4}, {3, 5},
+		/*{4, 0}, {4, 1}, {4, 2}, {4, 3},*/
+		/*{5, 0}, {5, 1}, {5, 2}, {5, 3},*/
+		}
+		
+		int Octahedron_Face[8][5] = {
+		{ 0, 3, 3, {0, 2, 4}, {0, 2, 8} },  
+		{ 1, 3, 3, {2, 1, 4}, {4, 8, 6} },  
+		{ 2, 3, 3, {1, 3, 4}, {5, 6, 10} },  
+		{ 3, 3, 3, {3, 0, 4}, {1, 10, 2} },
+		{ 4, 3, 3, {2, 0, 5}, {0, 9, 3} },
+		{ 5, 3, 3, {1, 2, 5}, {4, 7, 9} },
+		{ 6, 3, 3, {3, 1, 5}, {5, 11, 7} },
+		{ 7, 3, 3, {0, 3, 5}, {1, 3, 11} }
+		}
+		
+		int Octahedron_Polygonal[1]= {
+		  {0, 6, 12, 8, {0,1,2,3,4,5}, {0,1,2,3,4,5,6,7,8,9,10,11}, {0,1,2,3,4,5,6,7}}
+		}	
 	}; //end of struct
 
 
@@ -60,17 +96,7 @@ namespace PolyhedralLibrary {
         { -invSqrt3,  invSqrt3, -invSqrt3 },  // Vertice 6
         { -invSqrt3, -invSqrt3,  invSqrt3 },  // Vertice 7
         { -invSqrt3, -invSqrt3, -invSqrt3 }   // Vertice 8
-    };
-
-    // Matrice 6x3: 6 vertici, ciascuno con coordinate x, y, z
-    double Vert_octahedron[6][3] = {
-        {  1.0,  0.0,  0.0 },  // Vertice 1
-        { -1.0,  0.0,  0.0 },  // Vertice 2
-        {  0.0,  1.0,  0.0 },  // Vertice 3
-        {  0.0, -1.0,  0.0 },  // Vertice 4
-        {  0.0,  0.0,  1.0 },  // Vertice 5so 
-        {  0.0,  0.0, -1.0 }   // Vertice 6
-    };
+    }
 
     const double phi = (1.0 + sqrt(5.0)) / 2.0;
     const double invPhi = 1.0 / phi;
@@ -86,7 +112,7 @@ namespace PolyhedralLibrary {
         {4,5}, {4,6},
         {5,7},
         {6,7}
-	   };
+	   }
 	   
     //constructor
     PolyhedralMesh(){
