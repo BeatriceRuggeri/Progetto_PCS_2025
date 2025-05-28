@@ -148,12 +148,34 @@ int main() {
 
 //************************************************* CELL 2DS********************************************
 
-/*
-bool ExportCell2Ds(PolyhedrallMesh& mesh){
+bool ExportCell2Ds(const string& outputFilePath, 
+				   const int vertici[][2],
+				   const int lati[][2], 
+				   int n,
+				   int num_vertici,
+				   int num_lati){
 	
-	
-	
-	
+	ofstream file;
+	file.open(outputFilePath);
+
+	if (file.fail())
+	{
+		cerr<< "file open failed"<< endl;
+		return false;
+	}
+		
+	file << "Id " << "Num_vertici " << "Num_lati " << "Id_vertici " << "Id_lati " << endl;
+		
+	for (int i=0; i<n; ++i)
+		for ()
+	{
+		int id_start = lati[i][0];
+		int id_end = lati[i][1];
+		file << i << ";" <<  id_start << ";" << id_end << endl;
+	}
+
+    // Close File
+    file.close();
 	
 	return true;
  }

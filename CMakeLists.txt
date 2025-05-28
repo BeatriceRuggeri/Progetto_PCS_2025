@@ -84,7 +84,8 @@ message(STATUS "SOURCES IN BUILD: ${ProgettoPCS_sources}")
 
 add_executable(${PROJECT_NAME}
     main.cpp
-    src/Utils.cpp           
+    ${ProgettoPCS_sources}
+	${ProgettoPCS_headers }           
 )
 
 #${CMAKE_PROJECT_NAME} in target include ##erros####
@@ -97,8 +98,8 @@ target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
 ############### test #########
 
 add_executable(${PROJECT_NAME}_TEST main_test.cpp
-      ${${PROJECT_NAME}_TEST_sources}
-      ${${PROJECT_NAME}_TEST_headers})
+      ${ProgettoPCS_TEST_sources}
+      ${ProgettoPCS_TEST_headers})
 
 
 

@@ -26,6 +26,13 @@ namespace PolyhedralLibrary {
         { -invSqrt3,  invSqrt3, -invSqrt3 },   // Vertice C
         { -invSqrt3, -invSqrt3,  invSqrt3 }    // Vertice D
 		};
+	
+		Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(4, 3);
+		vertices <<  invSqrt3,  invSqrt3,  invSqrt3 ,   // Vertice A
+         invSqrt3, -invSqrt3, -invSqrt3 ,   // Vertice B
+        -invSqrt3,  invSqrt3, -invSqrt3 ,   // Vertice C
+         -invSqrt3, -invSqrt3,  invSqrt3;
+		
 	  int Tetrahedron_Edges[6][2] = {
 		{0, 1},  // AB
 		{0, 2},  // AC
@@ -34,12 +41,31 @@ namespace PolyhedralLibrary {
 		{1, 3},  // BD
 		{2, 3}   // CD
 		}
+		
+		Eigen::MatrixXi edges  = Eigen::MatrixXi::Zeros(6, 2);
+		edges << 
 	  int Tetrahedron_Face[4][5] = {
-		{ 0, 3, 3, {0, 2, 1}, {1, 3, 0} },  // Faccia A-C-B
-		{ 1, 3, 3, {0, 1, 3}, {0, 4, 2} },  // Faccia A-B-D
+		{ 0, 3, 3, 0, 2, 1, {1, 3, 0} },  // Faccia A-C-B
+		{ 1, 3, 3, 0, 1, 3}, {0, 4, 2} },  // Faccia A-B-D
 		{ 2, 3, 3, {0, 3, 2}, {2, 5, 1} },  // Faccia A-D-C
 		{ 3, 3, 3, {1, 2, 3}, {3, 5, 4} }   // Faccia B-C-D
 		}
+		
+	/*
+		int Tetrahedron_vert_face[4][3] = {
+			{0, 2, 1},
+			{0, 1, 3},
+			{0, 3, 2},
+			{1, 2, 3} }
+			
+		int Tetrahedron_lati_face[4][3] = {
+			{1, 3, 0},
+			{0, 4, 2},
+			{2, 5, 1},
+			{3, 5, 4}
+		}
+	
+	*/
 	  int Tetrahedron_Polygonal[1]= {
 		  {0, 12, 6, 4, {0,1,2,3,4,5,6,7,8,9,10,11}, {0,1,2,3,4,5,6}, {0,1,2,3,4}}
 	  };

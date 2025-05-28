@@ -16,6 +16,8 @@ int main()
 	int Q;
 	int B;
 	int C;
+	int id_vertice1;
+	int id_vertice2;
 
     cout << "Inserisci un valore per P: ";
     cin >> P;
@@ -46,9 +48,15 @@ int main()
 	cout << "Inserisci un valore per C: ";
     cin >> C;
 	
-	Vector<int> Quadrupla = {P, Q, B, C} 
+	vector<int> Quadrupla = {P, Q, B, C} 
+	cout << Quadrupla << endl;
 	
-
+	/*
+	cout << "Inserisci l'id del vertice 1: ";
+    cin >> id_vertice1;
+	cout << "Inserisci l'id del vertice 2: ";
+    cin >> id_vertice2;
+	*/
     
 
     return 0;
@@ -122,8 +130,3 @@ int main()
 		return 1;
 	}
 	*/			
-	
-	
-	
-	return 0;
-}
