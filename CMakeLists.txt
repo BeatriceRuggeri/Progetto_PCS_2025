@@ -85,7 +85,7 @@ message(STATUS "SOURCES IN BUILD: ${ProgettoPCS_sources}")
 add_executable(${PROJECT_NAME}
     main.cpp
     ${ProgettoPCS_sources}
-	${ProgettoPCS_headers }           
+	${ProgettoPCS_headers}           
 )
 
 #${CMAKE_PROJECT_NAME} in target include ##erros####

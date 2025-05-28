@@ -147,6 +147,7 @@ ExportParaview/UCDUtilities.o: ExportParaview/UCDUtilities.cpp.o
 
 # target to build an object file
 ExportParaview/UCDUtilities.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/ExportParaview/UCDUtilities.cpp.o
 .PHONY : ExportParaview/UCDUtilities.cpp.o
 
@@ -155,6 +156,7 @@ ExportParaview/UCDUtilities.i: ExportParaview/UCDUtilities.cpp.i
 
 # target to preprocess a source file
 ExportParaview/UCDUtilities.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/ExportParaview/UCDUtilities.cpp.i
 .PHONY : ExportParaview/UCDUtilities.cpp.i
 
@@ -163,6 +165,7 @@ ExportParaview/UCDUtilities.s: ExportParaview/UCDUtilities.cpp.s
 
 # target to generate assembly for a file
 ExportParaview/UCDUtilities.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/ExportParaview/UCDUtilities.cpp.s
 .PHONY : ExportParaview/UCDUtilities.cpp.s
 
@@ -214,30 +217,6 @@ main_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/main_test.cpp.s
 .PHONY : main_test.cpp.s
 
-src/Utils.o: src/Utils.cpp.o
-.PHONY : src/Utils.o
-
-# target to build an object file
-src/Utils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/Utils.cpp.o
-.PHONY : src/Utils.cpp.o
-
-src/Utils.i: src/Utils.cpp.i
-.PHONY : src/Utils.i
-
-# target to preprocess a source file
-src/Utils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/Utils.cpp.i
-.PHONY : src/Utils.cpp.i
-
-src/Utils.s: src/Utils.cpp.s
-.PHONY : src/Utils.s
-
-# target to generate assembly for a file
-src/Utils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/Utils.cpp.s
-.PHONY : src/Utils.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -257,9 +236,6 @@ help:
 	@echo "... main_test.o"
 	@echo "... main_test.i"
 	@echo "... main_test.s"
-	@echo "... src/Utils.o"
-	@echo "... src/Utils.i"
-	@echo "... src/Utils.s"
 .PHONY : help
 
 
