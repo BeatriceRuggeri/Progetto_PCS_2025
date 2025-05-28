@@ -22,7 +22,7 @@ int main()
     cout << "Inserisci un valore per P: ";
     cin >> P;
 	
-	if (P!=3 & P!= 4 & P!=5) {
+	if (P!=3) {
 		cerr << "Valore di P non valido, si prega di riprovare" << endl;
 		cout << "Inserisci un valore per P: ";
 		cin >> P;
@@ -45,8 +45,18 @@ int main()
 	
 	cout << "Inserisci un valore per B: ";
     cin >> B;
+	if (B < 1) {
+		cerr << "Valore di B non valido, si prega di riprovare" << endl;
+		cout << "Inserisci un valore per B: ";
+		cin >> B;
+	}
 	cout << "Inserisci un valore per C: ";
     cin >> C;
+	if (C < 1) {
+		cerr << "Valore di C non valido, si prega di riprovare" << endl;
+		cout << "Inserisci un valore per C: ";
+		cin >> C;
+	}
 	
 	vector<int> Quadrupla = {P, Q, B, C} 
 	cout << Quadrupla << endl;
