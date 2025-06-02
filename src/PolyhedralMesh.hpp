@@ -45,7 +45,7 @@ namespace PolyhedralLibrary {
 		{2, 3}   // CD
 		}
 	*/	
-		Eigen::MatrixXi edges  = Eigen::MatrixXi::Zeros(6, 2);
+		Eigen::MatrixXi edges  = Eigen::MatrixXi::Zeros(6, 3);
 		edges << 0, 0, 1,
 				 1, 0, 2,
 				 2, 0, 3,
@@ -105,7 +105,7 @@ namespace PolyhedralLibrary {
         {  0.0,  0.0, -1.0 }   // Vertice 6
 		}
 		*/
-		Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(6, 3);
+		Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(6, 4);
 		vertices << 0, 1.0, 0.0, 0.0,
 					1, -1.0, 0.0, 0.0,
 					2, 0.0, 1.0, 0.0, 
@@ -122,7 +122,7 @@ namespace PolyhedralLibrary {
 		{5, 0}, {5, 1}, {5, 2}, {5, 3},
 		}
 		*/
-		Eigen::MatrixXi edges = Eigen::MatrixXi::Zeros(12, 2);
+		Eigen::MatrixXi edges = Eigen::MatrixXi::Zeros(12, 3);
 		edges << 0, 0, 2,
 				 1, 0, 3, 
 				 2, 0, 4, 
@@ -171,9 +171,25 @@ namespace PolyhedralLibrary {
 	}; //end of struct
 	
 	struct Icosahedron {
-		const double phi = (1.0 + sqrt(5.0)) / 2.0;
-		const double invPhi = 1.0 / phi;
+		const double Phi = (1.0 + sqrt(5.0)) / 2.0;
+		const double Raz_Phi = sqrt(Phi^2 + 1);
+		const double OP = 1.0/Raz_Phi; //OP=one su Phi
+		const double GP = Phi/Raz_Phi; // GP = giusto Phi= Phi/Raz_Phi
 		
+		Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(12, 4);
+		vertices << 0, 0.0, OP, GP, // A
+					1, 0.0, -OP, GP, // B
+					2, 0.0, OP, -GP, // C
+					3, 0.0, -OP, -GP, // D
+					4, OP, GP, 0.0, // E
+					5, OP, -GP, 0.0, // F
+					6, -OP, GP, 0.0, // G
+					7, -OP, -GP, 0.0, // H
+					8, GP, 0.0, OP, // I
+					9, GP, 0.0, -OP, //L
+					10, -GP, 0.0, OP, // M
+					11, -GP, 0.0, -OP; //N
+		/*
 		void init_Icosahedron() {
 			int index=0; // so we can initialize it in different contexts
 			Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(12, 3); // Matrice 12x3 per i vertici
@@ -187,9 +203,9 @@ namespace PolyhedralLibrary {
 					double len = sqrt(x*x + y*y + z*z); 
 					vertices.row(index) << index, x/len, y/len, z/len;     
 					index++;
-			/*Vert_icosahedron[index][0] = x / len;
+			Vert_icosahedron[index][0] = x / len;
             Vert_icosahedron[index][1] = y / len;
-            Vert_icosahedron[index][2] = z / len;*/
+            Vert_icosahedron[index][2] = z / len;
 					}
 			}
 			// (±1, ±φ, 0)
@@ -202,9 +218,9 @@ namespace PolyhedralLibrary {
 					vertices.row(index)<< index, x/len, y/len, z/len;
 					index++;
 			
-            /*Vert_icosahedron[index][0] = x / len;
+            Vert_icosahedron[index][0] = x / len;
             Vert_icosahedron[index][1] = y / len;
-            Vert_icosahedron[index][2] = z / len;*/
+            Vert_icosahedron[index][2] = z / len;
            
 				}
 			}
@@ -217,31 +233,16 @@ namespace PolyhedralLibrary {
 					double len = sqrt(x*x + y*y + z*z);
 					vertices.row(index)<< index, x/len, y/len, z/len;
 					index++;
-            /*Vert_icosahedron[index][0] = x / len;
+            Vert_icosahedron[index][0] = x / len;
             Vert_icosahedron[index][1] = y / len;
-            Vert_icosahedron[index][2] = z / len;*/
+            Vert_icosahedron[index][2] = z / len;
 				}
 			}
 		}
-		/*
-		//creo i lati
-		for (int i = 0; i < 12; ++i) {
-			for (int j = i+1; j < 12; ++j) {
-				double dist = (vertices.row(i) - vertices.row(j)).norm();
-				if (dist < threshold) {
-					edges.push_back({i,j});
-				}
-			}
-		}
-		
-		// Stampa lati
-		std::cout << "Lati (archi) dell'icosaedro (totali: " << edges.size() << "):\n";
-		for (auto &e : edges) {
-			std::cout << e.first << " - " << e.second << "\n";
 		}*/
 
 		// Definizione dei 30 lati (archi)
-		Eigen::MatrixXi edges = Eigen::MatrixXi::Zeros(30, 2);
+		Eigen::MatrixXi edges = Eigen::MatrixXi::Zeros(30, 3);
 		edges << 0, 0, 1, //AB 
 				 1, 0, 4, //AE 
 				 2, 0, 6, //AG 
@@ -259,52 +260,45 @@ namespace PolyhedralLibrary {
 				 14, 3, 5, //DF 
 				 15, 3, 7, //DH 
 				 16, 3, 9, //DL 
-				 17, 3, 11, //DN 
-				 18, 4, 5, //EF 
-				 19, 4, 6, //EG 
-				 20, 4, 8, //EI 
-				 21, 4, 9, //EL 
-				 22, 5, 7, //FH 
-				 23, 5, 8, //FI 
-				 24, 5, 9, //FL 
-				 25, 6, 7, //GH 
-				 26, 6, 10, //GM 
-				 27, 6, 11, //GN 
+				 17, 3, 11, //DN  
+				 18, 4, 6, //EG 
+				 19, 4, 8, //EI 
+				 20, 4, 9, //EL 
+				 21, 5, 7, //FH 
+				 22, 5, 8, //FI 
+				 23, 5, 9, //FL 
+				 24, 6, 10, //GM 
+				 25, 6, 11, //GN 
+				 26, 7, 10, //HM
+				 27, 7, 11, //HN
 				 28, 8, 9, //IL 
-				 29, 10, 11; //MN 
+				 29, 10, 11; //MN
 				 
-		//Definisco le faccie  (togli num_vertici e num_lati)
-		//id, num_vertici, num_lati, id_vertici(3), id_lati(3)
-		Eigen::MatrixXi faces  = Eigen::MatrixXi::Zeros(20, 9);
-		faces << 0, 3, 3, ,
-				 1, 3, 3, 
-				 2, 3, 3,
-				 3, 3, 3,
-				 4, 3, 3,
-				 5, 3, 3,
-				 6, 3, 3,
-				 7, 3, 3,
-				 8, 3, 3,
-				 9, 3, 3,
-				 10, 3, 3,
-				 11, 3, 3,
-				 12, 3, 3,
-				 13, 3, 3,
-				 14, 3, 3,
-				 15, 3, 3,
-				 16, 3, 3,
-				 17, 3, 3,
-				 18, 3, 3,
-				 19, 3, 3,
-		
+				 
+		//Definisco le faccie  
+		//id, id_vertici(3), id_lati(3)
+		Eigen::MatrixXi faces  = Eigen::MatrixXi::Zeros(20, 7);
+		faces << 0, 0, 1, 8, 0, 3, 6, // A-B-I
+				 1, 0, 1, 10, 0, 4, 8, // A-B-M
+				 2, 0, 6, 10, 2, 4, 26, // A-G-M
+				 3, 0, 4, 8, 1, 3, 20, // A-I-E
+				 4, 0, 4, 6, 1, 2, 19, // A-E-G
+				 5, 1, 5, 8, 5, 6, 23, // B-I-F
+				 6, 1, 5, 7, 5, 7, 22, // B-H-F
+				 7, 1, 7, 10, 7, 8, 26, // B-H-M
+				 8, 2, 3, 9, 9, 12, 16, // C-D-L
+				 9, 2, 3, 11, 9, 13, 17, // C-D-N
+				 10, 2, 6, 11, 11, 13, 25, // C-N-G
+				 11, 2, 4, 6, 10, 11, 18, // C-E-G
+				 12, 2, 4, 9, 10, 12, 20, // C-E-L
+				 13, 3, 5, 9, 14, 16, 23, // D-F-L
+				 14, 3, 5, 7, 14, 15, 21, // D-F-H
+				 15, 3, 7, 11, 15, 17, 27, // D-H-N
+				 16, 4, 8, 9, 19, 20, 28, // E-I-L
+				 17, 5, 8, 9, 22, 23, 28, // F-I-L
+				 18, 6, 10, 11, 24, 25, 29, // G-M-N
+				 19, 7, 10, 11, 26, 27, 29; // H-M-N
 
-    std::vector<std::array<int,3>> face_vertices = {
-        {}, {0, 5, 10}, {2, 4, 9}, {2, 11, 5}, {1, 6, 8},
-        {1, 10, 7}, {3, 9, 6}, {3, 7, 11}, {0, 10, 8}, {1, 8, 10},
-        {2, 9, 11}, {3, 11, 9}, {4, 8, 6}, {5, 7, 10}, {6, 7, 11},
-        {7, 9, 11}, {4, 5, 9}, {5, 6, 7}, {6, 4, 7}, {8, 10, 6}
-    };
-		
 	}; //end of struct
 
 
