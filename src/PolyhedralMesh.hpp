@@ -278,11 +278,14 @@ namespace PolyhedralLibrary {
 		//Definisco le faccie  
 		//id, id_vertici(3), id_lati(3)
 		Eigen::MatrixXi faces  = Eigen::MatrixXi::Zeros(20, 7);
-		faces << 0, 0, 1, 8, 0, 3, 6, // A-B-I
-				 1, 0, 1, 10, 0, 4, 8, // A-B-M
-				 2, 0, 6, 10, 2, 4, 26, // A-G-M
-				 3, 0, 4, 8, 1, 3, 20, // A-I-E
-				 4, 0, 4, 6, 1, 2, 19, // A-E-G
+		faces << 0, 0, 1, 8, 3, 6, 0, // A-B-I - AI, BI, AB                ultimo lato è il primo di quello dopo
+				 1, 0, 1, 10, 0, 8, 4, // A-B-M AB, BM, AM,
+				 2, 0, 6, 10, 4, 26, 2, // A-G-M AM, GM, AG
+				 3, 0, 4, 6, 2, 19, 1, // A-E-G  AG, EG, AE, 
+				 4, 0, 4, 8, 1, 3, 19, // A-I-E AE, AI, EI,                per concludere la faccia il primo è l'ultimo del precedente, il secondo è il primo della prima faccia, e il 3 è il primo del successivo
+				 5, 4, 8, 9, 19, 20, 28, // E-I-L EI, EL, IL,
+				 6, 5, 8, 9, 28, 22, 23, // F-I-L IL, 
+				 
 				 5, 1, 5, 8, 5, 6, 23, // B-I-F
 				 6, 1, 5, 7, 5, 7, 22, // B-H-F
 				 7, 1, 7, 10, 7, 8, 26, // B-H-M
@@ -294,8 +297,7 @@ namespace PolyhedralLibrary {
 				 13, 3, 5, 9, 14, 16, 23, // D-F-L
 				 14, 3, 5, 7, 14, 15, 21, // D-F-H
 				 15, 3, 7, 11, 15, 17, 27, // D-H-N
-				 16, 4, 8, 9, 19, 20, 28, // E-I-L
-				 17, 5, 8, 9, 22, 23, 28, // F-I-L
+				 
 				 18, 6, 10, 11, 24, 25, 29, // G-M-N
 				 19, 7, 10, 11, 26, 27, 29; // H-M-N
 
