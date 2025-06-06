@@ -276,37 +276,59 @@ namespace PolyhedralLibrary {
 				 
 				 
 		//Definisco le faccie  
+		//ultimo lato è il primo di quello dopo
+		//per concludere la faccia il primo è l'ultimo del precedente, il secondo è il primo della prima faccia, e il 3 è il primo del successivo
 		//id, id_vertici(3), id_lati(3)
 		Eigen::MatrixXi faces  = Eigen::MatrixXi::Zeros(20, 7);
-		faces << 0, 0, 1, 8, 3, 6, 0, // A-B-I - AI, BI, AB                ultimo lato è il primo di quello dopo
-				 1, 0, 1, 10, 0, 8, 4, // A-B-M AB, BM, AM,
-				 2, 0, 6, 10, 4, 26, 2, // A-G-M AM, GM, AG
-				 3, 0, 4, 6, 2, 19, 1, // A-E-G  AG, EG, AE, 
-				 4, 0, 4, 8, 1, 3, 19, // A-I-E AE, AI, EI,                per concludere la faccia il primo è l'ultimo del precedente, il secondo è il primo della prima faccia, e il 3 è il primo del successivo
-				 5, 4, 8, 9, 19, 20, 28, // E-I-L EI, EL, IL,
-				 6, 5, 8, 9, 28, 22, 23, // F-I-L IL, 
-				 
-				 5, 1, 5, 8, 5, 6, 23, // B-I-F
-				 6, 1, 5, 7, 5, 7, 22, // B-H-F
-				 7, 1, 7, 10, 7, 8, 26, // B-H-M
-				 8, 2, 3, 9, 9, 12, 16, // C-D-L
-				 9, 2, 3, 11, 9, 13, 17, // C-D-N
-				 10, 2, 6, 11, 11, 13, 25, // C-N-G
-				 11, 2, 4, 6, 10, 11, 18, // C-E-G
-				 12, 2, 4, 9, 10, 12, 20, // C-E-L
-				 13, 3, 5, 9, 14, 16, 23, // D-F-L
-				 14, 3, 5, 7, 14, 15, 21, // D-F-H
-				 15, 3, 7, 11, 15, 17, 27, // D-H-N
-				 
-				 18, 6, 10, 11, 24, 25, 29, // G-M-N
-				 19, 7, 10, 11, 26, 27, 29; // H-M-N
-
+		faces << 0, 0, 1, 8, 3, 6, 0, // A-B-I - AI, BI, AB                
+				 1, 0, 1, 10, 0, 8, 4, // A-B-M - AB, BM, AM,
+				 2, 0, 6, 10, 4, 26, 2, // A-G-M - AM, GM, AG
+				 3, 0, 4, 6, 2, 19, 1, // A-E-G - AG, EG, AE, 
+				 4, 0, 4, 8, 1, 3, 19, // A-I-E - AE, AI, EI 	
+				 5, 4, 8, 9, 19, 20, 28, // E-I-L - EI, EL, IL,
+				 6, 5, 8, 9, 28, 23, 22, // F-I-L - IL, FL, FI, 
+				 7, 1, 5, 8, 23, 6, 5, // B-I-F - IF, BI, BF, 
+				 8, 1, 5, 7, 5, 21, 7, // B-H-F - BF, FH, BH, 
+				 9, 1, 7, 10, 7, 8, 26, // B-H-M - BH, BM, HM, 
+				 10, 7, 10, 11, 26, 27, 29, // H-M-N - HM, HN, MN, 
+				 11, 6, 10, 11, 29, 24, 25, // G-M-N - MN, GM, GN
+				 12, 2, 6, 11, 25, 13, 11,  // C-N-G - GN, CN, CG,
+				 13, 2, 4, 6, 11, 18, 10, // C-E-G - CG, EG, CE,	
+				 14, 2, 4, 9, 10, 20, 12, // C-E-L - CE, EL, CL,
+				 15, 2, 3, 9, 12, 9, 16, // C-D-L - CL, CD, DL,
+				 16, 3, 5, 9, 16, 23, 14, // F-L-D - DL, FL, DF,
+				 17, 3, 5, 7, 14, 21, 15, // D-F-H - DF, FH, DH,
+				 18, 3, 7, 11, 15, 27, 17, // D-H-N - DH, HN, DN,
+				 19, 2, 3, 11, 17, 13, 9; // C-D-N - DN, CN, CD,
+		
+		//Id, num_vertici, num_lati, num_facce, id_vertici(12), id_lati(30), id_facce(20)
+		Eigen::VectorXi polygonal = Eigen::VectorXi::Zeros(62)
+		polygonal << 0, 12, 30, 20, 0,1,2,3,4,5,6,7,8,9,10,11, <<
+				  << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28, << 
+				  << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19;
 	}; //end of struct
+	
+	struct Cube {
+		const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
+		
+		Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(8, 4);
+		vertices << 0, invSqrt3, invSqrt3, invSqrt3, // A
+					1, invSqrt3,  invSqrt3, -invSqrt3, // B
+					2, invSqrt3, -invSqrt3, invSqrt3, // C
+					3, invSqrt3, -invSqrt3, -invSqrt3, // D
+					4, -invSqrt3, invSqrt3, invSqrt3, // E
+					5, -invSqrt3, invSqrt3, -invSqrt3, // F
+					6, -invSqrt3, -invSqrt3, invSqrt3, // G
+					7, -invSqrt3, -invSqrt3, -invSqrt3; // H
+		
+		
+	}; //end of struct
+
 
 
     struct PolyhedralMesh
 {
-    const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
+    
 
     // Matrice 8x3: 8 vertici, ciascuno con coordinate x, y, z
     double Vert_cube[8][3] = {
