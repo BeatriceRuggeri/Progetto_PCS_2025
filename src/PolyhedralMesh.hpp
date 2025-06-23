@@ -19,155 +19,74 @@ namespace PolyhedralLibrary {
   struct Tetrahedron {
 	  
 	  const double invSqrt3 = 1.0 / sqrt(3.0); // 0.57735
-	  /*
-	  // Matrice 4x3: 4 vertici, ciascuno con coordinate x, y, z
-	  double Tetrahedron_Vertices[4][3] = {
-        {  invSqrt3,  invSqrt3,  invSqrt3 },   // Vertice A
-        {  invSqrt3, -invSqrt3, -invSqrt3 },   // Vertice B
-        { -invSqrt3,  invSqrt3, -invSqrt3 },   // Vertice C
-        { -invSqrt3, -invSqrt3,  invSqrt3 }    // Vertice D
-		};
-	*/
 	
 		Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(4, 4);
-		vertices << 0, invSqrt3, invSqrt3, invSqrt3, // Vertice A
-					1, invSqrt3, -invSqrt3, -invSqrt3, // Vertice B
-					2, -invSqrt3, invSqrt3, -invSqrt3, // Vertice C
-					3, -invSqrt3, -invSqrt3, invSqrt3; // Vertice D 
+		vertices << 0, invSqrt3, invSqrt3, invSqrt3, // A
+					1, invSqrt3, -invSqrt3, -invSqrt3, // B
+					2, -invSqrt3, invSqrt3, -invSqrt3, // C
+					3, -invSqrt3, -invSqrt3, invSqrt3; // D 
 		
-	/*	
-	  int Tetrahedron_Edges[6][2] = {
-		{0, 1},  // AB
-		{0, 2},  // AC
-		{0, 3},  // AD
-		{1, 2},  // BC
-		{1, 3},  // BD
-		{2, 3}   // CD
-		}
-	*/	
+	
 		Eigen::MatrixXi edges  = Eigen::MatrixXi::Zeros(6, 3);
-		edges << 0, 0, 1,
-				 1, 0, 2,
-				 2, 0, 3,
-				 3, 1, 2,
-				 4, 1, 3,
-				 5, 2, 3;
-	/*
-	  int Tetrahedron_Face[4][5] = {
-		{ 0, 3, 3, 0, 2, 1, {1, 3, 0} },  // Faccia A-C-B
-		{ 1, 3, 3, 0, 1, 3}, {0, 4, 2} },  // Faccia A-B-D
-		{ 2, 3, 3, {0, 3, 2}, {2, 5, 1} },  // Faccia A-D-C
-		{ 3, 3, 3, {1, 2, 3}, {3, 5, 4} }   // Faccia B-C-D
-		}
-	*/	
+		edges << 0, 0, 1, // AB
+				 1, 0, 2, // AC
+				 2, 0, 3, // AD
+				 3, 1, 2, // BC
+				 4, 1, 3, // BD
+				 5, 2, 3; // CD
+	
 		//id, num_vertici, num_lati, id_vertici(3), id_lati(3)
 		Eigen::MatrixXi faces  = Eigen::MatrixXi::Zeros(4, 7);
-		faces << 0, 0, 2, 1, 1, 3, 0,
-				 1, 0, 1, 3, 0, 4, 2,
-				 2, 0, 3, 2, 2, 5, 1,
-				 3, 1, 2, 3, 3, 5, 4;
+		faces << 0, 0, 2, 1, 1, 3, 0, //A-B-C -- AC,BC,AB
+				 1, 0, 1, 3, 0, 4, 2, //A-B-D -- AB,BD,AD
+				 2, 0, 3, 2, 2, 1, 5, //A-C-D -- AD,AC,CD
+				 3, 1, 2, 3, 5, 3, 4; //B-C-D -- CD,BC,BD
 		
-	/*
-		int Tetrahedron_vert_face[4][3] = {
-			{0, 2, 1},
-			{0, 1, 3},
-			{0, 3, 2},
-			{1, 2, 3} }
-			
-		int Tetrahedron_lati_face[4][3] = {
-			{1, 3, 0},
-			{0, 4, 2},
-			{2, 5, 1},
-			{3, 5, 4}
-		}
-	
-	*/
 	//Id, num_vertici, num_lati, num_facce, id_vertici(12), id_lati(6), id_facce(4)
 	  Eigen::VectorXi polygonal = Eigen::VectorXi::Zeros(28)
 	  polygonal << 0, 12, 6, 4, 0,1,2,3,4,5,6,7,8,9,10,11, 0,1,2,3,4,5,6, 0,1,2,3;
-	  
-	  /*
-	  int Tetrahedron_Polygonal[1]= {
-		  {0, 12, 6, 4, {0,1,2,3,4,5,6,7,8,9,10,11}, {0,1,2,3,4,5,6}, {0,1,2,3,4}}
-	  };
-	  */
+
 	}; //end of struct
 	
 	struct Octahedron {
-		/*
-	// Matrice 6x3: 6 vertici, ciascuno con coordinate x, y, z
-		double Vert_octahedron[6][3] = {
-        {  1.0,  0.0,  0.0 },  // Vertice 1
-        { -1.0,  0.0,  0.0 },  // Vertice 2
-        {  0.0,  1.0,  0.0 },  // Vertice 3
-        {  0.0, -1.0,  0.0 },  // Vertice 4
-        {  0.0,  0.0,  1.0 },  // Vertice 5 
-        {  0.0,  0.0, -1.0 }   // Vertice 6
-		}
-		*/
+	
 		Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(6, 4);
-		vertices << 0, 1.0, 0.0, 0.0,
-					1, -1.0, 0.0, 0.0,
-					2, 0.0, 1.0, 0.0, 
-					3, 0.0, -1.0, 0.0,
-					4, 0.0, 0.0, 1.0, 
-					5, 0.0, 0.0, -1.0;
-		/*
-		int Octahedron_Edges[12][2] = {
-		{0, 2}, {0, 3}, {0, 4}, {0, 5}, 
-		{1, 2}, {1, 3}, {1, 4}, {1, 5},
-		{2, 0}, {2, 1}, {2, 4}, {2, 5},
-		{3, 0}, {3, 1}, {3, 4}, {3, 5},
-		{4, 0}, {4, 1}, {4, 2}, {4, 3},
-		{5, 0}, {5, 1}, {5, 2}, {5, 3},
-		}
-		*/
+		vertices << 0, 1.0, 0.0, 0.0, // A
+					1, -1.0, 0.0, 0.0, // B
+					2, 0.0, 1.0, 0.0, // C
+					3, 0.0, -1.0, 0.0, // D
+					4, 0.0, 0.0, 1.0, // E
+					5, 0.0, 0.0, -1.0; // F
+					
 		Eigen::MatrixXi edges = Eigen::MatrixXi::Zeros(12, 3);
-		edges << 0, 0, 2,
-				 1, 0, 3, 
-				 2, 0, 4, 
-				 3, 0, 5, 
-				 4, 1, 2, 
-				 5, 1, 3, 
-				 6, 1, 4, 
-				 7, 1, 5,
-				 8, 2, 4, 
-				 9, 2, 5,
-				 10, 3, 4,
-				 11, 3, 5;
-		/*
-		int Octahedron_Face[8][5] = {
-		{ 0, 3, 3, {0, 2, 4}, {0, 2, 8} },  
-		{ 1, 3, 3, {2, 1, 4}, {4, 8, 6} },  
-		{ 2, 3, 3, {1, 3, 4}, {5, 6, 10} },  
-		{ 3, 3, 3, {3, 0, 4}, {1, 10, 2} },
-		{ 4, 3, 3, {2, 0, 5}, {0, 9, 3} },
-		{ 5, 3, 3, {1, 2, 5}, {4, 7, 9} },
-		{ 6, 3, 3, {3, 1, 5}, {5, 11, 7} },
-		{ 7, 3, 3, {0, 3, 5}, {1, 3, 11} }
-		}
-		*/
+		edges << 0, 0, 2, // AC
+				 1, 0, 3, // AD
+				 2, 0, 4, // AE
+				 3, 0, 5, // AF
+				 4, 1, 2, // BC
+				 5, 1, 3, // BD
+				 6, 1, 4, // BE
+				 7, 1, 5, // BF
+				 8, 2, 4, // CE
+				 9, 2, 5, // CF
+				 10, 3, 4, // DE
+				 11, 3, 5; // DF
 		
-		//id, num_vertici, num_lati, id_vertici(3), id_lati(3)
+		//id, id_vertici(3), id_lati(3)
 		Eigen::MatrixXi faces  = Eigen::MatrixXi::Zeros(8, 7);
-		faces << 0, 0, 2, 4, 0, 2, 8,  
-				 1, 2, 1, 4, 4, 8, 6,  
-				 2, 1, 3, 4, 5, 6, 10,  
-				 3, 3, 0, 4, 1, 10, 2,
-				 4, 2, 0, 5, 0, 9, 3,
-				 5, 1, 2, 5, 4, 7, 9,
-				 6, 3, 1, 5, 5, 11, 7,
-				 7, 0, 3, 5, 1, 3, 11;
-				 
+		faces << 0, 0, 2, 4, 0, 8, 2, //A-C-E -- AC,CE,AE
+				 1, 0, 3, 4, 2, 1, 10, //A-D-E -- AE,AD,DE 
+				 2, 1, 3, 4, 10, 5, 6, //B-D-E -- DE,BD,BE
+				 3, 1, 2, 4, 6, 8, 4, //B-C-E -- BE,CE,BC
+				 4, 1, 2, 5, 4, 7, 9, //B-C-F -- BC,BF,CF
+				 5, 2, 0, 5, 9, 0, 3, //A-C-F -- CF,AC,AF
+				 6, 0, 3, 5, 3, 1, 11, //A-D-F -- AF,AD,DF
+				 7, 3, 1, 5, 11, 5, 7; //B-D-F -- DF,BD,BF
+		
 		//Id, num_vertici, num_lati, num_facce, id_vertici(6), id_lati(12), id_facce(8)
 		Eigen::VectorXi polygonal = Eigen::VectorXi::Zeros(30)
 		polygonal << 0, 6, 12, 8, 0,1,2,3,4,5, 0,1,2,3,4,5,6,7,8,9,10,11, 0,1,2,3,4,5,6,7;
-		
-		/*
-		int Octahedron_Polygonal[1]= {
-		  {0, 6, 12, 8, {0,1,2,3,4,5}, {0,1,2,3,4,5,6,7,8,9,10,11}, {0,1,2,3,4,5,6,7}}
-		}
-		*/		
+			
 	}; //end of struct
 	
 	struct Icosahedron {
@@ -302,9 +221,9 @@ namespace PolyhedralLibrary {
 				 19, 2, 3, 11, 17, 13, 9; // C-D-N - DN, CN, CD,
 		
 		//Id, num_vertici, num_lati, num_facce, id_vertici(12), id_lati(30), id_facce(20)
-		Eigen::VectorXi polygonal = Eigen::VectorXi::Zeros(62)
+		Eigen::VectorXi polygonal = Eigen::VectorXi::Zeros(66)
 		polygonal << 0, 12, 30, 20, 0,1,2,3,4,5,6,7,8,9,10,11, <<
-				  << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28, << 
+				  << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, << 
 				  << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19;
 	}; //end of struct
 	
@@ -320,6 +239,113 @@ namespace PolyhedralLibrary {
 					5, -invSqrt3, invSqrt3, -invSqrt3, // F
 					6, -invSqrt3, -invSqrt3, invSqrt3, // G
 					7, -invSqrt3, -invSqrt3, -invSqrt3; // H
+					
+		Eigen::MatrixXi edges = Eigen::MatrixXi::Zeros(12, 3);
+		edges << 0, 0, 1, // AB 
+				 1, 0, 2, // AC
+				 2, 0, 4, // AE
+				 3, 1, 3, // BD  
+				 4, 1, 5, // BF  
+				 5, 2, 3, // CD
+				 6, 2, 6, // CG
+				 7, 3, 7, // DH 
+				 8, 4, 5, // EF
+				 9, 4, 6, // EG 
+				 10, 5, 7, // FH 
+				 11, 6, 7; // GH
+				 
+		//id, id_vertici(4), id_lati(4)
+		Eigen::MatrixXi faces  = Eigen::MatrixXi::Zeros(6, 9);
+		faces << 0, 0, 2, 4, 6, 1, 2, 6, 9, //A-C-E-G -- AC,AE,CG,EG
+				 1, 4, 5, 6, 7, 9, 11, 10, 8, //E-F-G-H -- EG,GH,FH,EF
+				 2, 0, 1, 4, 5, 8, 2, 4, 0, //A-B-E-F -- EF,AE,BF,AB
+				 3, 0, 1, 2, 3, 0, 1, 3, 5, //A-B-C-D -- AB,AC,BD,CD
+				 4, 2, 3, 6, 7, 5, 6, 11, 7, //C-D-G-H -- CD,CG,GH,DH
+				 5, 1, 3, 5, 7, 7, 3, 4, 10; //B-D-F-H -- DH,BD,BF,FH
+		
+		//Id, num_vertici, num_lati, num_facce, id_vertici(8), id_lati(12), id_facce(6)
+		Eigen::VectorXi polygonal = Eigen::VectorXi::Zeros(30)
+		polygonal << 0, 8, 12, 6, 0,1,2,3,4,5,6,7, <<
+				  << 0,1,2,3,4,5,6,7,8,9,10,11 << 0,1,2,3,4,5; 
+		
+		
+	}; //end of struct
+	
+	struct Dodecahedron {
+		
+		Eigen::MatrixXd vertices = Eigen::MatrixXd::Zeros(20, 4);
+		vertices << 0, 0.6, 0, 0.8, //A
+					1, 0.18, 0.57, 0.8, //B
+					2, -0.48, 0.35, 0.8, //C
+					3, -0.48, -0.35, 0.8, //D
+					4, 0.18, -0.35, 0.8, //E
+					5, 0.98, 0, 0.18, //F
+					6, 0.30, 0.93, 0.18, //G
+					7, -0.78, 0.57, 0.18, //H
+					8, -0.78, -0.57, 0.18, //I
+					9, 0.30, -0.93, 0.18, //L
+					10, -0.98, 0, -0.18, //M
+					11, -0.30, -0.93, -0.18, //N
+					12, 0.78, -0.57, -0.18, //O
+					13, 0.78, 0.57, -0.18, //P
+					14, -0.30, 0.93, -0.18, //Q
+					15, -0.6, 0, -0.8, //R
+					16, -0.18, -0.57, -0.8, //S
+					17, 0.48, -0.35, -0.8, //T
+					18, 0.48, 0.35, -0.8, //U
+					19, -0.18, 0.57, -0.8; //V
+		
+		Eigen::MatrixXi edges = Eigen::MatrixXi::Zeros(30, 3);
+		edges << 0, 0, 1, //AB
+				 1, 0, 4, //AE
+				 2, 0, 5, //AF
+				 3, 1, 2, //BC
+				 4, 1, 6, //BG
+				 5, 2, 3, //CD
+				 6, 2, 7, //CH
+				 7, 3, 4, //DE
+				 8, 3, 8, //DI
+				 9, 4, 9, //EL
+				 10, 5, 12, //FO
+				 11, 5, 13, //FP
+				 12, 6, 13, //GP
+				 13, 6, 14, //GQ
+				 14, 7, 10, //HM
+				 15, 7, 14, //HQ
+				 16, 8, 10, //IM
+				 17, 8, 11, //IN
+				 18, 9, 11, //LN
+				 19, 9, 12, //LO
+				 20, 10, 15, //MR
+				 21, 11, 16, //NS
+				 22, 12, 17, //OT
+				 23, 13, 18, //PU
+				 24, 14, 19, //QV
+				 25, 15, 16, //RS
+				 26, 15, 19, //RV
+				 27, 16, 17, //ST
+				 28, 17, 18, //TU
+				 29, 18, 19; //UV
+				 
+		Eigen::MatrixXi faces  = Eigen::MatrixXi::Zeros(12, 11);
+		faces << 0, 0, 1, 2, 3, 4, 0, 1, 3, 7, 5, //A-B-C-D-E -- AB,AE,BC,DE,CD
+				 1, 2, 3, 7, 8, 10, 5, 6, 14, 16, 8, //C-D-H-I-M --CD,CH,HM,IM,DI
+				 2, 3, 4, 8, 9, 11, 8, 7, 17, 18, 9, //D-E-I-L-N -- DI,DE,IN,LN,EL
+				 3, 0, 4, 5, 9, 12, 9, 1, 19, 10, 2, //A-E-F-L-O -- EL,AE,LO,FO,AF
+				 4, 0, 1, 5, 6, 13, 2, 0, 11, 12, 4, //A-B-F-G-P -- AF,AB,FP,GP,BG
+				 5, 1, 2, 6, 7, 14, 4, 3, 13, 6, 15, //B-C-G-H-Q -- BG,BC,GQ,CH,HQ
+				 6, 7, 10, 14, 15, 19, 15, 14, 24, 26, 20, //H-M-Q-R-V -- HQ,HM,QV,RV,MR
+				 7, 8, 10, 11, 15, 16, 20, 16, 17, 25, 21, //I-M-N-R-S -- MR,IM,IN,RS,NS,
+				 8, 9, 11, 12, 16, 17, 21, 18, 19, 27, 22, //L-N-O-S-T -- NS,LN,LO,ST,OT,
+				 9, 5, 12, 13, 17, 18, 22, 10, 11, 28, 23, //F-O-P-T-U -- OT,FO,FP,TU,PU,
+				 10, 6, 13, 14, 18, 19, 23, 12, 13, 24, 29, //G-P-Q-U-V -- PU,GP,GQ,QV,UV
+				 11, 15, 16, 17, 18, 19, 29, 28, 26, 25, 27; //R-S-T-U-V -- UV,UT,RV,RS,ST
+				 
+		Eigen::VectorXi polygonal = Eigen::VectorXi::Zeros(66)
+		polygonal << 0, 20, 30, 12, <<
+				  << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19, <<
+				  << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, <<
+				  << 0,1,2,3,4,5,6,7,8,9,10,11;
 		
 		
 	}; //end of struct
@@ -328,122 +354,8 @@ namespace PolyhedralLibrary {
 
     struct PolyhedralMesh
 {
-    
-
-    // Matrice 8x3: 8 vertici, ciascuno con coordinate x, y, z
-    double Vert_cube[8][3] = {
-        {  invSqrt3,  invSqrt3,  invSqrt3 },  // Vertice 1
-        {  invSqrt3,  invSqrt3, -invSqrt3 },  // Vertice 2
-        {  invSqrt3, -invSqrt3,  invSqrt3 },  // Vertice 3
-        {  invSqrt3, -invSqrt3, -invSqrt3 },  // Vertice 4
-        { -invSqrt3,  invSqrt3,  invSqrt3 },  // Vertice 5
-        { -invSqrt3,  invSqrt3, -invSqrt3 },  // Vertice 6
-        { -invSqrt3, -invSqrt3,  invSqrt3 },  // Vertice 7
-        { -invSqrt3, -invSqrt3, -invSqrt3 }   // Vertice 8
-    }
-
-    const double phi = (1.0 + sqrt(5.0)) / 2.0;
-    const double invPhi = 1.0 / phi;
-    
-    double Vert_dodecahedron[20][3];
-    //double Vert_icosahedron[12][3]; //altrimenti sarebbero locali dei init
-	
-	int cube_edges[12][2] = {
-		{0,1}, {0,2}, {0,4},
-        {1,3}, {1,5},
-        {2,3}, {2,6},
-        {3,7},
-        {4,5}, {4,6},
-        {5,7},
-        {6,7}
-	   }
-	   
-    //constructor
-    PolyhedralMesh(){
-	    //init_Icosahedron();
-	    init_Dodecahedron();
-
-	    
-    }
-	
-	
-	
-    
-
-// in teoria possiamo mettere questo su un PolyhedralMesh.cpp eventualmente boh
-
-//************************* initialization ********************//
-
-
-    // Matrice 20x3: ogni riga è un vertice (x, y, z)
-    //double Vert_dodecahedron[20][3];
-    //int index = 0; //risking out of bounds array writing if we use it for different functions
-
-    // Vertici (±1, ±1, ±1) — 8 vertici
-   void init_Dodecahedron()
-    {
-	int index=0;
-    for (int sx = -1; sx <= 1; sx += 2)
-        for (int sy = -1; sy <= 1; sy += 2)
-            for (int sz = -1; sz <= 1; sz += 2) {
-                double x = sx * 1.0;
-                double y = sy * 1.0;
-                double z = sz * 1.0;
-                double len = std::sqrt(x*x + y*y + z*z); //normalization
-                Vert_dodecahedron[index][0] = x / len;
-                Vert_dodecahedron[index][1] = y / len;
-                Vert_dodecahedron[index][2] = z / len;
-                index++;
-            }
-
-    // Vertici (0, ±1/φ, ±φ) + permutazioni — 12 vertici
-    double coords[3][2] = {
-        {0.0, 0.0},
-        {invPhi, -invPhi},
-        {phi, -phi}
-    };
-
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 2; ++j) {
-            for (int k = 0; k < 2; ++k) {
-                for (int l = 0; l < 2; ++l) {
-                    double x = coords[i][j];
-                    double y = coords[(i + 1) % 3][k];
-                    double z = coords[(i + 2) % 3][l];
-                    double len = std::sqrt(x*x + y*y + z*z); // normalization 
-                    Vert_dodecahedron[index][0] = x / len;
-                    Vert_dodecahedron[index][1] = y / len;
-                    Vert_dodecahedron[index][2] = z / len;
-                    index++;
-                 }
-             }
-         }
-      }
-    }
-
    
-   
-  /* void Cube_Edges(){
-	   
-	  
-	   
-	   vector<pair<int, int>> cube_edges = {
-		{0,1}, {0,2}, {0,4},
-        {1,3}, {1,5},
-        {2,3}, {2,6},
-        {3,7},
-        {4,5}, {4,6},
-        {5,7},
-        {6,7}
-	   };
-	   for (std::size_t i=0; i< cube_edges.size(); ++i) {
-		   Cell1Ds.push_back({i, cube_edges[i].first, cube_edges[i].second});
-	   }
 
-    }
-	
-	*/
-	
 	
  }; // end of PolyhedralMesh struct
  
