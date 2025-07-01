@@ -66,6 +66,17 @@ int main()
     cin >> id_vertice1;
 	cout << "Inserisci l'id del vertice 2: ";
     cin >> id_vertice2;
+	
+    int max_nodo = massimo_nodo(cubo);
+
+    int distanza = bfs(cubo, id_vertice1, id_vertice2, max_nodo);
+
+    if (distanza != -1)
+        cout << "Cammino minimo da " << start << " a " << end << ": " << distanza << " passi\n";
+    else
+        cout << "Nessun cammino trovato.\n";
+
+    return 0;
 	*/
 	
 	/// Per visualizzare online le mesh:
