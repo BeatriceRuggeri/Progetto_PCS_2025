@@ -1,3 +1,5 @@
+##cmakelists gtest progetto##
+
 list(APPEND src_test_headers ${CMAKE_CURRENT_SOURCE_DIR}/TestPolygon.hpp)
 list(APPEND src_test_headers ${CMAKE_CURRENT_SOURCE_DIR}/TestTriangle.hpp)
 
