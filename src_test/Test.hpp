@@ -91,11 +91,12 @@ namespace PolyhedralTests
 	PolyhedralMesh meshExpected;
 	PolyhedralMesh meshOutput; //quello che buta fuori l'algoritmo 
 
-//******************* vertici expected ***************************************
+//******************* vertici expected *************************************** Compatibilità (?** vector vector?)
 	meshExpected.Cell0DsId = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
 	meshExpected.Cell0DsCoordinates = MatrixXd::Zeros(3, 10);
 	
+	//cioè i punti che vado a controllare (Punti medi di ogni lato che generiamo nella triangolazione)
 	meshExpected.Cell0DsCoordinates.col(0)  <<  0, 0, 0.57735;
 	meshExpected.Cell0DsCoordinates.col(1)  <<  -0.57735, -0.57735,  0.57735;
 	meshExpected.Cell0DsCoordinates.col(2)  <<  0, -0.57735, 0;
@@ -129,7 +130,7 @@ namespace PolyhedralTests
 		2, 5,
 		3, 5,
 		3, 4,
-		4, 5,	
+		4, 5,
 		5, 6,
 		4, 6,
 		5, 7,
@@ -141,7 +142,7 @@ namespace PolyhedralTests
 
 	meshExpected.Cell1DsFlag = {};
 	
-	meshExpected.Cell1DsOriginalFlag = {1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0};
+	meshExpected.Cell1DsOriginalFlag = {1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0}; //boundary or not
 	
 //******************* faccie expected ***************************************
 	meshExpected.Cell2DsId = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
@@ -220,7 +221,7 @@ namespace PolyhedralTests
  
  //******************* paragoniamo expected e output calcolato *************************************
  
-//ID vertici
+//ID vert
     EXPECT_EQ(meshExpected.Cell0DsId, meshOutput.Cell0DsId);
 
 //Coordinate vertici
@@ -265,7 +266,7 @@ namespace PolyhedralTests
 //**************** Test Ordine Lati (fine di un arco coincida con quello successivo (e+1)%E
 
 
-    TEST(TestPolyedra, TestOrderedEdges)
+    TEST(Polyhedral_Test, Test_Ordine_Lati)
     { 
 	PolyhedralMesh meshTriangolazione;
 	PolyhedralMesh mesh;
@@ -316,10 +317,10 @@ namespace PolyhedralTests
 
             // trovo gli estremi per nextEdgeMasterId
             bool foundNext = false;
-            for (unsigned int i = 0; i < meshTriangulated.Cell1DsId.size(); i++) {
-                if (nextEdge == meshTriangulated.Cell1DsId[i]) {
-                    nextEdgeOrigin = meshTriangulated.Cell1DsExtrema(i, 0);
-                    nextEdgeEnd = meshTriangulated.Cell1DsExtrema(i, 1);
+            for (unsigned int i = 0; i < meshTriangolazione.Cell1DsId.size(); i++) {
+                if (nextEdge == meshTriangolazione.Cell1DsId[i]) {
+                    nextEdgeOrigin = meshTriangolazione.Cell1DsExtrema(i, 0);
+                    nextEdgeEnd = meshTriangolazione.Cell1DsExtrema(i, 1);
                     foundNext = true;
                     break; 
                 }
@@ -356,7 +357,7 @@ namespace PolyhedralTests
 	// mesh dalla triangolazione 
 	PolyhedralMesh meshTriangolazione;
 	PolyhedralMesh mesh;
-	generateTetrahedron(mesh);
+	generateTetrahedron(mesh); // !!!!!!!!!!!!
 	
 	int q = 3;
 	int b = 2;
@@ -369,14 +370,14 @@ namespace PolyhedralTests
 	RemoveDuplicatedVertices(meshTriangolazione);
 	
 	//ciclo triangoli
-	for (size_t i = 0; i < meshTriangulated.Cell2DsVertices.size(); ++i) {
-		const auto& tri = meshTriangulated.Cell2DsVertices[i];
+	for (size_t i = 0; i < meshTriangolazione.Cell2DsVertices.size(); ++i) {
+		const auto& tri = meshTriangolazione.Cell2DsVertices[i];
 		ASSERT_EQ(tri.size(), 3); //controllo vertici
 		
 		// accedo alle coordinate dei vertici
-		Vector3d A = meshTriangulated.Cell0DsCoordinates.col(tri[0]); 
-        Vector3d B = meshTriangulated.Cell0DsCoordinates.col(tri[1]);
-        Vector3d C = meshTriangulated.Cell0DsCoordinates.col(tri[2]);
+		Vector3d A = meshTriangolazione.Cell0DsCoordinates.col(tri[0]); 
+        Vector3d B = meshTriangolazione.Cell0DsCoordinates.col(tri[1]);
+        Vector3d C = meshTriangolazione.Cell0DsCoordinates.col(tri[2]);
 		
 	//area calc
 		double area = 0.5 * ((B - A).cross(C - A)).norm(); //vector product
@@ -409,12 +410,12 @@ namespace PolyhedralTests
 	//iterazione lati mesh triangolazione 
 	for (unsigned int i = 0; i < meshTriangolazione.Cell1DsExtrema.rows(); ++i) {
 		// prendo gli indici dei due vertici che definisco il lato i
-		int vec_start = meshTriangulated.Cell1DsExtrema(i, 0); // indice del vertice di partenza 
-        int vec_end = meshTriangulated.Cell1DsExtrema(i, 1); // indice del vertice di arrivo
+		int vec_start = meshTriangolazione.Cell1DsExtrema(i, 0); // indice del vertice di partenza 
+        int vec_end = meshTriangolazione.Cell1DsExtrema(i, 1); // indice del vertice di arrivo
 		
 		// prendo le coordinate dei due vertici
-		Vector3d start_point = meshTriangulated.Cell0DsCoordinates.col(vec_start);
-        Vector3d end_point = meshTriangulated.Cell0DsCoordinates.col(vec_end);
+		Vector3d start_point = meshTriangolazione.Cell0DsCoordinates.col(vec_start);
+        Vector3d end_point = meshTriangolazione.Cell0DsCoordinates.col(vec_end);
 		
 		// calcolo la norma della lunghezza del lato
 		double length = (end_point - start_point).norm();
@@ -473,18 +474,18 @@ TEST(Polyhedral_Test, Test_Lati_Tri_Due){
 	int q = 3;
 	int b = 2;
 	
-	Triangulation2(q, b, mesh, meshTriangulated); //!!!!!!!!
+	Triangulation2(q, b, mesh, meshTriangolazione); //!!!!!!!!
 	
 	
 	//iterazione su triangolata
 	for (unsigned int i = 0; i < meshTriangolazione.Cell1DsExtrema.rows(); ++i) {
 		// prendo gli indici dei due vertici che definisco il lato i
 		int vec_start = meshTriangolazione.Cell1DsExtrema(i, 0); // indice del vertice di partenza 
-        int vec_end = meshTriangulated.Cell1DsExtrema(i, 1); // indice del vertice di arrivo
+        int vec_end = meshTriangolazione.Cell1DsExtrema(i, 1); // indice del vertice di arrivo
 		
 		// prendo le coordinate dei due vertici
-		Vector3d start_point = meshTriangolazione.Cell0DsCoordinates.col(vStart);
-        Vector3d end_point = meshTriangolazione.Cell0DsCoordinates.col(vEnd);
+		Vector3d start_point = meshTriangolazione.Cell0DsCoordinates.col(vec_start);
+        Vector3d end_point = meshTriangolazione.Cell0DsCoordinates.col(vec_end);
 		
 		// calcolo la norma della lunghezza del lato
 		double length = (end_point - start_point).norm();
@@ -523,9 +524,9 @@ TEST(Polyhedral_Test, Test_Area_Tri_Due)
 	
 	//************************ !!!!!!!!!
 	
-	vector<int> dimension2 = CalculateDimension2(b, q);
+	vector<int> dim2 = CalculateDimension2(b, q);
 	map<pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap = buildEdgeToFacesMap(meshOutput);
-	triangulateAndStore2(meshOutput, meshTriangolazione, dimension2, edgeToFacesMap);
+	triangulateAndStore2(meshOutput, meshTriangolazione, dim2, edgeToFacesMap);
 	
 	// ciclo su tutti i triangoli
 	for (size_t i = 0; i < meshTriangolazione_Due.Cell2DsVertices.size(); ++i) {
@@ -545,10 +546,263 @@ TEST(Polyhedral_Test, Test_Area_Tri_Due)
 }
 
 
-//********* test duale
+//********* test duale, da rifare pratticamente
+
+TEST(Polyhedral_Test, Test_Duale){
+	
+	// mesh ottenuta utilizzando la funzione di triangolazioneMore actions
+	PolyhedralMesh meshTriangulated;
+
+	PolyhedralMesh mesh;
+	PolyhedralMesh meshFinal;
+	PolyhedralMesh meshDual;
+	generateTetrahedron(mesh);
+	
+	int q = 3;
+	int b = 2;
+	int c = 0;
+	
+	vector<int> dimension = ComputePolyhedronVEF(q, b, c);
+	vector<int> dimensionDuplicated = CalculateDuplicated(q, b, c, dimension);
+	triangulateAndStore(mesh, meshTriangulated, b, c, dimensionDuplicated);
+	RemoveDuplicatedEdges(meshTriangulated);
+	RemoveDuplicatedVertices(meshTriangulated);
+	NewMesh(meshTriangulated, meshFinal, dimension);
+	map <pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap = buildEdgeToFacesMap(meshFinal);
+	
+	CalculateDual(meshFinal, meshDual, edgeToFacesMap);
+	
+	double eps = numeric_limits<double>::epsilon();
+	unsigned int maxFlag = numeric_limits<unsigned int>::max();
+
+	size_t expectedVerticesDual   = meshFinal.Cell2DsId.size(); // 16 facce triangolate → 16 vertici nel duale
+    size_t expectedEdgesDual      = meshFinal.Cell1DsId.size(); // Calcolato dinamicamente, può essere 24 per subdivisionLevel=2
+   
+    // numero di vertici (id)
+	// numero di lati(id)
+   
+    EXPECT_EQ(meshDual.Cell0DsId.size(), expectedVerticesDual);
+    EXPECT_EQ(meshDual.Cell1DsId.size(), expectedEdgesDual);
+	
+	// ogni vertice del poliedro originale genera una faccia nel duale
+	EXPECT_GE(meshDual.Cell2DsId.size(), 4);  // Minimo 4 se è un tetraedro chiuso
+	
+	// verifico se ogni faccia duale ha almento 3 vertici
+	for (const auto& dualFace : meshDual.Cell2DsVertices) {
+    	EXPECT_GE(dualFace.size(), 3);
+    }
+	
+	// controllo che uno spigolo non connetta un vertice a se stesso
+	for (int i = 0; i < meshDual.Cell1DsExtrema.rows(); ++i) {
+		int a = meshDual.Cell1DsExtrema(i, 0);
+		int b = meshDual.Cell1DsExtrema(i, 1);
+		EXPECT_NE(a, b); // Mi verifica che a e b siano diversi 
+    }
+	
+	// verifico che il calcolo del baricentro sia corretto
+	// Per ogni faccia della mesh triangolata
+    for (size_t faceId = 0; faceId < meshFinal.Cell2DsId.size(); ++faceId) {
+        double sumX = 0.0;
+        double sumY = 0.0;
+        double sumZ = 0.0;
+		
+        // accedo alla lista dei vertici che compongono la faccia
+        const vector<unsigned int>& faceVertices = meshFinal.Cell2DsVertices[faceId];
+
+        // sommo le coordinate dei vertici della faccia
+        for (unsigned int v_id : faceVertices) {
+			sumX += meshFinal.Cell0DsCoordinates(0, v_id); // coordinata x del vertice v_idMore actions
+            sumY += meshFinal.Cell0DsCoordinates(1, v_id); // coordinata y del vertice v_id
+            sumZ += meshFinal.Cell0DsCoordinates(2, v_id); // coordinata z del vertice v_id
+        }
+
+        // calcolo il baricentro
+        double n = (double) faceVertices.size(); // perché faceVertices.size() restituisce un tipo size_t quindi evito una conversione implicita
+        double baryX = sumX / n;
+        double baryY = sumY / n;
+        double baryZ = sumZ / n;
+
+        // estraggo la coordinata del vertice duale corrispondente (baricentro)
+        double X = meshDual.Cell0DsCoordinates(0, faceId);
+        double Y = meshDual.Cell0DsCoordinates(1, faceId);
+        double Z = meshDual.Cell0DsCoordinates(2, faceId);
+
+        EXPECT_NEAR(baryX, X, eps);
+        EXPECT_NEAR(baryY, Y, eps);
+        EXPECT_NEAR(baryZ, Z, eps);
+    }
+
+    // verifico che i lati siano costruiti nel modo corretto ---> devono connettere i baricentri
+	for (int i = 0; i < meshDual.Cell1DsExtrema.rows(); ++i) {
+		Vector2i edge = meshDual.Cell1DsExtrema.row(i);
+		// id delle facce del poliedro originale (vertici duali sono baricentri di facce originali)
+        int f1 = edge(0); 
+        int f2 = edge(1);
+		 // controlla che le due facce originali condividano un edge
+    bool foundCommonEdge = false;
+    for (int e1 : meshFinal.Cell2DsEdges[f1]) {
+        for (int e2 : meshFinal.Cell2DsEdges[f2]) {
+            if (e1 == e2) {
+                foundCommonEdge = true;
+                break;
+            }
+        }
+        if (foundCommonEdge) break;
+    }
+    EXPECT_TRUE(foundCommonEdge);
+	}
+	
+	// verifico che i lati e le facce siano ordinate correttamente 
+	
+	for (size_t f = 0; f < meshDual.Cell2DsId.size(); ++f) {
+		const auto& edges = meshDual.Cell2DsEdges[f]; // lista dei lati di una faccia
+        const auto& vertices = meshDual.Cell2DsVertices[f]; // lista dei vertici di una faccia 
+        size_t E = edges.size(); // numero di vertici dela faccia
+       
+		// itero su ogni lato e della faccia 
+		 for (size_t e = 0; e < E; ++e) {
+			unsigned int currentEdge = edges[e]; // lato corrente
+            unsigned int nextEdge = edges[(e + 1) % E]; // lato successivo 
+            
+            unsigned int currentEdgeOrigin = maxFlag;
+			unsigned int currentEdgeEnd = maxFlag;
+			unsigned int nextEdgeOrigin = maxFlag;
+			unsigned int nextEdgeEnd = maxFlag;
+            
+            bool foundCurrent = false;
+            for (unsigned int i = 0; i < meshDual.Cell1DsId.size(); i++) {
+                if (currentEdge == meshDual.Cell1DsId[i]) {
+                    currentEdgeOrigin = meshDual.Cell1DsExtrema(i, 0);
+                    currentEdgeEnd = meshDual.Cell1DsExtrema(i, 1);
+                    foundCurrent = true;
+                    break; 
+                }
+            }
+            
+            ASSERT_TRUE(foundCurrent) << "Master Edge ID " << currentEdge << " not found in Cell1DsId!";
+
+            // trovo gli estremi per nextEdgeMasterId
+            bool foundNext = false;
+            for (unsigned int i = 0; i < meshDual.Cell1DsId.size(); i++) {
+                if (nextEdge == meshDual.Cell1DsId[i]) {
+                    nextEdgeOrigin = meshDual.Cell1DsExtrema(i, 0);
+                    nextEdgeEnd = meshDual.Cell1DsExtrema(i, 1);
+                    foundNext = true;
+                    break; 
+                }
+            }
+            ASSERT_TRUE(foundNext);
+
+            // Recupera il vertice della faccia
+            unsigned int faceVertex = vertices[e]; // ID master del vertice della faccia
+
+            bool condition = (currentEdgeOrigin == nextEdgeOrigin) ||
+                             (currentEdgeOrigin == nextEdgeEnd) ||
+                             (currentEdgeEnd == nextEdgeOrigin) ||
+                             (currentEdgeEnd == nextEdgeEnd);
+            EXPECT_TRUE(condition);
+              
+            // Controllo che il vertice e-esimo della faccia coincida con l'origine del lato e-esimo
+            bool condition2 = (faceVertex == currentEdgeOrigin) ||
+            					(faceVertex == currentEdgeEnd);
+            EXPECT_TRUE(condition2);
+		}		
+	}	 
+}
 
 
 //*********** test triangolazione due
+
+
+
+TEST(TestPolyedra, TestOrderedEdges2)
+{ 
+	PolyhedralLibrary::PolyhedralMesh mesh;
+	PolyhedralLibrary::generateTetrahedron(mesh);
+	
+	PolyhedralMesh meshTriangulated;
+	PolyhedralMesh meshFinal;
+	PolyhedralMesh meshTriangulated2;
+	
+	int q = 3;
+	int b = 2;
+	unsigned int maxFlag = numeric_limits<unsigned int>::max();
+	
+	vector<int> dimension = ComputePolyhedronVEF(q, b, 0);
+	vector<int> dimensionDuplicated = CalculateDuplicated(q, b, 0, dimension);
+	triangulateAndStore(mesh, meshTriangulated, b, 0,  dimensionDuplicated);
+	RemoveDuplicatedVertices(meshTriangulated);
+	RemoveDuplicatedEdges(meshTriangulated);
+	NewMesh(meshTriangulated, meshFinal, dimension);
+	
+	vector<int> dimension2 = CalculateDimension2(b, q);
+	map<pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap = buildEdgeToFacesMap(meshFinal);
+	triangulateAndStore2(meshFinal, meshTriangulated2, dimension2, edgeToFacesMap);
+	
+	// per ogni faccia i lati sono ordinati in modo che la fine dell'arco e coincida con l'inizio dell'arco successivo (e+1)%E
+	// il vertice e della faccia deve corrispondere all'origine dell'arco e
+
+    // ciclo su tutte le facce della mesh triangolata 
+    for (size_t f = 0; f < meshFinal.Cell2DsId.size(); ++f) {
+		const auto& edges = meshFinal.Cell2DsEdges[f]; // lista dei lati di una faccia
+        const auto& vertices = meshFinal.Cell2DsVertices[f]; // lista dei vertici di una faccia 
+        size_t E = edges.size(); // numero di vertici dela faccia
+        
+		
+		ASSERT_EQ(vertices.size(), E) << "Numero di vertici e di lati non corrispondono per faccia " << f;
+		
+		// itero su ogni lato e della faccia 
+		 for (size_t e = 0; e < E; ++e) {
+			unsigned int currentEdge = edges[e]; // lato corrente
+            unsigned int nextEdge = edges[(e + 1) % E]; // lato successivo 
+            
+            unsigned int currentEdgeOrigin = maxFlag;
+			unsigned int currentEdgeEnd = maxFlag;
+			unsigned int nextEdgeOrigin = maxFlag;
+			unsigned int nextEdgeEnd = maxFlag;
+            
+            bool foundCurrent = false;
+            for (unsigned int i = 0; i < meshFinal.Cell1DsId.size(); i++) {
+                if (currentEdge == meshFinal.Cell1DsId[i]) {
+                    currentEdgeOrigin = meshFinal.Cell1DsExtrema(i, 0);
+                    currentEdgeEnd = meshFinal.Cell1DsExtrema(i, 1);
+                    foundCurrent = true;
+                    break; 
+                }
+            }
+           
+            ASSERT_TRUE(foundCurrent) << "Master Edge ID " << currentEdge << " not found in Cell1DsId!";
+
+            // trovo gli estremi per nextEdgeMasterId
+            bool foundNext = false;
+            for (unsigned int i = 0; i < meshFinal.Cell1DsId.size(); i++) {
+                if (nextEdge == meshFinal.Cell1DsId[i]) {
+                    nextEdgeOrigin = meshFinal.Cell1DsExtrema(i, 0);
+                    nextEdgeEnd = meshFinal.Cell1DsExtrema(i, 1);
+                    foundNext = true;
+                    break; 
+                }
+            }
+            ASSERT_TRUE(foundNext) << "Master Edge ID " << nextEdge << " not found in Cell1DsId!";
+
+            // recupero il vertice della faccia
+            unsigned int faceVertex = vertices[e]; 
+
+            bool condition = (currentEdgeOrigin == nextEdgeOrigin) ||
+                             (currentEdgeOrigin == nextEdgeEnd) ||
+                             (currentEdgeEnd == nextEdgeOrigin) ||
+                             (currentEdgeEnd == nextEdgeEnd);
+            EXPECT_TRUE(condition);
+
+            // Controllo che il vertice e-esimo della faccia coincida con l'origine del lato e-esimo
+            
+            bool condition2 = (faceVertex == currentEdgeOrigin) ||
+            					(faceVertex == currentEdgeEnd);
+            EXPECT_TRUE(condition2);
+
+		}		
+	}
+}
 
   
   
@@ -556,11 +810,15 @@ TEST(Polyhedral_Test, Test_Area_Tri_Due)
   
 //******************* test cammini minimi (shortest path) ***************************************
 //******adapt*******
+
 TEST(Polyhedral_Test, ShortestPath){
 	
 	PolyhedralMesh mesh;
-	PolyhedralMesh meshTriangulated;
-	PolyhedralMesh meshFinal;
+	PolyhedralMesh meshTriangolazione; //fissata expected
+	PolyhedralMesh meshFinal; //in teoria questa è quella "pulita" da scorrere e vedere se abbiamo trovato i shortest paths
+	
+	//chiamo generazione tetrahedron
+	
 	generateTetrahedron(mesh);
 	
 	int q = 3;
@@ -572,10 +830,13 @@ TEST(Polyhedral_Test, ShortestPath){
 	
 	vector<int> dim = VEF_Calc(q, b, c);
 	vector<int> dim_duplicates = duplicates(q, b, c, dimension);
-	triangulateAndStore(mesh, meshTriangulated, b, c, dimensionDuplicated);
-	RemoveDuplicatedEdges(meshTriangulated);
-	RemoveDuplicatedVertices(meshTriangulated);
-	NewMesh(meshTriangulated, meshFinal, dimension);
+	
+//************************
+
+	triangulateAndStore(mesh, meshTriangolazione, b, c, dim_duplicates);
+	RemoveDuplicatedEdges(meshTriangolazione);
+	RemoveDuplicatedVertices(meshTriangolazione);
+	NewMesh(meshTriangolazione, meshFinal, dim);
 	
 	ShortestPathResult expected(2, 1.63299);
 	MatrixXi adjMatrix = calculateAdjacencyMatrix(meshFinal);
@@ -583,11 +844,11 @@ TEST(Polyhedral_Test, ShortestPath){
 	
 	EXPECT_NEAR(result.numEdges, expected.numEdges, 1e-5) 
 		<< "error, not the shortest path"
-		<< " Expected: " << expected.numEdges << ", Output: " << result.numEdges;
+		<< " Expected: " << expected.numEdges << ", Final: " << result.numEdges;
 		
 	EXPECT_NEAR(result.totalLength, expected.totalLength, 1e-5) 
         << "error, not the shortest path"
-        << " Expected: " << expected.totalLength << ", Output: " << result.totalLength;
+        << " Expected: " << expected.totalLength << ", Final: " << result.totalLength;
 	 
 	}
  
