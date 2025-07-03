@@ -635,7 +635,7 @@ double calculateDistanceById(const PolyhedralMesh& mesh, const unsigned int id1,
 MatrixXi CalcoloMatriceAdiacenza(const PolyhedralMesh& mesh) {
 	
     const unsigned int numVertices = mesh.M0D[0].size();
-	MatrixXi Matr_Adiacenza = MatrixXi::Zero(numVertices, numVertices);
+	MatrixXi Matr_Adiacenza = MatrixXi::Zero(numVertici, numVertici);
 
     // Itera su tutti i lati (Cell1Ds) della mesh
     for (unsigned int i = 0; i < mesh.M1D.size(); ++i) {
