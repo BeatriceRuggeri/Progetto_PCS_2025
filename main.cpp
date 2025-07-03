@@ -1,3 +1,19 @@
+#include <iostream>
+#include "PolyhedralMesh.hpp"
+#include "Utils.hpp"
+#include "UCDUtilities.hpp"
+#include <fstream>
+#include <string>
+#include <vector>
+
+using namespace std;
+using namespace Eigen;
+using namespace PolyhedralLibrary;
+
+
+// cmake -S ./ -B ./Debug -DCMAKE_BUILD_TYPE="Debug"
+
+
 int main()
 {
 	bool dual_flag;
