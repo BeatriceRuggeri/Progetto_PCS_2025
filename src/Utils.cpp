@@ -6,6 +6,14 @@
 #include <string>
 #include <cmath>
 #include <queue>
+#include <vector>   
+#include <map>                
+#include <limits>             
+#include <algorithm>          
+#include <tuple>              
+#include <utility>
+#include <Eigen/Dense>          
+
 
 using namespace std;
 
@@ -501,56 +509,188 @@ void TriangulationTypeII(const PolyhedralMesh& polyOld, PolyhedralMesh& polyNew,
 	polyNew.Cell3DsFaces.push_back(polyNew.Cell2DsId);
 }
 
+// IMPLEMENTAZIONE DEL COSTRUTTORE DI SHORTESTPATHRESULT
+ShortestPathResult::ShortestPathResult(unsigned int nEdges, double len)
+    : numEdges(nEdges), totalLength(len)
+{}
 
-int massimo_nodo(const vector<vector<int>>& grafo) {
-    max_Nodo = 0;
-    for (i=0, i<grafo.size(), i++) {
-        for (j=0, j<grafo.size(), j++) {
-            if (grafo[i][j]>max_Nodo) {
-                max_Nodo = grafo[i][j];
-            }
-        }
-    }
+// Calcolo la distanza euclidea tra due punti.
+double calculateDistanceById(const PolyhedralMesh& mesh, const unsigned int id1, const unsigned int id2) {
     
-    return maxNodo;
+    VectorXd A = mesh.M0D[0].size(id1);
+    VectorXd B = mesh.M0D[0].size(id2);
+	double Norma = (A - B).norm(); // Calcola la norma (distanza euclidea)
+
+    return Norma; 
 }
 
-// Funzione per BFS su grafo non pesato
-int bfs(const vector<vector<int>>& grafo, int start, int end, int& max_nodo) {
-    vector<bool> visited(grafo.size(), false);
-    vector<int> distanza(grafo.size(), -1);
-    queue<int> q;
-    
-    visited[start] = true;
-    distanza[start] = 0;
-    q.push(start);
-    
-    if (start == end) {
-        cerr << "Non è possibile creare un cammino minimo che è nullo" << endl;
-        return -1;
+
+// Funzione per calcolare la matrice di adiacenza
+MatrixXi CalcoloMatriceAdiacenza(const PolyhedralMesh& mesh) {
+	
+    const unsigned int numVertices = mesh.M0D[0].size();
+	MatrixXi Matr_Adiacenza = MatrixXi::Zero(numVertices, numVertices);
+
+    // Itera su tutti i lati (Cell1Ds) della mesh
+    for (unsigned int i = 0; i < mesh.M1D.size(); ++i) {
+
+        unsigned int v1 = mesh.M1D(i, 1);
+        unsigned int v2 = mesh.M1D(i, 2);
+		
+        Matr_Adiacenza(v1, v2) = 1;
+        Matr_Adiacenza(v2, v1) = 1;
     }
-    if (end > max_nodo) {
-        cerr << "Nodo finale out of range" << endl;
-        return -1;
+
+    return Matr_Adiacenza;
+}
+
+ShortestPathResult findShortestPathDijkstra(
+    PolyhedralMesh& mesh,
+    const MatrixXi& Matr_Adiacenza,
+    const unsigned int nodo_i,
+    const unsigned int nodo_f ) {
+		
+	const unsigned int numVertici = mesh.M0D[0].size(); // Numero totale di vertici
+    const unsigned int numLatiMesh = mesh.M1D[0].size(); // Numero totale di lati nella mesh
+    
+    if (nodo_i >= numVertici) {
+        cerr << "Errore: il vertice di partenza (" << nodo_i << ") è fuori dal range [0, " << numVertici - 1 << "]." << endl;
+        // Restituisce un risultato vuoto per indicare un errore
+        return ShortestPathResult(0, 0.0);
     }
-        
+    if (nodo_f >= numVertici) {
+        cerr << "Errore: il vertice di arrivo (" << nodo_f << ") è fuori dal range [0, " << numVertici - 1 << "]." << endl;
+        // Restituisce un risultato vuoto per indicare un errore
+        return ShortestPathResult(0, 0.0);
+    }
 
-    while (!q.empty()) {
-        int nodo = q.front();
-        q.pop();
+	// Inizializza il risultato
+    ShortestPathResult result(0, 0.0);
 
-        for (int vicino : grafo[nodo]) {
-            if (!visited[vicino]) {
-                visited[vicino] = true;
-                distanza[vicino] = distanza[nodo] + 1;
-                q.push(vicino);
+    // Caso in cui partenza e arrivo sono uguali
+    if (nodo_i == nodo_f) {
+        cout << "Partenza e arrivo coincidono quindi il cammino è nullo." << endl;
+        mesh.M0DMarker.assign(numVertici, 0); 
+        mesh.M1DMarker.assign(numLatiMesh, 0);
+        mesh.M0DMarker[nodo_i] = 1; // Assegna il marker al vertice sulla mesh
+        return result;
+    }
 
-                if (vicino == end)
-                    return distanza[end];
+    // Mappa per collegare una coppia di vertici (tramite INDICI)
+    // all'ID del lato e alla sua lunghezza.
+    map<pair<unsigned int, unsigned int>, pair<unsigned int, double>> MappaLati;
+    
+	for (unsigned int i = 0; i < numLatiMesh; ++i) {
+        unsigned int v1 = mesh.M1D(i, 1);
+        unsigned int v2 = mesh.M1D(i, 2);
 
+        double lunghezza = calculateDistanceById(mesh, v1, v2);
+
+        // Memorizziamo l'informazione usando gli INDICI dei vertici, garantendo ordine per la chiave della mappa
+        MappaLati[{min(v1, v2), max(v1, v2)}] = {mesh.M1D[i][0], lunghezza};
+    }
+
+    // Variabili Dijkstra
+	
+    // dist[i] = distanza minima conosciuta dal vertice di partenza a i
+    vector<double> dist(numVertici, numeric_limits<double>::infinity());
+	
+    // predVertex[i] = indice del vertice precedente nel cammino minimo a i
+    vector<unsigned int> predVertex(numVertici, -1); // Usiamo -1 = nessun predecessore
+	
+    // predEdge[i] = ID del Cell1D usato per raggiungere i dal suo predecessore
+    vector<unsigned int> predEdge(numVertici, -1);
+
+    // visited[i] = true se il cammino più breve a 'i' è stato finalizzato
+    vector<bool> visitato(numVertici, false); 
+
+    // Coda di priorità: memorizza coppie {distanza, indice_vertice}
+    // std::greater per creare un min-heap (estrae l'elemento con la distanza minore)
+    using QueueElementi = pair<double, unsigned int>;
+    priority_queue<QueueElementi, vector<QueueElementi>, greater<>> pq;
+	
+	// priority_queue<QueueElem, vector<QueueElem>, greater<QueueElem>> pq;
+
+    // Imposta la distanza del vertice di partenza a 0 e aggiungilo alla coda
+    dist[nodo_i] = 0.0;
+    pq.push({0.0, nodo_i});
+
+    // algoritmo Dijkstra
+    while (!pq.empty()) {
+        // Estrai il vertice 'u' con la distanza minima corrente dalla coda
+		auto [current_distance, u] = pq.top(); // accedo all'elemento
+        pq.pop(); // rimuovo l'elemento
+
+        // Se il vertice è già stato visitato, abbiamo già trovato
+        // il cammino più breve per esso, quindi ignoriamo.
+        if (visitato[u]) {
+            continue;
+        }
+        visitato[u] = true; // Marca il vertice come visitato/finalizzato
+
+        // Se abbiamo raggiunto il vertice di arrivo, possiamo terminare l'algoritmo
+        if (u == nodo_f) {
+            break;
+        }
+
+        // Itera su tutti i possibili vicini 'v' di 'u' usando la matrice di adiacenza
+        for (unsigned int v = 0; v < numVertici; ++v) {
+            // Se c'è un lato tra u e v (adjMatrix(u, v) == 1)
+            if (Matr_Adiacenza(u, v) == 1) {
+                // Recupera le informazioni sul lato (ID reale e lunghezza)
+                auto it_edge = MappaLati.find({min(u, v), max(u, v)});
+                if (it_edge == MappaLati.end()) {
+                    cerr << "Attenzione: Lato tra indici (" << u << "," << v << ") presente in matrice di adiacenza ma non trovato in MappaLati.\n";
+                    continue;
+                }
+                double peso = it_edge->second.second; // Peso del lato = lunghezza euclidea
+
+                // Operazione di "rilassamento":
+                // Se la distanza calcolata a 'v' passando per 'u' è minore della distanza attuale di 'v'
+                if (dist[u] + peso < dist[v]) {
+                    dist[v] = dist[u] + peso; // Aggiorna la distanza minima per 'v'
+                    predVertex[v] = u;          // Imposta 'u' come predecessore di 'v'
+                    predEdge[v] = it_edge->second.first; // Memorizza l'ID reale del lato usato
+                    pq.push({dist[v], v});      // Inserisci 'v' nella coda di priorità con la nuova distanza
+                }
             }
         }
     }
+	
+    // Se la distanza al vertice di arrivo è ancora infinito, significa che non è stato trovato alcun cammino
+    if (dist[nodo_f] == numeric_limits<double>::infinity()) {
+        cout << "Non è possibile trovare un cammino tra il vertice " << nodo_i
+                  << " e il vertice " << nodo_f << endl;
+        mesh.M0DMarker.assign(numVertici, 0);
+        mesh.M1DMarker.assign(numLatiMesh, 0);
+		return result;
+    }
+	
+    // Ricostruiamo il cammino dal vertice di arrivo al vertice di partenza
+	
+	// Inizializzo i marker della mesh a 0
+    mesh.M0DMarker.assign(numVertici, 0); // Inizializza i marker a 0
+    mesh.M1DMarker.assign(numLatiMesh, 0);
+	
+	result.DistanzaTot = dist[nodo_f]; // distanza totale
 
-    return -1; // Non raggiungibile
+    unsigned int id_corrente = nodo_f; // Partiamo dall'indice del vertice di arrivo
+	
+	while (id_corrente != nodo_i) {
+        // Marca il vertice corrente come parte del cammino minimo
+        mesh.M0DMarker[id_corrente] = 1;
+
+        unsigned int prec_vert_id = predVertex[id_corrente]; // Indice del vertice precedente nel cammino
+        unsigned int lato_used_id = predEdge[id_corrente];  // ID del lato usato per raggiungere id_corrente
+
+        mesh.M1DMarker[lato_used_id] = 1;
+        result.numEdges++;
+        
+        current_idx = prec_vert_id; // Spostati al vertice precedente e continua la ricostruzione
+    }
+	
+    // Marca anche il vertice di partenza come parte del cammino
+    mesh.M0DMarker[nodo_i] = 1;	
+	
+	return result;
 }

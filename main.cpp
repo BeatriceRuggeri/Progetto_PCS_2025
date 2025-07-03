@@ -47,8 +47,8 @@ int main()
 	int Q;
 	int B;
 	int C;
-	int id_vertice1;
-	int id_vertice2;
+	int nodo_i;
+	int nodo_f;
 
     cout << "Inserisci un valore per P: ";
     cin >> P;
@@ -95,10 +95,10 @@ int main()
 <<<<<<< HEAD
 =======
 	/*
-	cout << "Inserisci l'id del vertice 1: ";
-    cin >> id_vertice1;
-	cout << "Inserisci l'id del vertice 2: ";
-    cin >> id_vertice2;
+	cout << "Inserisci l'id del vertice di partenza: ";
+    cin >> nodo_i;
+	cout << "Inserisci l'id del vertice di arrivo: ";
+    cin >> nodo_f;
 	
     int max_nodo = massimo_nodo(cubo);
 
