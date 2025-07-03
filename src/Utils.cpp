@@ -629,8 +629,8 @@ ShortestPathResult::ShortestPathResult(unsigned int nEdges, double len)
 // Calcolo la distanza euclidea tra due punti.
 double calculateDistanceById(const PolyhedralMesh& mesh, const unsigned int id1, const unsigned int id2) {
     
-    VectorXd A = mesh.M0D[0].size(id1);
-    VectorXd B = mesh.M0D[0].size(id2);
+    Vector3d A(mesh.M0D[id1][1], mesh.M0D[id1][2], mesh.M0D[id1][3]);
+    Vector3d B(mesh.M0D[id2][1], mesh.M0D[id2][2], mesh.M0D[id2][3]);
 	double Norma = (A - B).norm(); // Calcola la norma (distanza euclidea)
 
     return Norma; 
@@ -693,8 +693,8 @@ ShortestPathResult findShortestPathDijkstra(
     map<pair<unsigned int, unsigned int>, pair<unsigned int, double>> MappaLati;
     
 	for (unsigned int i = 0; i < numLatiMesh; ++i) {
-        unsigned int v1 = mesh.M1D(i, 1);
-        unsigned int v2 = mesh.M1D(i, 2);
+        unsigned int v1 = mesh.M1D[i][1];
+        unsigned int v2 = mesh.M1D[i][2];
 
         double lunghezza = calculateDistanceById(mesh, v1, v2);
 
@@ -798,7 +798,7 @@ ShortestPathResult findShortestPathDijkstra(
         mesh.M1DMarker[lato_used_id] = 1;
         result.numEdges++;
         
-        current_idx = prec_vert_id; // Spostati al vertice precedente e continua la ricostruzione
+        id_corrente = prec_vert_id; // Spostati al vertice precedente e continua la ricostruzione
     }
 	
     // Marca anche il vertice di partenza come parte del cammino
