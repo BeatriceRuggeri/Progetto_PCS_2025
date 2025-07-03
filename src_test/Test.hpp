@@ -31,7 +31,7 @@ namespace PolyhedralTests
 	
 	//p=3,q=3 tetrahedro
 	int q1 = 3;
-	vector<int> expected1 = {10, 24, 16};
+	vector<int> expected1 = {10, 24, 16}; //expected value
 	vector<int> output1 = VEF_Calc(q1, b, c);
 	EXPECT_EQ(expected1, output1);
 	
@@ -89,12 +89,12 @@ namespace PolyhedralTests
 //definiamo le mesh
 
 	PolyhedralMesh meshExpected;
-	PolyhedralMesh meshOutput; //quello che buta fuori l'algoritmo 
+	PolyhedralMesh meshOutput; //quello che carichiamo  dall'algoritmo 
 
 //******************* vertici expected *************************************** Compatibilità (?** vector vector?)
 	meshExpected.Cell0DsId = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-	meshExpected.Cell0DsCoordinates = MatrixXd::Zeros(3, 10);
+	meshExpected.Cell0DsCoordinates = MatrixXd::Zeros(3, 10); //questa l'abbiamo cambiata, prima non era inizzializata 
 	
 	//cioè i punti che vado a controllare (Punti medi di ogni lato che generiamo nella triangolazione)
 	meshExpected.Cell0DsCoordinates.col(0)  <<  0, 0, 0.57735;
@@ -212,42 +212,60 @@ namespace PolyhedralTests
 	
 	vector<int> dim = VEF_Calc(q, b, c);
 	vector<int> dim_duplicated = duplicates(q, b, c, dim);
-	triangulateAndStore(mesh, meshTriangolazione, b, c, dim_duplicates);
-	RemoveDuplicatedEdges(meshTriangolazione);
-	RemoveDuplicatedVertices(meshTriangolazione);
-	NewMesh(meshTriangolazione, meshOutput, dim);
-    PopulateCell3D(meshOutput);
+	
+	
+	
+//QUESTO È DA ASSOLUTAMENTE CAMBIARE
+
+
+/*
+
+funzionepietro(mesh,meshTriangolazione,b,c,dim_duplicates); in mesh suddivide e triangola, salva in mesh triangolazione
+pulire_edges
+pulire_vertici
+NuovaMesh(meshTriangolazione,MeshOutput,dim);
+
+
+
+*/
+
+	triangulateAndStore(mesh, meshTriangolazione, b, c, dim_duplicates); //Chiamo la funzione di triangolazione e utilizzo i q,b,c come input)
+	RemoveDuplicatedEdges(meshTriangolazione); //pulisce duplicates
+	RemoveDuplicatedVertices(meshTriangolazione); //pulisce vertici
+	NewMesh(meshTriangolazione, meshOutput, dim); //creo nuova mesh da meshTriangolazione in meshOuput
+    PopulateCell3D(meshOutput); //add geometric elements (points, faces, sides etc to a mesh or volume)-> once populated we can test it
  
  
  //******************* paragoniamo expected e output calcolato *************************************
  
 //ID vert
-    EXPECT_EQ(meshExpected.Cell0DsId, meshOutput.Cell0DsId);
+    EXPECT_EQ(meshExpected.Cell0DsId, meshOutput.Cell0DsId); //ID matching test
 
 //Coordinate vertici
-    EXPECT_TRUE(meshExpected.Cell0DsCoordinates.isApprox(meshOutput.Cell0DsCoordinates, 1e-6));
+    EXPECT_TRUE(meshExpected.Cell0DsCoordinates.isApprox(meshOutput.Cell0DsCoordinates, 1e-6)); //compares 3D position of vertices, floating point math is never exact so we use this
 
 //ID spigoli
-    EXPECT_EQ(meshExpected.Cell1DsId, meshOutput.Cell1DsId);
+    EXPECT_EQ(meshExpected.Cell1DsId, meshOutput.Cell1DsId); //checks ID are the same
 
 //Extrema spigoli
-    EXPECT_TRUE(meshExpected.Cell1DsExtrema == meshOutput.Cell1DsExtrema);
+    EXPECT_TRUE(meshExpected.Cell1DsExtrema == meshOutput.Cell1DsExtrema); //Cell1DsExtrema : 2xN matrix storing start and end of vertices for each edge
 
-//Flag spigoli
-    EXPECT_EQ(meshExpected.Cell1DsFlag, meshOutput.Cell1DsFlag);
+//Vogliamo tenere questa?
+    EXPECT_EQ(meshExpected.Cell1DsFlag, meshOutput.Cell1DsFlag); //comparing metadata flags: boundary markers and special attributes
 
 //ID facce
-    EXPECT_EQ(meshExpected.Cell2DsId, meshOutput.Cell2DsId);
+    EXPECT_EQ(meshExpected.Cell2DsId, meshOutput.Cell2DsId); //face IDs must match exactly
 
-//vertici faccie
-    ASSERT_EQ(meshExpected.Cell2DsVertices.size(), meshOutput.Cell2DsVertices.size());
-    for (size_t i = 0; i < meshExpected.Cell2DsVertices.size(); ++i) {
-        EXPECT_EQ(meshExpected.Cell2DsVertices[i], meshOutput.Cell2DsVertices[i]) << "Mismatch! Cell2DsVertices at face: " << i;
+//vertici faccie, we're assertng if our statements are equal or not, stops code if assertion fails, expect generates a non fatal failure.
+
+    ASSERT_EQ(meshExpected.Cell2DsVertices.size(), meshOutput.Cell2DsVertices.size()); //same number of faces
+    for (size_t i = 0; i < meshExpected.Cell2DsVertices.size(); ++i) { //now check that list of vertex indices matches for each face
+        EXPECT_EQ(meshExpected.Cell2DsVertices[i], meshOutput.Cell2DsVertices[i]) << "Mismatch! Cell2DsVertices at face: " << i; //if any doesn't match then we get this message
     }
 
 //spigoli faccie
-    ASSERT_EQ(meshExpected.Cell2DsEdges.size(), meshOutput.Cell2DsEdges.size());
-    for (size_t i = 0; i < meshExpected.Cell2DsEdges.size(); ++i) {
+    ASSERT_EQ(meshExpected.Cell2DsEdges.size(), meshOutput.Cell2DsEdges.size()); //same amount
+    for (size_t i = 0; i < meshExpected.Cell2DsEdges.size(); ++i) { //scorre e controlla edges, bounds the face to be identical
         EXPECT_EQ(meshExpected.Cell2DsEdges[i], meshOutput.Cell2DsEdges[i]) << "Mismatch! Cell2DsEdges at face: " << i;
     }
 
@@ -258,6 +276,7 @@ namespace PolyhedralTests
     EXPECT_EQ(meshExpected.Cell3DsFaces, meshOutput.Cell3DsFaces);
    } 
  
+ //Quindi abbiamo controllato ID, connetività e approssimiamo coordinate, etc etc.
  
  
  }
@@ -270,45 +289,77 @@ namespace PolyhedralTests
     { 
 	PolyhedralMesh meshTriangolazione;
 	PolyhedralMesh mesh;
-	generateTetrahedron(mesh); //!!!!!!
+	
+	//Quindi qua carichiamo la mesh con le funzioni dell'algo
+	
+	//funzione_Tetra(mesh), generate the tetrahedron and save it into mesh
+	
+	generateTetrahedron(mesh); 
+	
+	//define topological values
 	
 	int b = 2;
 	int q = 3;
 	int c = 0; 
-	unsigned int maxFlag = numeric_limits<unsigned int>::max();
+	unsigned int maxFlag = numeric_limits<unsigned int>::max(); //to detect missing edges
+	
+	//calculate VEF values and how many duplicates to expect
 	
 	vector<int> dim=VEF_Calc(q, b, c);
-	vector<int> dim_duplicates = duplicates(q, b, c, dim);
+	vector<int> dim_duplicates = duplicates(q, b, c, dim); //maybe we don't need duplicates?
+	
+	//qua di nuovo abbiamo bisogno delle funzioni rispettive di triangolazione, che utilizziamo i dati controllati, generiamo, pulliamo a salviamo
+	
 	triangulateAndStore(mesh, meshTriangolazione, b, c, dim_duplicates);
 	RemoveDuplicatedVertices(meshTriangolazione);
 	RemoveDuplicatedEdges(meshTriangolazione);
 	//Vertice E faccia == origine arco 
 
-    //ciclo faccie mesh triangolazione
+    //ciclo faccie mesh triangolazione, per controllare la consistenza geometrica: vertices.size()==edges.size()
+     
     for (size_t f = 0; f < meshTriangolazione.Cell2DsId.size(); ++f) {
 		const auto& edges = meshTriangolazione.Cell2DsEdges[f]; //lista dei lati di una faccia
         const auto& vertices = meshTriangolazione.Cell2DsVertices[f]; //lista dei vertici di una faccia 
-        size_t E = edges.size(); // numero di vertici della faccia
+        size_t E = edges.size(); // numero di vertici della faccia dopo scorrere
         
 		
-		ASSERT_EQ(vertices.size(), E) << "error: amount of vertices and sides don't coincide per face" << f;
+		ASSERT_EQ(vertices.size(), E) << "error: amount of vertices and sides don't coincide per face" << f; //which is a fatal assertion because it is an important consistency and avoid downstream bugs
 		
-		// itero su ogni lato e della faccia 
+//Edge Loop Consistency Check
+
 		 for (size_t e = 0; e < E; ++e) {
+//Here we've used the formulas indicated by the pdf file
+
+
+/*
+
+e = 0 → (0 + 1) % 4 = 1
+e = 1 → 2 % 4 = 2
+e = 2 → 3 % 4 = 3
+e = 3 → 4 % 4 = 0  
+//e qua torniamo, quindi scorriamo edges[1], edges[2], ... e torniamo a edges[0]
+
+*/
+
 			unsigned int currentEdge = edges[e]; // lato corrente
             unsigned int nextEdge = edges[(e + 1) % E]; // lato successivo 
+            //this way we never exceed the range from 0 to E-1, % remainder/integer division
             
-            unsigned int currentEdgeOrigin = maxFlag;
+            //defensive initialization, each edge connects two vertices, edge: 42 connects v 10 and 12
+            //da sopra: unsigned int maxFlag = numeric_limits<unsigned int>::max();
+            //che mi fa: 4294967295   (if unsigned int is 32 bits) il massimo valore rappresentabile
+
+            unsigned int currentEdgeOrigin = maxFlag; // COSÌ È CHIARAMENTE INVALIDA (non abbiamo ancora trovato i nostri endpoint)
 			unsigned int currentEdgeEnd = maxFlag;
 			unsigned int nextEdgeOrigin = maxFlag;
 			unsigned int nextEdgeEnd = maxFlag;
             
-            bool foundCurrent = false;
+            bool foundCurrent = false; //utilizziamo questo bool e scorriamo
             for (unsigned int i = 0; i < meshTriangolazione.Cell1DsId.size(); i++) {
-                if (currentEdge == meshTriangolazione.Cell1DsId[i]) {
-                    currentEdgeOrigin = meshTriangolazione.Cell1DsExtrema(i, 0);
+                if (currentEdge == meshTriangolazione.Cell1DsId[i]) {// we find
+                    currentEdgeOrigin = meshTriangolazione.Cell1DsExtrema(i, 0); //we replace
                     currentEdgeEnd = meshTriangolazione.Cell1DsExtrema(i, 1);
-                    foundCurrent = true;
+                    foundCurrent = true; //change the flag
                     break; 
                 }
             }
@@ -316,6 +367,7 @@ namespace PolyhedralTests
             ASSERT_TRUE(foundCurrent) << "Master Edge ID " << currentEdge << " not found in Cell1DsId!";
 
             // trovo gli estremi per nextEdgeMasterId
+            
             bool foundNext = false;
             for (unsigned int i = 0; i < meshTriangolazione.Cell1DsId.size(); i++) {
                 if (nextEdge == meshTriangolazione.Cell1DsId[i]) {
@@ -352,12 +404,12 @@ namespace PolyhedralTests
 
     TEST(Polyhedral_Test, Test_Area)
     {
-	double eps = numeric_limits<double>::epsilon();
+	double eps = numeric_limits<double>::epsilon(); //smallest representable positive difference in double precision (aprox 2.26e-16)
 
 	// mesh dalla triangolazione 
-	PolyhedralMesh meshTriangolazione;
+	PolyhedralMesh meshTriangolazione; //generiamo mesh
 	PolyhedralMesh mesh;
-	generateTetrahedron(mesh); // !!!!!!!!!!!!
+	generateTetrahedron(mesh); // !!!!!!!!!!!! generiamo il nostro tetrahedro dentro mesh
 	
 	int q = 3;
 	int b = 2;
@@ -365,6 +417,9 @@ namespace PolyhedralTests
 	
 	vector<int> dim=VEF_Calc(q, b, c);
 	vector<int> dim_duplicates = duplicates(q, b, c, dim);
+	
+	//our usual process to be defined
+	
 	triangulateAndStore(mesh, meshTriangolazione, b, c, dim_duplicates);
 	RemoveDuplicatedEdges(meshTriangolazione);
 	RemoveDuplicatedVertices(meshTriangolazione);
@@ -372,18 +427,32 @@ namespace PolyhedralTests
 	//ciclo triangoli
 	for (size_t i = 0; i < meshTriangolazione.Cell2DsVertices.size(); ++i) {
 		const auto& tri = meshTriangolazione.Cell2DsVertices[i];
-		ASSERT_EQ(tri.size(), 3); //controllo vertici
+		ASSERT_EQ(tri.size(), 3); //controllo quantità vertici, cioè controllando se ha 3 vertici controllo che sia un triangolo effettivamente 
 		
 		// accedo alle coordinate dei vertici
-		Vector3d A = meshTriangolazione.Cell0DsCoordinates.col(tri[0]); 
+		
+		/*
+		
+		A = [x0,y0,z0]
+        B = [x1,y1,z1]
+        C = [x2,y2,z2]
+
+		*/
+		
+		Vector3d A = meshTriangolazione.Cell0DsCoordinates.col(tri[0]); //three coord vector: A=[x0,y0,z0];
         Vector3d B = meshTriangolazione.Cell0DsCoordinates.col(tri[1]);
         Vector3d C = meshTriangolazione.Cell0DsCoordinates.col(tri[2]);
 		
-	//area calc
+	//area calc, speriamo che sia maggiore di una tolleranza
 		double area = 0.5 * ((B - A).cross(C - A)).norm(); //vector product
 		EXPECT_GT(area, eps) << "Error: Null area (sotto tolleranza)" << i;
 	  }	
     }
+// se non funziona, output di Google Test:
+//Error: Null area (sotto tolleranza) i=17, così veddiamo precisamente quale triangolo non è valido
+
+    
+//così avviamo compiutato l'area senza assumere che siano piani
 
 
 //************** test lati non nulli *********************
@@ -392,7 +461,7 @@ namespace PolyhedralTests
     {
 	double eps = numeric_limits<double>::epsilon();
 
-	// mesh ottenuta utilizzando la funzione di triangolazione
+	// usual procedure, create two meshes and generate in mesh our tetrahedron
 	PolyhedralMesh meshTriangolazione;
 	PolyhedralMesh mesh;
 	generateTetrahedron(mesh); // !!!!!!!!!!!
@@ -401,24 +470,31 @@ namespace PolyhedralTests
 	int b = 2;
 	int c = 0;
 	
+	//calculate topological values
 	vector<int> dim=VEF_Calc(q, b, c);
 	vector<int> dim_duplicates = duplicates(q, b, c, dim);
+	
+	//the thing to really replace
+	
 	triangulateAndStore(mesh, meshTriangolazione, b, c, dim_duplicates);
 	RemoveDuplicatedEdges(meshTriangolazione);
 	RemoveDuplicatedVertices(meshTriangolazione);
 	
-	//iterazione lati mesh triangolazione 
+	//iterazione lati mesh triangolazione
+	 
 	for (unsigned int i = 0; i < meshTriangolazione.Cell1DsExtrema.rows(); ++i) {
 		// prendo gli indici dei due vertici che definisco il lato i
 		int vec_start = meshTriangolazione.Cell1DsExtrema(i, 0); // indice del vertice di partenza 
         int vec_end = meshTriangolazione.Cell1DsExtrema(i, 1); // indice del vertice di arrivo
 		
-		// prendo le coordinate dei due vertici
+		// le prendo
 		Vector3d start_point = meshTriangolazione.Cell0DsCoordinates.col(vec_start);
         Vector3d end_point = meshTriangolazione.Cell0DsCoordinates.col(vec_end);
 		
 		// calcolo la norma della lunghezza del lato
-		double length = (end_point - start_point).norm();
+		double length = (end_point - start_point).norm(); //euclidian length
+		
+		//controllo con google test
 		
 		EXPECT_GT(length, eps) << "error: null length (under tolerance)" << i;
 		
@@ -434,7 +510,7 @@ TEST(Polyhedral_Test, Test_Lati_Duale){
 	double eps = numeric_limits<double>::epsilon();
 	PolyhedralMesh meshDual;
 	PolyhedralMesh mesh;
-	generateTetrahedron(mesh); // !!!!!!!
+	generateTetrahedron(mesh); // Prendiamo nuovamente il tetrahedro e lo mettiamo in mesh, per poi fare la mesh dual e salvarlo in meshDual
 	
 	int q = 3;
 	int b = 2;
@@ -445,10 +521,11 @@ TEST(Polyhedral_Test, Test_Lati_Duale){
 	
 	//iterazione su lati triangolate
 	for (unsigned int i = 0; i < meshDual.Cell1DsExtrema.rows(); ++i) {
-		int vec_start = meshDual.Cell1DsExtrema(i, 0); // indice del vertice di partenza 
+		//dove prendiamo colonna 0 e 1 per ogni i-esima riga
+		int vec_start = meshDual.Cell1DsExtrema(i, 0); // indice del vertice di partenza
         int vec_end = meshDual.Cell1DsExtrema(i, 1); // indice del vertice di arrivo
 		
-		// prendo le coordinate dei due vertici
+		// le metto in questo vector
 		Vector3d start_point = meshDual.Cell0DsCoordinates.col(vec_start);
         Vector3d end_point = meshDual.Cell0DsCoordinates.col(vec_end);
 		
@@ -469,7 +546,11 @@ TEST(Polyhedral_Test, Test_Lati_Tri_Due){
 	PolyhedralMesh meshTriangolazione;
 	PolyhedralMesh mesh;
 	
+	//Dual of a tetrahedron is also a tetrahedron though guys (it is a self dual quantity) 
+	
 	generateTetrahedron(mesh); //!!!!!!!
+	
+	//quindi se coincidono allora va bene l'algoritmo, e il test anche.
 	
 	int q = 3;
 	int b = 2;
@@ -490,11 +571,14 @@ TEST(Polyhedral_Test, Test_Lati_Tri_Due){
 		// calcolo la norma della lunghezza del lato
 		double length = (end_point - start_point).norm();
 		
+		
+		//controlliamo che sia non degerene
 		EXPECT_GT(length, eps) << "error: side with null length (under tolerance)" << i;
 		
 	}
 }
 
+//this way we have no collapsed edges in our mesh
 
 
 //**** test triangolazione due area non nulla
@@ -503,30 +587,53 @@ TEST(Polyhedral_Test, Test_Area_Tri_Due)
 {
 	double eps = numeric_limits<double>::epsilon();
 
-	PolyhedralMesh mesh;
-	generateTetrahedron(mesh);
+	PolyhedralMesh mesh; //define mesh
+	generateTetrahedron(mesh); //generate tetrahedron inside the mesh
 	
-	PolyhedralMesh meshTriangolazione;
-	PolyhedralMesh meshOutput;
-	PolyhedralMesh meshTriangolazione_Due;
+	PolyhedralMesh meshTriangolazione; //define a couple more meshes (intermediate meshes)
+	PolyhedralMesh meshOutput; //our final mesh
+	PolyhedralMesh meshTriangolazione_Due; //second triangolation mesh
 	
 	int q = 3;
 	int b = 2;
 	
+	//calculate topologies
+	
 	vector<int> dim= VEF_Calc(q, b, 0);
 	vector<int> dim_duplicates = duplicates(q, b, 0, dim);
 	
-	//************************* !!!!!!!!!!
+	//************************* !!!!!!!!!! our triangulation pipeline
 	triangulateAndStore(mesh, meshTriangolazione, b, 0,  dim_duplicates);
 	RemoveDuplicatedVertices(meshTriangolazione;
 	RemoveDuplicatedEdges(meshTriangolazione);
 	NewMesh(meshTriangolazione, meshOutput, dim);
 	
-	//************************ !!!!!!!!!
+	//************************ !!!!!!!!! va assolutamente cambiata questa parte
 	
-	vector<int> dim2 = CalculateDimension2(b, q);
-	map<pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap = buildEdgeToFacesMap(meshOutput);
-	triangulateAndStore2(meshOutput, meshTriangolazione, dim2, edgeToFacesMap);
+	vector<int> dim2 = CalculateDimension2(b, q); //we get the expected count of elements in our second triangulation
+	
+	
+	/*
+	
+	#include <map>
+#include <string>
+
+std::map<std::string, int> ages;
+ages["Alice"] = 30;
+ages["Bob"] = 25;
+
+if (ages.find("Alice") != ages.end()) {
+    int a = ages["Alice"]; // = 30
+}
+
+	
+	*/
+	
+	//std::map<Key, Value> so each key is unique to one value (balanced binary tree)
+	map<pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap = buildEdgeToFacesMap(meshOutput); //look up table mapping the edges to the faces they belong to.
+	//edge (2,5) => [face 10, face 22] basically
+
+	triangulateAndStore2(meshOutput, meshTriangolazione, dim2, edgeToFacesMap); //our other function
 	
 	// ciclo su tutti i triangoli
 	for (size_t i = 0; i < meshTriangolazione_Due.Cell2DsVertices.size(); ++i) {
@@ -548,13 +655,21 @@ TEST(Polyhedral_Test, Test_Area_Tri_Due)
 
 //********* test duale, da rifare pratticamente
 
+/*we will control that:
+
+-topology is correct
+-dual vertices are the baricenters of faces
+-edges are correctly connected to adjacent faces
+-Faces are consistently oriented
+
+*/
+
 TEST(Polyhedral_Test, Test_Duale){
-	
+	//Data una mesh triangolata di un tetraedro, costruisco la sua mesh polyhedral duale e controllo topologia, baricentri, lati, orientazione faccie
 	// mesh ottenuta utilizzando la funzione di triangolazioneMore actions
 	PolyhedralMesh meshTriangulated;
-
 	PolyhedralMesh mesh;
-	PolyhedralMesh meshFinal;
+	PolyhedralMesh meshFinal; //i.e: mesh output prima
 	PolyhedralMesh meshDual;
 	generateTetrahedron(mesh);
 	
@@ -564,27 +679,34 @@ TEST(Polyhedral_Test, Test_Duale){
 	
 	vector<int> dimension = ComputePolyhedronVEF(q, b, c);
 	vector<int> dimensionDuplicated = CalculateDuplicated(q, b, c, dimension);
+	
+	
 	triangulateAndStore(mesh, meshTriangulated, b, c, dimensionDuplicated);
 	RemoveDuplicatedEdges(meshTriangulated);
 	RemoveDuplicatedVertices(meshTriangulated);
-	NewMesh(meshTriangulated, meshFinal, dimension);
-	map <pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap = buildEdgeToFacesMap(meshFinal);
+	NewMesh(meshTriangulated, meshFinal, dimension);//so then we put it in mesh final
+	//now we use a map to pair a key 
+	map <pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap = buildEdgeToFacesMap(meshFinal); //so for every edge v0,v1 we will record which face shares it
 	
 	CalculateDual(meshFinal, meshDual, edgeToFacesMap);
 	
+	//define tolerances, which we will use for floating point comparisons
 	double eps = numeric_limits<double>::epsilon();
 	unsigned int maxFlag = numeric_limits<unsigned int>::max();
-
+	
+	
+//these will be our expected counts
 	size_t expectedVerticesDual   = meshFinal.Cell2DsId.size(); // 16 facce triangolate → 16 vertici nel duale
     size_t expectedEdgesDual      = meshFinal.Cell1DsId.size(); // Calcolato dinamicamente, può essere 24 per subdivisionLevel=2
    
     // numero di vertici (id)
 	// numero di lati(id)
    
+   //so now we check our counts:
     EXPECT_EQ(meshDual.Cell0DsId.size(), expectedVerticesDual);
     EXPECT_EQ(meshDual.Cell1DsId.size(), expectedEdgesDual);
 	
-	// ogni vertice del poliedro originale genera una faccia nel duale
+	// ogni vertice del poliedro originale genera una faccia nel duale, i.e face cardinality
 	EXPECT_GE(meshDual.Cell2DsId.size(), 4);  // Minimo 4 se è un tetraedro chiuso
 	
 	// verifico se ogni faccia duale ha almento 3 vertici
@@ -592,10 +714,10 @@ TEST(Polyhedral_Test, Test_Duale){
     	EXPECT_GE(dualFace.size(), 3);
     }
 	
-	// controllo che uno spigolo non connetta un vertice a se stesso
+	// we gotta check that they don't connect to itself:
 	for (int i = 0; i < meshDual.Cell1DsExtrema.rows(); ++i) {
-		int a = meshDual.Cell1DsExtrema(i, 0);
-		int b = meshDual.Cell1DsExtrema(i, 1);
+		int a = meshDual.Cell1DsExtrema(i, 0); //prendo uno
+		int b = meshDual.Cell1DsExtrema(i, 1); //prendo l'altro
 		EXPECT_NE(a, b); // Mi verifica che a e b siano diversi 
     }
 	
@@ -627,12 +749,12 @@ TEST(Polyhedral_Test, Test_Duale){
         double Y = meshDual.Cell0DsCoordinates(1, faceId);
         double Z = meshDual.Cell0DsCoordinates(2, faceId);
 
-        EXPECT_NEAR(baryX, X, eps);
+        EXPECT_NEAR(baryX, X, eps); //e finalmente paragoniamo ragaa
         EXPECT_NEAR(baryY, Y, eps);
         EXPECT_NEAR(baryZ, Z, eps);
     }
 
-    // verifico che i lati siano costruiti nel modo corretto ---> devono connettere i baricentri
+    // verifico che i lati siano costruiti nel modo corretto ---> devono connettere i baricentri adjacent to each other
 	for (int i = 0; i < meshDual.Cell1DsExtrema.rows(); ++i) {
 		Vector2i edge = meshDual.Cell1DsExtrema.row(i);
 		// id delle facce del poliedro originale (vertici duali sono baricentri di facce originali)
@@ -652,19 +774,20 @@ TEST(Polyhedral_Test, Test_Duale){
     EXPECT_TRUE(foundCommonEdge);
 	}
 	
-	// verifico che i lati e le facce siano ordinate correttamente 
-	
+	// verifico che i lati e le facce siano ordinate correttamente (Consistency check)
+	//Tutti lati connessi consecutivamente, topologicamente validi
+	 
 	for (size_t f = 0; f < meshDual.Cell2DsId.size(); ++f) {
 		const auto& edges = meshDual.Cell2DsEdges[f]; // lista dei lati di una faccia
         const auto& vertices = meshDual.Cell2DsVertices[f]; // lista dei vertici di una faccia 
         size_t E = edges.size(); // numero di vertici dela faccia
-       
+//We can't assume the edge is stored with their vertex, we have to find it and confirm it exists, ensure the loop is closed by checking that consecutive edges share a vertex and check that the face vertex list is CONSISTENT with edge connnectivity
 		// itero su ogni lato e della faccia 
 		 for (size_t e = 0; e < E; ++e) {
 			unsigned int currentEdge = edges[e]; // lato corrente
             unsigned int nextEdge = edges[(e + 1) % E]; // lato successivo 
             
-            unsigned int currentEdgeOrigin = maxFlag;
+            unsigned int currentEdgeOrigin = maxFlag; //similar procedure that we did above
 			unsigned int currentEdgeEnd = maxFlag;
 			unsigned int nextEdgeOrigin = maxFlag;
 			unsigned int nextEdgeEnd = maxFlag;
