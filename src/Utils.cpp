@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <cmath>
+<<<<<<< HEAD
 #include <queue>
 #include <vector>   
 #include <map>                
@@ -16,12 +17,150 @@
 
 
 using namespace std;
+=======
+>>>>>>> 40fe52492423d4ba7a08a5c512d1ff0295f9f029
 
 using namespace std;
 using namespace Eigen;
+
+
+void gen_tetraedro(PolyhedralMesh& mesh){
+    mesh.M0D = {
+			{0, 1.0 / sqrt(3.0), 1.0 / sqrt(3.0), 1.0 / sqrt(3.0)}, 
+			{1, 1.0 / sqrt(3.0), -1.0 / sqrt(3.0), -1.0 / sqrt(3.0)}, 
+			{2, -1.0 / sqrt(3.0), 1.0 / sqrt(3.0), -1.0 / sqrt(3.0)}, 
+			{3, -1.0 / sqrt(3.0), -1.0 / sqrt(3.0), 1.0 / sqrt(3.0)} 
+		};
+    mesh.M1D = {
+			{0, 0, 1}, 
+			{1, 0, 2}, 
+			{2, 0, 3}, 
+			{3, 1, 2}, 
+			{4, 1, 3}, 
+			{5, 2, 3} 
+		};
+    mesh.M2D = {
+			{0, 0, 2, 1, 1, 3, 0}, 
+			{1, 0, 1, 3, 0, 4, 2}, 
+			{2, 0, 3, 2, 2, 1, 5}, 
+			{3, 1, 2, 3, 5, 3, 4} 
+		};
+    return;
+}
+
+void gen_ottaedro(PolyhedralMesh& mesh){
+    mesh.M0D = {
+			{0, 1.0, 0.0, 0.0}, 
+			{1, -1.0, 0.0, 0.0}, 
+			{2, 0.0, 1.0, 0.0},
+			{3, 0.0, -1.0, 0.0},
+			{4, 0.0, 0.0, 1.0}, 
+			{5, 0.0, 0.0, -1.0} 
+		};
+    mesh.M1D = {
+			{0, 0, 2}, 
+			{1, 0, 3}, 
+			{2, 0, 4}, 
+			{3, 0, 5}, 
+			{4, 1, 2}, 
+			{5, 1, 3},
+			{6, 1, 4}, 
+			{7, 1, 5}, 
+			{8, 2, 4}, 
+			{9, 2, 5}, 
+			{10, 3, 4}, 
+			{11, 3, 5} 
+		};
+    mesh.M2D = {
+			{0, 0, 2, 4, 0, 8, 2}, 
+			{1, 0, 3, 4, 2, 1, 10},  
+			{2, 1, 3, 4, 10, 5, 6}, 
+			{3, 1, 2, 4, 6, 8, 4}, 
+			{4, 1, 2, 5, 4, 7, 9}, 
+			{5, 2, 0, 5, 9, 0, 3}, 
+			{6, 0, 3, 5, 3, 1, 11}, 
+			{7, 3, 1, 5, 11, 5, 7} 
+		};
+	return;	
+}
+
+void gen_icosaedro(PolyhedralMesh& mesh){
+    mesh.M0D =  {
+			{0, 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}, 
+			{1, 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}, 
+			{2, 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))}, 
+			{3, 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))}, 
+			{4, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), 0.0}, 
+			{5, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), 0.0}, 
+			{6, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), 0.0}, 
+			{7, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), 0.0}, 
+			{8, (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}, 
+			{9, (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))},
+			{10, -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}, 
+			{11, -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))} 
+		};
+    mesh.M1D = {
+			{0, 0, 1},  
+			{1, 0, 4},  
+			{2, 0, 6}, 
+			{3, 0, 8},  
+			{4, 0, 10},  
+			{5, 1, 5}, 
+			{6, 1, 8},  
+			{7, 1, 7}, 
+			{8, 1, 10}, 
+			{9, 2, 3}, 
+			{10, 2, 4}, 
+			{11, 2, 6}, 
+			{12, 2, 9}, 
+			{13, 2, 11}, 
+			{14, 3, 5}, 
+			{15, 3, 7}, 
+			{16, 3, 9}, 
+			{17, 3, 11},
+			{18, 4, 6}, 
+			{19, 4, 8}, 
+			{20, 4, 9}, 
+			{21, 5, 7}, 
+			{22, 5, 8}, 
+			{23, 5, 9}, 
+			{24, 6, 10}, 
+			{25, 6, 11}, 
+			{26, 7, 10}, 
+			{27, 7, 11}, 
+			{28, 8, 9}, 
+			{29, 10, 11} 
+		};
+    mesh.M2D = {
+			{0, 0, 1, 8, 3, 6, 0},               
+			{1, 0, 1, 10, 0, 8, 4}, 
+			{2, 0, 6, 10, 4, 26, 2}, 
+			{3, 0, 4, 6, 2, 19, 1}, 
+			{4, 0, 4, 8, 1, 3, 19}, 
+			{5, 4, 8, 9, 19, 20, 28}, 
+			{6, 5, 8, 9, 28, 23, 22},
+			{7, 1, 5, 8, 23, 6, 5}, 
+			{8, 1, 5, 7, 5, 21, 7},  
+			{9, 1, 7, 10, 7, 8, 26}, 
+			{10, 7, 10, 11, 26, 27, 29},  
+			{11, 6, 10, 11, 29, 24, 25}, 
+			{12, 2, 6, 11, 25, 13, 11},  
+			{13, 2, 4, 6, 11, 18, 10}, 	
+			{14, 2, 4, 9, 10, 20, 12}, 
+			{15, 2, 3, 9, 12, 9, 16}, 
+			{16, 3, 5, 9, 16, 23, 14}, 
+			{17, 3, 5, 7, 14, 21, 15}, 
+			{18, 3, 7, 11, 15, 27, 17}, 
+			{19, 2, 3, 11, 17, 13, 9} 
+		};
+    return;
+}
+
+
+
 vector<vector<double>> base_spigoli;
 vector<vector<double>> base_vertici;
-    int new_id_v = VP.size()+1
+    int new_id_v = mesh.M0D.size() + 1;
     int new_id_s = 1;
     int new_id_f = 1;
 
@@ -182,43 +321,16 @@ void mesh1(int new_id_v, int new_id_s, int new_id_f, vector<vector<double>> SP, 
 
 
 
-int CheckAddVertices(PolyhedralMesh& poly, const Vector3d& vertex, int& id_vert){
-	
-	for (unsigned int i = 0; i < poly.Cell0DsId.size(); i++){
-		
-		if((poly.Cell0DsCoordinates.col(i) - vertex).norm() < 1e-12){
-			return i;
-		}
-	}
-	id_vert++;
-	poly.Cell0DsId.push_back(id_vert);
-	poly.Cell0DsCoordinates.col(id_vert) = vertex; 
-	poly.ShortPathCell0Ds[0].push_back(id_vert);
-	
-	return id_vert;
-}
 
+vector<vector<double>> vertici_originali = mesh.M0D; //vertici
+vector<vector<double>> spigoli_originali = mesh.M1D;
+vector<vector<double>> facce_originali = mesh.M2D; //facce
 
-int CheckAddEdges(PolyhedralMesh& poly, const Vector2i& edge, int& id_edge){
-	int w0 = edge[0]; 
-	int w1 = edge[1]; 
-	
-	for (unsigned int i = 0; i < poly.Cell1DsId.size(); i++){
-		int u0 = poly.Cell1DsExtrema(0,i);
-		int u1 = poly.Cell1DsExtrema(1,i);
-		
-		if((w0 == u0 && w1 == u1)||(w0 == u1 && w1 == u0)){
-			return i;//id del lato che verrebbe duplicato
-		}
-	}
-	id_edge++;
-	poly.Cell1DsId.push_back(id_edge);
-	poly.Cell1DsExtrema.col(id_edge) = edge;
-	poly.ShortPathCell1Ds[0].push_back(id_edge);
-	
-	return id_edge;	
-}
+vector<vector<double>> tabella_confinamenti; //tab_conf
+vector<vector<double>> vertici_duale; //v_duale
+vector<vector<double>> spigoli_duale; //s_duale
 
+<<<<<<< HEAD
 
 
 
@@ -693,4 +805,213 @@ ShortestPathResult findShortestPathDijkstra(
     mesh.M0DMarker[nodo_i] = 1;	
 	
 	return result;
+=======
+void costruttore_tabella_confinamenti_3(vector<vector<double>>& F, vector<vector<double>>& T) {
+    for (size_t i = 0; i < F.size(); ++i){
+        T[i][0] = F[i][0]
+        int primo_spigolo = F[i][4];
+        int secondo_spigolo = F[i][5];
+        int terzo_spigolo = F[i][6];
+        int h = 1;
+        for(const auto& j : F){
+            if (F[j][4] == primo_spigolo || F[j][5] == primo_spigolo || F[j][6] == primo_spigolo ||
+                F[j][4] == secondo_spigolo || F[j][5] == secondo_spigolo || F[j][6] == secondo_spigolo ||
+                F[j][4] == terzo_spigolo || F[j][5] == terzo_spigolo || F[j][6] == terzo_spigolo) {
+                    T[i][h] = F[j][0];
+                    h++;
+                }
+        }
+    }
+    return;
+}
+
+void baricentro_3(vector<vector<double>>& V, vector<vector<double>>& F, vector<vector<double>>& VD){
+    for (size_t i = 0; i < F.size(); ++i){
+        int v1 = F[i][1]; //vertice 1
+        int v2 = F[i][2]; //vertice 2
+        int v3 = F[i][3]; //vertice 3                                           
+        VD[i][0] = i + 1; //id vertici per il duale
+        VD[i][1] = (V[v1 + 1][1] + V[v2 + 1][1] + V[v3 + 1][1])/3;
+        VD[i][2] = (V[v1 + 1][2] + V[v2 + 1][2] + V[v3 + 1][2])/3;
+        VD[i][3] = (V[v1 + 1][3] + V[v2 + 1][3] + V[v3 + 1][3])/3;
+        VD[i][4] = F[i][0]; //a che faccia appartiene il baricentro
+    }
+    return;
+}
+
+void costruttore_duale_3(vector<vector<double>>& tab_conf, vector<vector<double>>& vertici, vector<vector<double>>& facce, vector<vector<double>>& v_duale, vector<vector<double>> s_duale){
+    costruttore_tabella_confinamenti_3(facce, tab_conf);
+    baricentro_3(vertici, facce, v_duale);
+    int k = 1;
+    for (size_t i = 0; i < v_duale.size(); ++i){
+        int id_baricentro = v_duale[i][0];
+        int id_faccia = v_duale[i].back();
+        auto punta = find_if(tab_conf.begin(), tab_conf.end(), [id_faccia](const vector<int>& riga) {
+            return !riga.empty() && riga[0] == id_faccia; //dentro il find_if c'è una cosiddetta funzione lambda (funzioni usa e getta), vedi teoria da qualche parte
+        });
+        //punta è un puntatore alla riga d'interesse.
+        vector<double> riga_utile = *punta; //la riga relativa alla faccia del baricentro i-esimo nella matrice di prossimita (quella in cui ci sono gli id delle facce vicine)
+        
+        auto p_v_c = find_if(v_duale.begin(), v_duale.end(), [riga_utile[1]](const vector<int>& riga) {
+            return !riga.empty() && riga.back() == riga_utile[1]; // (= Primo Vertice Confinante)
+        });
+        int id_primo = (*p_v_c)[0];
+
+        auto s_v_c = find_if(v_duale.begin(), v_duale.end(), [riga_utile[2]](const vector<int>& riga) {
+            return !riga.empty() && riga.back() == riga_utile[2]; // (= Secondo Vertice Confinante)
+        });
+        int id_secondo = (*s_v_c)[0];
+
+        auto t_v_c = find_if(v_duale.begin(), v_duale.end(), [riga_utile[3]](const vector<int>& riga) {
+            return !riga.empty() && riga.back() == riga_utile[3]; // (= Terzo Vertice Confinante)
+        });
+        int id_terzo = (*t_v_c)[0];
+
+
+
+        //ora inserisco i nuovi spigoli nella matrice spigoli del duale, solo dopo aver controllato che non ci siano già
+        auto verifica = find_if(s_duale.begin(), s_duale.end(), [min(id_baricentro,id_primo), max(id_baricentro,id_primo)](const vector<int>& riga) {
+            return riga.size() >= 3 && riga[1] == min(id_baricentro,id_primo) && riga[2] == max(id_baricentro,id_primo);
+        });
+        
+        if (verifica != s_duale.end()){
+            s_duale.push_back({k, min(id_baricentro,id_primo), max(id_baricentro,id_primo)})
+            k++;
+        }
+
+        auto verifica1 = find_if(s_duale.begin(), s_duale.end(), [min(id_baricentro,id_secondo), max(id_baricentro,id_secondo)](const vector<int>& riga) {
+            return riga.size() >= 3 && riga[1] == min(id_baricentro,id_secondo) && riga[2] == max(id_baricentro,id_secondo);
+        });
+        
+        if (verifica1 != s_duale.end()){
+            s_duale.push_back({k, min(id_baricentro,id_secondo), max(id_baricentro,id_secondo)})
+            k++;
+        }
+
+        auto verifica2 = find_if(s_duale.begin(), s_duale.end(), [min(id_baricentro,id_terzo), max(id_baricentro,id_terzo)](const vector<int>& riga) {
+            return riga.size() >= 3 && riga[1] == min(id_baricentro,id_terzo) && riga[2] == max(id_baricentro,id_terzo);
+        });
+        
+        if (verifica2 != s_duale.end()){
+            s_duale.push_back({k, min(id_baricentro,id_terzo), max(id_baricentro,id_terzo)})
+            k++;
+        }
+    }
+}
+
+void costruttore_tabella_confinamenti_4(vector<vector<double>>& F, vector<vector<double>>& T) {
+    for (size_t i = 0; i < F.size(); ++i){
+        T[i][0] = F[i][0]
+        int primo_spigolo = F[i][5];
+        int secondo_spigolo = F[i][6];
+        int terzo_spigolo = F[i][7];
+        int quarto_spigolo = F[i][8]
+        int h = 1;
+        for(const auto& j : F){
+            if (F[j][5] == primo_spigolo || F[j][6] == primo_spigolo || F[j][7] == primo_spigolo ||
+                F[j][5] == secondo_spigolo || F[j][6] == secondo_spigolo || F[j][7] == secondo_spigolo ||
+                F[j][5] == terzo_spigolo || F[j][6] == terzo_spigolo || F[j][7] == terzo_spigolo ||
+                F[j][5] == quarto_spigolo || F[j][6] == quarto_spigolo || F[j][7] == quarto_spigolo) {
+                    T[i][h] = F[j][0];
+                    h++;
+                }
+        }
+    }
+    return;
+}
+
+void baricentro_4(vector<vector<double>>& V, vector<vector<double>>& F, vector<vector<double>>& VD){
+    sort(F.begin(), F.end(), [](const int& a, const int& b){
+        return a[0] < b[0];
+    }),
+    for (size_t i = 0; i < F.size(); ++i){
+        int v1 = F[i][1]; //vertice 1
+        int v2 = F[i][2]; //vertice 2
+        int v3 = F[i][3]; //vertice 3                                           occhio che le facce se create post triangolazione non sono ordinate!!
+        int v4 = F[i][4]; //vertice 4
+        VD[i][0] = i + 1; //id vertici per il duale
+
+        VD[i][1] = (V[v1 + 1][1] + V[v2 + 1][1] + V[v3 + 1][1] + V[v4 + 1][1])/4;
+        VD[i][2] = (V[v1 + 1][2] + V[v2 + 1][2] + V[v3 + 1][2] + V[v4 + 1][2])/4;
+        VD[i][3] = (V[v1 + 1][3] + V[v2 + 1][3] + V[v3 + 1][3] + V[v4 + 1][3])/4;
+        VD[i][4] = F[i][0]; //a che faccia appartiene il baricentro
+    }
+    return;
+}
+
+void costruttore_duale_4(vector<vector<double>>& tab_conf, vector<vector<double>>& vertici, vector<vector<double>>& facce, vector<vector<double>>& v_duale, vector<vector<double>> s_duale){
+    costruttore_tabella_confinamenti_4(facce, tab_conf);
+    baricentro_4(vertici, facce, v_duale);
+    int k = 1;
+    for (size_t i = 0; i < v_duale.size(); ++i){
+        int id_baricentro = v_duale[i][0];
+        int id_faccia = v_duale[i].back();
+        auto punta = find_if(tab_conf.begin(), tab_conf.end(), [id_faccia](const vector<int>& riga) {
+            return !riga.empty() && riga[0] == id_faccia; //dentro il find_if c'è una cosiddetta funzione lambda (funzioni usa e getta), vedi teoria da qualche parte
+        });
+        //punta è un puntatore alla riga d'interesse.
+        vector<double> riga_utile = *punta; //la riga relativa alla faccia del baricentro i-esimo nella matrice di prossimita (quella in cui ci sono gli id delle facce vicine)
+        
+        auto p_v_c = find_if(v_duale.begin(), v_duale.end(), [riga_utile[1]](const vector<int>& riga) {
+            return !riga.empty() && riga.back() == riga_utile[1]; // (= Primo Vertice Confinante)
+        });
+        int id_primo = (*p_v_c)[0];
+
+        auto s_v_c = find_if(v_duale.begin(), v_duale.end(), [riga_utile[2]](const vector<int>& riga) {
+            return !riga.empty() && riga.back() == riga_utile[2]; // (= Secondo Vertice Confinante)
+        });
+        int id_secondo = (*s_v_c)[0];
+
+        auto t_v_c = find_if(v_duale.begin(), v_duale.end(), [riga_utile[3]](const vector<int>& riga) {
+            return !riga.empty() && riga.back() == riga_utile[3]; // (= Terzo Vertice Confinante)
+        });
+        int id_terzo = (*t_v_c)[0];
+
+        auto q_v_c = find_if(v_duale.begin(), v_duale.end(), [riga_utile[4]](const vector<int>& riga) {
+            return !riga.empty() && riga.back() == riga_utile[4]; // (= Terzo Vertice Confinante)
+        });
+        int id_quarto = (*q_v_c)[0];
+
+
+
+        //ora inserisco i nuovi spigoli nella matrice spigoli del duale, solo dopo aver controllato che non ci siano già
+        auto verifica1 = find_if(s_duale.begin(), s_duale.end(), [min(id_baricentro,id_primo), max(id_baricentro,id_primo)](const vector<int>& riga) {
+            return riga.size() >= 3 && riga[1] == min(id_baricentro,id_primo) && riga[2] == max(id_baricentro,id_primo);
+        });
+        
+        if (verifica1 != s_duale.end()){
+            s_duale.push_back({k, min(id_baricentro,id_primo), max(id_baricentro,id_primo)})
+            k++;
+        }
+
+
+        auto verifica2 = find_if(s_duale.begin(), s_duale.end(), [min(id_baricentro,id_secondo), max(id_baricentro,id_secondo)](const vector<int>& riga) {
+            return riga.size() >= 3 && riga[1] == min(id_baricentro,id_secondo) && riga[2] == max(id_baricentro,id_secondo);
+        });
+        
+        if (verifica2 != s_duale.end()){
+            s_duale.push_back({k, min(id_baricentro,id_secondo), max(id_baricentro,id_secondo)})
+            k++;
+        }
+
+
+        auto verifica3 = find_if(s_duale.begin(), s_duale.end(), [min(id_baricentro,id_terzo), max(id_baricentro,id_terzo)](const vector<int>& riga) {
+            return riga.size() >= 3 && riga[1] == min(id_baricentro,id_terzo) && riga[2] == max(id_baricentro,id_terzo);
+        });
+        
+        if (verifica3 != s_duale.end()){
+            s_duale.push_back({k, min(id_baricentro,id_terzo), max(id_baricentro,id_terzo)})
+            k++;
+        }
+
+        auto verifica4 = find_if(s_duale.begin(), s_duale.end(), [min(id_baricentro,id_quarto), max(id_baricentro,id_quarto)](const vector<int>& riga) {
+            return riga.size() >= 3 && riga[1] == min(id_baricentro,id_quarto) && riga[2] == max(id_baricentro,id_quarto);
+        });
+        
+        if (verifica4 != s_duale.end()){
+            s_duale.push_back({k, min(id_baricentro,id_quarto), max(id_baricentro,id_quarto)})
+            k++;
+        }
+    }
+>>>>>>> 40fe52492423d4ba7a08a5c512d1ff0295f9f029
 }
