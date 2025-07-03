@@ -5,20 +5,7 @@
 #include <sstream>
 #include <string>
 #include <cmath>
-<<<<<<< HEAD
-#include <queue>
-#include <vector>   
-#include <map>                
-#include <limits>             
-#include <algorithm>          
-#include <tuple>              
-#include <utility>
-#include <Eigen/Dense>          
 
-
-using namespace std;
-=======
->>>>>>> 40fe52492423d4ba7a08a5c512d1ff0295f9f029
 
 using namespace std;
 using namespace Eigen;
@@ -26,39 +13,39 @@ using namespace Eigen;
 
 void gen_tetraedro(PolyhedralMesh& mesh){
     mesh.M0D = {
-			{0, 1.0 / sqrt(3.0), 1.0 / sqrt(3.0), 1.0 / sqrt(3.0)}, 
 			{1, 1.0 / sqrt(3.0), -1.0 / sqrt(3.0), -1.0 / sqrt(3.0)}, 
 			{2, -1.0 / sqrt(3.0), 1.0 / sqrt(3.0), -1.0 / sqrt(3.0)}, 
-			{3, -1.0 / sqrt(3.0), -1.0 / sqrt(3.0), 1.0 / sqrt(3.0)} 
+			{3, -1.0 / sqrt(3.0), -1.0 / sqrt(3.0), 1.0 / sqrt(3.0)},
+            {4, 1.0 / sqrt(3.0), 1.0 / sqrt(3.0), 1.0 / sqrt(3.0)}
 		};
     mesh.M1D = {
-			{0, 0, 1}, 
 			{1, 0, 2}, 
 			{2, 0, 3}, 
 			{3, 1, 2}, 
 			{4, 1, 3}, 
-			{5, 2, 3} 
+			{5, 2, 3},
+            {6, 0, 1}
 		};
-    mesh.M2D = {
-			{0, 0, 2, 1, 1, 3, 0}, 
+    mesh.M2D = { 
 			{1, 0, 1, 3, 0, 4, 2}, 
 			{2, 0, 3, 2, 2, 1, 5}, 
-			{3, 1, 2, 3, 5, 3, 4} 
+			{3, 1, 2, 3, 5, 3, 4},
+            {4, 0, 2, 1, 1, 3, 0}
 		};
+    mesh.M3D = {1,4,1,2,3,4,6,1,2,3,4,5,6,4,1,2,3,4};
     return;
 }
 
 void gen_ottaedro(PolyhedralMesh& mesh){
-    mesh.M0D = {
-			{0, 1.0, 0.0, 0.0}, 
+    mesh.M0D = { 
 			{1, -1.0, 0.0, 0.0}, 
 			{2, 0.0, 1.0, 0.0},
 			{3, 0.0, -1.0, 0.0},
 			{4, 0.0, 0.0, 1.0}, 
-			{5, 0.0, 0.0, -1.0} 
+			{5, 0.0, 0.0, -1.0},
+            {6, 1.0, 0.0, 0.0}
 		};
     mesh.M1D = {
-			{0, 0, 2}, 
 			{1, 0, 3}, 
 			{2, 0, 4}, 
 			{3, 0, 5}, 
@@ -69,24 +56,25 @@ void gen_ottaedro(PolyhedralMesh& mesh){
 			{8, 2, 4}, 
 			{9, 2, 5}, 
 			{10, 3, 4}, 
-			{11, 3, 5} 
+			{11, 3, 5},
+            {12, 0, 2}
 		};
     mesh.M2D = {
-			{0, 0, 2, 4, 0, 8, 2}, 
 			{1, 0, 3, 4, 2, 1, 10},  
 			{2, 1, 3, 4, 10, 5, 6}, 
 			{3, 1, 2, 4, 6, 8, 4}, 
 			{4, 1, 2, 5, 4, 7, 9}, 
 			{5, 2, 0, 5, 9, 0, 3}, 
 			{6, 0, 3, 5, 3, 1, 11}, 
-			{7, 3, 1, 5, 11, 5, 7} 
+			{7, 3, 1, 5, 11, 5, 7},
+            {8, 0, 2, 4, 0, 8, 2} 
 		};
+    mesh.M3D = {2,6,1,2,3,4,5,6,12,1,2,3,4,5,6,7,8,9,10,11,12,8,1,2,3,4,5,6,7,8};
 	return;	
 }
 
 void gen_icosaedro(PolyhedralMesh& mesh){
     mesh.M0D =  {
-			{0, 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}, 
 			{1, 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}, 
 			{2, 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))}, 
 			{3, 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))}, 
@@ -97,10 +85,10 @@ void gen_icosaedro(PolyhedralMesh& mesh){
 			{8, (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}, 
 			{9, (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))},
 			{10, -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}, 
-			{11, -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))} 
+			{11, -((1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)), 0.0, -(1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1))},
+            {12, 0.0, 1.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1), (1.0 + sqrt(5.0)) / 2.0/sqrt((1.0 + sqrt(5.0)) / 2.0^2 + 1)}
 		};
     mesh.M1D = {
-			{0, 0, 1},  
 			{1, 0, 4},  
 			{2, 0, 6}, 
 			{3, 0, 8},  
@@ -129,10 +117,10 @@ void gen_icosaedro(PolyhedralMesh& mesh){
 			{26, 7, 10}, 
 			{27, 7, 11}, 
 			{28, 8, 9}, 
-			{29, 10, 11} 
+			{29, 10, 11},
+            {30, 0, 1}
 		};
-    mesh.M2D = {
-			{0, 0, 1, 8, 3, 6, 0},               
+    mesh.M2D = {               
 			{1, 0, 1, 10, 0, 8, 4}, 
 			{2, 0, 6, 10, 4, 26, 2}, 
 			{3, 0, 4, 6, 2, 19, 1}, 
@@ -151,8 +139,12 @@ void gen_icosaedro(PolyhedralMesh& mesh){
 			{16, 3, 5, 9, 16, 23, 14}, 
 			{17, 3, 5, 7, 14, 21, 15}, 
 			{18, 3, 7, 11, 15, 27, 17}, 
-			{19, 2, 3, 11, 17, 13, 9} 
+			{19, 2, 3, 11, 17, 13, 9},
+            {20, 0, 1, 8, 3, 6, 0}
 		};
+    mesh.M3D = {3,12,1,2,3,4,5,6,7,8,9,10,11,12,30,1,2,3,4,5,6,7,8,9,10,
+                11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,
+                20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
     return;
 }
 
@@ -190,8 +182,9 @@ void controllo_ordine(vector<vector<double>>& matrice1_faccia, vector<vector<dou
     return;
 }
 
-void mesh1(int new_id_v, int new_id_s, int new_id_f, vector<vector<double>> SP, vector<vector<double>> VP, vector<vector<double>> FP, vector<vector<double>> B, vector<vector<double>> NV, vector<vector<double>> NS, vector<vector<double>> NF){
-
+void triangolazione1(int b, int new_id_v, int new_id_s, int new_id_f, vector<vector<double>> SP, vector<vector<double>> VP, vector<vector<double>> FP, vector<vector<double>> B, vector<vector<double>> NV, vector<vector<double>> NS, vector<vector<double>> NF){
+    vector<vector<double>> base_spigoli;
+    vector<vector<double>> base_vertici;
     NV = VP;
     for (const auto& i : SP){
         vector<int> estremi_spigolo = {i[1],i[2]};
@@ -213,7 +206,7 @@ void mesh1(int new_id_v, int new_id_s, int new_id_f, vector<vector<double>> SP, 
                         });
             NV.push_back({new_id_v, min(dati_estremi[0][1], dati_estremi[1][1]) + j*(max(dati_estremi[0][1], dati_estremi[1][1])-min(dati_estremi[0][1], dati_estremi[1][1]))/b,
                           min(dati_estremi[0][2], dati_estremi[1][2]) + j*(max(dati_estremi[0][2], dati_estremi[1][2])-min(dati_estremi[0][2], dati_estremi[1][2]))/b,
-                          min(dati_estremi[0][3], dati_estremi[1][3]) + j*(max(dati_estremi[0][3], dati_estremi[1][3])-min(dati_estremi[0][3], dati_estremi[1][3]))/b, i[0]
+                          min(dati_estremi[0][3], dati_estremi[1][3]) + j*(max(dati_estremi[0][3], dati_estremi[1][3])-min(dati_estremi[0][3], dati_estremi[1][3]))/b
                         });
             if (j<b-1){
                 base_spigoli.push_back({new_id_s, new_id_v, new_id_v + 1, i[0]});
@@ -325,11 +318,12 @@ void mesh1(int new_id_v, int new_id_s, int new_id_f, vector<vector<double>> SP, 
 vector<vector<double>> vertici_originali = mesh.M0D; //vertici
 vector<vector<double>> spigoli_originali = mesh.M1D;
 vector<vector<double>> facce_originali = mesh.M2D; //facce
-
+  
 vector<vector<double>> tabella_confinamenti; //tab_conf
 vector<vector<double>> vertici_duale; //v_duale
 vector<vector<double>> spigoli_duale; //s_duale
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -806,6 +800,8 @@ ShortestPathResult findShortestPathDijkstra(
 	
 	return result;
 =======
+=======
+>>>>>>> f41e95b677d9bc2cb142c0a176aac4d9d7adc55a
 void costruttore_tabella_confinamenti_3(vector<vector<double>>& F, vector<vector<double>>& T) {
     for (size_t i = 0; i < F.size(); ++i){
         T[i][0] = F[i][0]
@@ -1012,6 +1008,6 @@ void costruttore_duale_4(vector<vector<double>>& tab_conf, vector<vector<double>
             s_duale.push_back({k, min(id_baricentro,id_quarto), max(id_baricentro,id_quarto)})
             k++;
         }
+        
     }
->>>>>>> 40fe52492423d4ba7a08a5c512d1ff0295f9f029
 }
