@@ -6,43 +6,18 @@
 #include <string>
 #include <vector>
 
-using namespace ;
+using namespace std;
 using namespace Eigen;
 using namespace PolyhedralLibrary;
 
 
 // cmake -S ./ -B ./Debug -DCMAKE_BUILD_TYPE="Debug"
 
-vector<vector<int>> readMatrixFromFile(const string& percorso) {
-    vector<vector<int>> matrice;
 
-    ifstream file(percorso);
-    if (!file.is_open()) {
-        cerr << "Errore: impossibile aprire il file " << percorso << endl;
-        return matrix;
-    }
-
-    string linea;
-    while (getline(file, linea)) {
-        vector<int> row;
-        istringstream iss(linea);
-        string value;
-
-        while (getline(iss, value, ',')) {
-            row.push_back(stoi(value));
-        }
-
-        if (!row.empty()) {
-            matrix.push_back(row);
-        }
-    }
-
-    file.close();
-    return matrix;
-}
 
 int main()
 {
+	bool dual_flag;
     int P;
 	int Q;
 	int B;
@@ -92,28 +67,49 @@ int main()
 	vector<int> Quadrupla = {P, Q, B, C} 
 	cout << Quadrupla << endl;
 	
-<<<<<<< HEAD
-=======
-	/*
-	cout << "Inserisci l'id del vertice 1: ";
-    cin >> id_vertice1;
-	cout << "Inserisci l'id del vertice 2: ";
-    cin >> id_vertice2;
-	
-    int max_nodo = massimo_nodo(cubo);
 
-    int distanza = bfs(cubo, id_vertice1, id_vertice2, max_nodo);
+	PolyhedralMesh mesh;
+	PolyhedralMehs meshOutput;
 
-    if (distanza != -1)
-        cout << "Cammino minimo da " << start << " a " << end << ": " << distanza << " passi\n";
-    else
-        cout << "Nessun cammino trovato.\n";
+	
+    
+ 
+	if (P == 3 && B != C){
+		dual_flag = false;
+		if (Q == 3){
+			gen_tetraedro(mesh);
+		}
+		if (Q == 4){
+			gen_ottaedro(mesh);
+		}
+		if (Q == 5){
+			gen_icosaedro(mesh);
+		}
 
-    return 0;
-	*/
->>>>>>> 193964f765becb70ba97fd1d9015f600a34e27b0
+		int new_id_v = mesh.M0D.size() + 1;
+    	int new_id_s = 1;
+    	int new_id_f = 1;
+
+		triangolazione1(B, new_id_v, new_id_s, new_id_f, mesh.M0D, mesh.M1D, mesh.M2D, meshOutput.M0D, meshOutput.M1D, meshOutput.M2D);
+
+		vector<vector<double>> tabella_confinamenti; //tab_conf
+		vector<vector<double>> vertici_duale; //v_duale
+		vector<vector<double>> spigoli_duale; //s_duale
+
+		if (dual_flag == true){
+			costruttore_tabella_confinamenti_3(meshOutput.M2D,tabella_confinamenti);
+			baricentro_3(meshOutput.M0D, meshOutput.M2D, vertici_duale);
+			costruttore_duale_3(tabella_confinamenti, meshOutput.M0D, meshOutput.M2D, vertici_duale, spigoli_duale);
+		}
+	} else if (P == 4 && B != C){
+		costruttore_tabella_confinamenti_4(meshOutput.M2D,tabella_confinamenti);
+		baricentro_4(meshOutput.M0D, meshOutput.M2D, vertici_duale);
+		costruttore_duale_4(tabella_confinamenti, meshOutput.M0D, meshOutput.M2D, vertici_duale, spigoli_duale);
+	}
 	
+
 	
+
 
 	GedimUCDUtilities utilities;
     utilities.ExportPoints("./Cell0Ds.inp",
@@ -123,56 +119,6 @@ int main()
                               mesh.M1D);
                               
 	
-	
-
-	/// Per visualizzare online le mesh:
-    /// 1. Convertire i file .inp in file .vtu con https://meshconverter.it/it
-    /// 2. Caricare il file .vtu su https://kitware.github.io/glance/app/
-	/*
-    /*GedimUCDUtilities utilities;
-    {
-        vector<GedimUCDProperty<double>> cell0Ds_properties(1);
-
-        cell0Ds_properties[0].Label = "Marker";
-        cell0Ds_properties[0].UnitLabel = "-";
-        cell0Ds_properties[0].NumComponents = 1;
-
-        vector<double> cell0Ds_marker(mesh.NumCell0Ds, 0.0);
-        for(const auto &m : mesh.MarkerCell0Ds)
-            for(const unsigned int id: m.second)
-                cell0Ds_marker.at(id) = m.first;
-
-        cell0Ds_properties[0].Data = cell0Ds_marker.data();
-
-        utilities.ExportPoints("./Cell0Ds.inp",
-                               mesh.Cell0DsCoordinates,
-                               cell0Ds_properties);
-    }
-
-    {
-        vector<GedimUCDProperty<double>> cell1Ds_properties(1);
-
-        cell1Ds_properties[0].Label = "Marker";
-        cell1Ds_properties[0].UnitLabel = "-";
-        cell1Ds_properties[0].NumComponents = 1;
-
-        vector<double> cell1Ds_marker(mesh.NumCell1Ds, 0.0);
-        for(const auto &m : mesh.MarkerCell1Ds)
-            for(const unsigned int id: m.second)
-                cell1Ds_marker.at(id) = m.first;
-
-        cell1Ds_properties[0].Data = cell1Ds_marker.data();
-
-        utilities.ExportSegments("./Cell1Ds.inp",
-                                 mesh.Cell0DsCoordinates,
-                                 mesh.Cell1DsExtrema,
-                                 {},
-                                 cell1Ds_properties);
-    }
-    
-
-    return 0;
-*/
 }
 	
 	
