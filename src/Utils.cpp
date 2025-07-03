@@ -5,6 +5,9 @@
 #include <sstream>
 #include <string>
 #include <cmath>
+#include <queue>
+
+using namespace std;
 
 using namespace std;
 using namespace Eigen;
@@ -498,3 +501,56 @@ void TriangulationTypeII(const PolyhedralMesh& polyOld, PolyhedralMesh& polyNew,
 	polyNew.Cell3DsFaces.push_back(polyNew.Cell2DsId);
 }
 
+
+int massimo_nodo(const vector<vector<int>>& grafo) {
+    max_Nodo = 0;
+    for (i=0, i<grafo.size(), i++) {
+        for (j=0, j<grafo.size(), j++) {
+            if (grafo[i][j]>max_Nodo) {
+                max_Nodo = grafo[i][j];
+            }
+        }
+    }
+    
+    return maxNodo;
+}
+
+// Funzione per BFS su grafo non pesato
+int bfs(const vector<vector<int>>& grafo, int start, int end, int& max_nodo) {
+    vector<bool> visited(grafo.size(), false);
+    vector<int> distanza(grafo.size(), -1);
+    queue<int> q;
+    
+    visited[start] = true;
+    distanza[start] = 0;
+    q.push(start);
+    
+    if (start == end) {
+        cerr << "Non è possibile creare un cammino minimo che è nullo" << endl;
+        return -1;
+    }
+    if (end > max_nodo) {
+        cerr << "Nodo finale out of range" << endl;
+        return -1;
+    }
+        
+
+    while (!q.empty()) {
+        int nodo = q.front();
+        q.pop();
+
+        for (int vicino : grafo[nodo]) {
+            if (!visited[vicino]) {
+                visited[vicino] = true;
+                distanza[vicino] = distanza[nodo] + 1;
+                q.push(vicino);
+
+                if (vicino == end)
+                    return distanza[end];
+
+            }
+        }
+    }
+
+    return -1; // Non raggiungibile
+}
