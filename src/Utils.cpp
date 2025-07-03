@@ -11,7 +11,7 @@ using namespace std;
 using namespace Eigen;
 
 
-void gen_tetraedro(PolyhedralMesh& mesh){
+void gen_tetraedro(PolyhedralMesh& mesh){ //gli Id vanno modificati dalla 1D e 2D
     mesh.M0D = {
 			{1, 1.0 / sqrt(3.0), -1.0 / sqrt(3.0), -1.0 / sqrt(3.0)}, 
 			{2, -1.0 / sqrt(3.0), 1.0 / sqrt(3.0), -1.0 / sqrt(3.0)}, 
@@ -156,6 +156,8 @@ vector<vector<double>> base_vertici;
     int new_id_s = 1;
     int new_id_f = 1;
 
+//cosa fa questa funzione?
+//ha senso teorico ma non credo in maniera pratica
 vector<double> creatore_vertici(vector<double> A, vector<double> B, vector<double> C, int id){ 
     double diff_x = B[1]-A[1]; 
     double diff_y = B[2]-A[2];
@@ -164,7 +166,7 @@ vector<double> creatore_vertici(vector<double> A, vector<double> B, vector<doubl
     id++;
     return nuovo_vertice;
 }
-
+//????
 void controllo_ordine(vector<vector<double>>& matrice1_faccia, vector<vector<double>>& matrice2_faccia, vector<vector<double>>& matrice3_faccia){   
     if (matrice1_faccia[1][0] == matrice2_faccia[1][0] && matrice1_faccia.back()[0] == matrice3_faccia[1][0]){
         return;
@@ -183,7 +185,7 @@ void controllo_ordine(vector<vector<double>>& matrice1_faccia, vector<vector<dou
 }
 
 void triangolazione1(int b, int new_id_v, int new_id_s, int new_id_f, vector<vector<double>> SP, vector<vector<double>> VP, vector<vector<double>> FP, vector<vector<double>> B, vector<vector<double>> NV, vector<vector<double>> NS, vector<vector<double>> NF){
-    vector<vector<double>> base_spigoli;
+    vector<vector<double>> base_spigoli;   //illegibile
     vector<vector<double>> base_vertici;
     NV = VP;
     for (const auto& i : SP){
