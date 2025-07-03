@@ -2,13 +2,44 @@
 #include "PolyhedralMesh.hpp"
 #include "Utils.hpp"
 #include "UCDUtilities.hpp"
+#include <fstream>
+#include <string>
+#include <vector>
 
-using namespace std;
+using namespace ;
 using namespace Eigen;
 using namespace PolyhedralLibrary;
 
 
 // cmake -S ./ -B ./Debug -DCMAKE_BUILD_TYPE="Debug"
+
+vector<vector<int>> readMatrixFromFile(const string& percorso) {
+    vector<vector<int>> matrice;
+
+    ifstream file(percorso);
+    if (!file.is_open()) {
+        cerr << "Errore: impossibile aprire il file " << percorso << endl;
+        return matrix;
+    }
+
+    string linea;
+    while (getline(file, linea)) {
+        vector<int> row;
+        istringstream iss(linea);
+        string value;
+
+        while (getline(iss, value, ',')) {
+            row.push_back(stoi(value));
+        }
+
+        if (!row.empty()) {
+            matrix.push_back(row);
+        }
+    }
+
+    file.close();
+    return matrix;
+}
 
 int main()
 {
@@ -41,7 +72,7 @@ int main()
 	}
 	else {
 		cout << "Hai inserito: " << Q << endl;
-	
+	}
 	
 	cout << "Inserisci un valore per B: ";
     cin >> B;
@@ -61,20 +92,26 @@ int main()
 	vector<int> Quadrupla = {P, Q, B, C} 
 	cout << Quadrupla << endl;
 	
-	/*
-	cout << "Inserisci l'id del vertice 1: ";
-    cin >> id_vertice1;
-	cout << "Inserisci l'id del vertice 2: ";
-    cin >> id_vertice2;
-	*/
 	
+	
+
+	GedimUCDUtilities utilities;
+    utilities.ExportPoints("./Cell0Ds.inp",
+                            mesh.M0D);
+    utilities.ExportSegments("./Cell1Ds.inp",
+                              mesh.M0D,
+                              mesh.M1D);
+                              
+	
+	
+
 	/// Per visualizzare online le mesh:
     /// 1. Convertire i file .inp in file .vtu con https://meshconverter.it/it
     /// 2. Caricare il file .vtu su https://kitware.github.io/glance/app/
-
-    Gedim::UCDUtilities utilities;
+	/*
+    /*GedimUCDUtilities utilities;
     {
-        vector<Gedim::UCDProperty<double>> cell0Ds_properties(1);
+        vector<GedimUCDProperty<double>> cell0Ds_properties(1);
 
         cell0Ds_properties[0].Label = "Marker";
         cell0Ds_properties[0].UnitLabel = "-";
@@ -93,7 +130,7 @@ int main()
     }
 
     {
-        vector<Gedim::UCDProperty<double>> cell1Ds_properties(1);
+        vector<GedimUCDProperty<double>> cell1Ds_properties(1);
 
         cell1Ds_properties[0].Label = "Marker";
         cell1Ds_properties[0].UnitLabel = "-";
@@ -115,8 +152,8 @@ int main()
     
 
     return 0;
+*/
 }
-
 	
 	
 	/*
@@ -140,7 +177,7 @@ int main()
 	*/
 	//trial
 	
-	PolyhedralLibrary::PolyhedralMesh mesh;
+	PolyhedralLibraryPolyhedralMesh mesh;
 	/*
 	bool success_edges_cube = ExportCell1Ds("C_Cell1Ds.txt",mesh.cube_edges,12);
 	
