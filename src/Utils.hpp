@@ -12,9 +12,9 @@ namespace PolyhedralLibrary{
 	//tanto questo sono l'impostazioni
 	
     void swap_val(int& p, int& q);
-	vector<int> topo_Calc_I(const int q, const int b, const int c);
+	vector<int> topological_Calc_I(const int q, const int b, const int c);
 	vector<int> duplicates_Calc(const int q, const int b, const int c, const vector<int>& dim);
-	vector<int> topo_Calc_II(const int b, const int q);
+	vector<int> topological_Calc_II(const int b, const int q);
 	
 //cleaning 
 	void v_duplicates_rm(PolyhedralMesh& meshTriangulated);
