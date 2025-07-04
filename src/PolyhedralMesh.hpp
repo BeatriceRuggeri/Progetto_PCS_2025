@@ -1,27 +1,41 @@
 #pragma once
 
+
 #include <iostream>
-#include <cmath>
 #include "Eigen/Eigen"
 
 using namespace std;
 using namespace Eigen;
 
-namespace PolyhedralLibrary{
-	struct PolyhedralMesh {
-		vector<vector<double>> M0D;
-		vector<vector<double>> M1D;
-		vector<vector<double>> M2D;
-		vector<double> M3D;
+namespace PolyhedralLibrary {
+	
+	struct PolyhedralMesh{
 		
-		vector<unsigned int> M0DMarker = {}; // marker vertici
-		vector<unsigned int> M1DMarker = {}; // marker spigoli
+		vector<unsigned int> Cell0DsId = {};
+		Eigen::MatrixXd Cell0DsCoordinates = {};
+		vector<vector<unsigned int>> Cell0DsFlag= {};
+		vector<unsigned int> Cell0DsMarker = {};
 		
-		unsigned int p, q, b, c;
-		unsigned int V; //num vertici
-		unsigned int E; //num spigoli
-		unsigned int nodo_i;
-		unsigned int nodo_f;
-		vector<unsigned int> cammino; //vettore che segna gli id del cammino 
-	}
+		vector<unsigned int> Cell1DsId = {}; 
+		MatrixXi Cell1DsExtrema = {}; 
+		
+		
+		vector<unsigned int> Cell1DsFlag= {}; 
+		vector<bool> Cell1DsOriginalFlag = {}; // !!!!!!!
+		vector<unsigned int> Cell1DsMarker = {};    
+		
+		vector<unsigned int> Cell2DsId = {}; 
+		vector<vector<unsigned int>> Cell2DsVertices = {}; 
+		vector<vector<unsigned int>> Cell2DsEdges = {}; 
+		
+		unsigned int Cell3DsId = 0; 
+		unsigned int NumCells0Ds = 0;
+		unsigned int NumCells1Ds = 0; 
+		unsigned int NumCells2Ds = 0; 
+		vector<unsigned int> Cell3DsVertices = {}; 
+		vector<unsigned int> Cell3DsEdges = {}; 
+		vector<unsigned int> Cell3DsFaces = {}; 
+
+   };
+
 }
