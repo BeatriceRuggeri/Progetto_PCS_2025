@@ -39,7 +39,8 @@ namespace PolyhedralLibrary{
     Vector3d baricenter_T(const PolyhedralMesh& meshTriangolazione, const unsigned int Id_F);
 
     void tri_build_I(PolyhedralMesh& mesh, PolyhedralMesh& meshTriangolazione, const unsigned int b, const unsigned int c, const vector<int>& dimension);
-    vector<unsigned int> normalization_L(const vector<unsigned int>& face_edges);
+vector<unsigned int> normalization_L(const vector<unsigned int>& face_edges);
+vector<unsigned int> norm_cyclic(const vector<unsigned int>& current_edges);
    
 //********************************************************
 
