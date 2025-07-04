@@ -1,189 +1,139 @@
 #include <iostream>
+#include <cstdlib> 
 #include "PolyhedralMesh.hpp"
 #include "Utils.hpp"
-#include "UCDUtilities.hpp"
-#include <fstream>
-#include <string>
-#include <vector>
 
 using namespace std;
 using namespace Eigen;
 using namespace PolyhedralLibrary;
 
+int main(int argc, char *argv[]) {
 
-// cmake -S ./ -B ./Debug -DCMAKE_BUILD_TYPE="Debug"
+    // Definizione delle variabili per il cammino minimo, inizializzate a valori non validi
+    unsigned int id_vertice_inizio = 0;
+    unsigned int id_vertice_fine = 0;
+    bool calcolatoPercorso = false; // Flag per indicare se calcolare il cammino minimo
 
+    if (argc == 5) { // Caso: solo p, q, b, c
+        cout << "in esecuzione: creazione mesh.\n";
+        // Nessun cammino minimo da calcolare
+        calcolatoPercorso = false;
 
-int main()
-{
-	bool dual_flag;
-    int P;
-	int Q;
-	int B;
-	int C;
-	int id_vertice1;
-	int id_vertice2;
+    } else if (argc == 7) { // Caso: p, q, b, c, id_vertice_inizio, id_vertice_fine
+        cout << "in esecuzione: creazione mesh e calcolo cammino minimo.\n";
+        id_vertice_inizio = stoul(argv[5]);
+        id_vertice_fine = stoul(argv[6]);
+        calcolatoPercorso = true;
 
-    cout << "Inserisci un valore per P: ";
-    cin >> P;
-	
-	if (P!=3) {
-		cerr << "Valore di P non valido, si prega di riprovare" << endl;
-		cout << "Inserisci un valore per P: ";
-		cin >> P;
-	}
-	else {
-		cout << "Hai inserito: " << P << endl;
-	}
-	
-	cout << "Inserisci un valore per Q: ";
-    cin >> Q;
-	
-	if (Q!=3 & Q!= 4 & Q!=5) {
-		cerr << "Valore di Q non valido, si prega di riprovare" << endl;
-		cout << "Inserisci un valore per Q: ";
-		cin >> Q;
-	}
-	else {
-		cout << "Hai inserito: " << Q << endl;
+    } else { // Errore: numero di argomenti non valido
+        cerr << "Uso:\n";
+        cerr << "  " << argv[0] << " p q b c\n";
+        cerr << "  " << argv[0] << " p q b c id_vertice_inizio id_vertice_fine\n";
+        return 1;
+    }
+    
+    int p = stoi(argv[1]);
+    int q = stoi(argv[2]);
+    int b = stoi(argv[3]);
+    int c = stoi(argv[4]);
+
+	if (!((p == 3 || q == 3) && (p >= 3 && p <= 5) && (q >= 3 && q <= 5))) {
+		cerr << "Attenzione, almeno uno tra p e q deve valere 3 e i valori ammessi per entrambi sono 3, 4 e 5\n";
+		return 1;
 	}
 	
-	cout << "Inserisci un valore per B: ";
-    cin >> B;
-	if (B < 1) {
-		cerr << "Valore di B non valido, si prega di riprovare" << endl;
-		cout << "Inserisci un valore per B: ";
-		cin >> B;
-	}
-	cout << "Inserisci un valore per C: ";
-    cin >> C;
-	if (C < 1) {
-		cerr << "Valore di C non valido, si prega di riprovare" << endl;
-		cout << "Inserisci un valore per C: ";
-		cin >> C;
+	if (!((b == c) || (b == 0) || (c == 0))) {
+		cerr << "Attenzione, si richiede c = 0, oppure b = c.\n";
+		return 1;
 	}
 	
-	vector<int> Quadrupla = {P, Q, B, C} 
-	cout << Quadrupla << endl;
+	if ((b == c) && (p!=3)){
+		cerr << "Attenzione, richiestro poliedro geodetico per la triangolazione di classe II.\n";
+		return 1;
+	}
 	
+    cout << "quaterna digitata: p = " << p << ", q = " << q << ", b = " << b << ", c = " << c << ".\n";
+    if (calcolatoPercorso) {
+        cout << "Cammino minimo da vertice " << id_vertice_inizio << " a vertice " << id_vertice_fine << ".\n";
+    }
 
 	PolyhedralMesh mesh;
-	PolyhedralMehs meshOutput;
-
-	
+	PolyhedralMesh meshOutput;
     
- 
-	if (P == 3 && B != C){
-		dual_flag = false;
-		if (Q == 3){
-			gen_tetraedro(mesh);
+    if (b != c){
+	    
+		if (p == 3 && q == 3) {
+			tetraedro_gen(mesh);
+			triangolazione_I(q, b, c, mesh, meshOutput);
+			
+		} else if (p == 3 && q != 3){
+			if (q == 4){
+				octaedro_gen(mesh);
+			} else {
+				icosaedro_gen(mesh);
+			}
+			triangolazione_I(q, b, c, mesh, meshOutput);
+	
+		} else if (q == 3 && p!= 3) {
+			if (p == 4){
+				octaedro_gen(mesh);
+			} else {
+				icosaedro_gen(mesh);
+			}
+			swap_val(p, q);
+			triangolazione_dual(q, b, c, mesh, meshOutput);
 		}
-		if (Q == 4){
-			gen_ottaedro(mesh);
+	} else {
+		if (p == 3 && q == 3) {
+			tetraedro_gen(mesh);
+			triangolazione_II(q, b, mesh, meshOutput);
+			
+		} else if (p == 3 && q != 3){
+			if (q == 4){
+				octaedro_gen(mesh);
+			} else {
+				icosaedro_gen(mesh);
+			}
+			triangolazione_II(q, b, mesh, meshOutput);
 		}
-		if (Q == 5){
-			gen_icosaedro(mesh);
-		}
+	} 
 
-		int new_id_v = mesh.M0D.size() + 1;
-    	int new_id_s = 1;
-    	int new_id_f = 1;
+	if (calcolatoPercorso) {
+	MatrixXi adjMatrix = adj_M(meshOutput);
+        
+        minimo_output pathResult = minimo_F_Dijkstra(
+            meshOutput,
+            adjMatrix,
+            id_vertice_inizio,
+            id_vertice_fine
+        );
 
-		triangolazione1(B, new_id_v, new_id_s, new_id_f, mesh.M0D, mesh.M1D, mesh.M2D, meshOutput.M0D, meshOutput.M1D, meshOutput.M2D);
+        // Stampa i risultati
+        if (pathResult.num_lati > 0 || id_vertice_inizio == id_vertice_fine) {
+            cout << "\n|||| Cammino Minimo ||||\n";
+            cout << "Numero di lati nel cammino: " <<pathResult.num_lati<< endl;
+            cout << "Lunghezza totale del cammino: "<<pathResult.length<< endl;
 
-		vector<vector<double>> tabella_confinamenti; //tab_conf
-		vector<vector<double>> vertici_duale; //v_duale
-		vector<vector<double>> spigoli_duale; //s_duale
-
-		if (dual_flag == true){
-			costruttore_tabella_confinamenti_3(meshOutput.M2D,tabella_confinamenti);
-			baricentro_3(meshOutput.M0D, meshOutput.M2D, vertici_duale);
-			costruttore_duale_3(tabella_confinamenti, meshOutput.M0D, meshOutput.M2D, vertici_duale, spigoli_duale);
-		}
-	} else if (P == 4 && B != C){
-		costruttore_tabella_confinamenti_4(meshOutput.M2D,tabella_confinamenti);
-		baricentro_4(meshOutput.M0D, meshOutput.M2D, vertici_duale);
-		costruttore_duale_4(tabella_confinamenti, meshOutput.M0D, meshOutput.M2D, vertici_duale, spigoli_duale);
+            // Esportazione Paraview con cammino
+			proj_sphere(meshOutput);
+			ExportParaview(meshOutput);
+		
+        } else {
+            cout << "\nNessun cammino trovato tra il vertice " << id_vertice_inizio
+                 << " e il vertice " << id_vertice_fine << ".\n";
+        }
+	} else {
+		// Esportazione Paraview senza cammino
+		proj_sphere(meshOutput);
+		ExportParaview(meshOutput);
 	}
-	
 
-	
+	// Scrittura su TXT
+	WriteCell0Ds(meshOutput);
+	WriteCell1Ds(meshOutput);
+	WriteCell2Ds(meshOutput);
+	WriteCell3Ds(meshOutput);
 
-
-	GedimUCDUtilities utilities;
-    utilities.ExportPoints("./Cell0Ds.inp",
-                            mesh.M0D);
-    utilities.ExportSegments("./Cell1Ds.inp",
-                              mesh.M0D,
-                              mesh.M1D);
-                              
-	
+    return 0;
+    
 }
-	
-	
-	/*
-	int Matrix PQ[5][2] = {{3, 3}, {3, 4}, {4, 3}, {5, 3}, {3, 5}};
-	
-	for (i= 0; i<=5; i++)
-	{	
-		if (PQ[i]==3)
-		{
-			int P = PQ[i][0];
-			int Q = PQ[i][1];
-			// CLASSE1(P, Q, b, c)
-		}	
-		if (PQ[i][1]==3)
-		{
-			int P = PQ[i][0];
-			int Q = PQ[i][1];
-			// CLASSE2 (P, Q, b, c)
-		}
-	}
-	*/
-	//trial
-	
-	PolyhedralLibraryPolyhedralMesh mesh;
-	/*
-	bool success_edges_cube = ExportCell1Ds("C_Cell1Ds.txt",mesh.cube_edges,12);
-	
-	if(!success_edges_cube){
-		cerr<<"Export cube's edges failed."<<endl;
-		return 1;
-	}
-	
-	bool success_tetrahedron = ExportCell0Ds("T_Cell0Ds.txt",mesh.Vert_tetrahedron,4);
-	
-	if(!success_tetrahedron){
-		cerr<<"Export tetrahedron failed."<<endl;
-		return 1;
-	}
-	
-	
-	bool success_cube = ExportCell0Ds("C_Cell0Ds.txt",mesh.Vert_cube,8);
-	
-	if(!success_cube){
-		cerr<<"Export cube failed."<<endl;
-		return 1;
-	}
-	
-	bool success_octahedron = ExportCell0Ds("O_Cell0Ds.txt",mesh.Vert_octahedron,6);
-	
-	if(!success_octahedron){
-		cerr<<"Export octahedron failed."<<endl;
-		return 1;
-	}
-	
-	bool success_dodecahedron = ExportCell0Ds("D_Cell0Ds.txt",mesh.Vert_dodecahedron,20);
-	
-	if(!success_dodecahedron){
-		cerr<<"Export dodecahedron failed."<<endl;
-		return 1;
-	}
-	
-	bool success_icosahedron = ExportCell0Ds("I_Cell0Ds.txt",mesh.Vert_icosahedron,12);
-	
-	if(!success_icosahedron){
-		cerr<<"Export icosahedron failed."<<endl;
-		return 1;
-	}
-	*/			
