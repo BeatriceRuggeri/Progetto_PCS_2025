@@ -1,5 +1,5 @@
-
 #pragma once
+
 #include <iostream>
 #include "PolyhedralMesh.hpp"
 #include <Eigen/Dense>
@@ -35,10 +35,9 @@ namespace PolyhedralLibrary{
     void edge_correction(const unsigned int a, const unsigned int b, PolyhedralMesh& meshTriangolazione, unsigned int& id_edge, const unsigned int id_triangle); //correct those missing ones here
     unsigned int vertex_correction(const Vector3d& coord, PolyhedralMesh& meshTriangolazione, unsigned int& i1);
     unsigned int edge_correction_II(const unsigned int a, const unsigned int b, PolyhedralMesh& meshTriangulated, unsigned int& i2);
-    Vector3d baricenter_F(const PolyhedralMesh& meshTriangolazione, const unsigned int edgeId, const unsigned int currentFaceId, map<pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap);
-    Vector3d baricenter_T(const PolyhedralMesh& meshTriangolazione, const unsigned int Id_F);
+Vector3d baricenter_F(const PolyhedralMesh& meshTriangolazione, const unsigned int edgeId, const unsigned int currentFaceId, map<pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap);
 
-    void tri_build_I(PolyhedralMesh& mesh, PolyhedralMesh& meshTriangolazione, const unsigned int b, const unsigned int c, const vector<int>& dimension);
+void tri_build_I(PolyhedralMesh& mesh, PolyhedralMesh& meshTriangolazione, const unsigned int b, const unsigned int c, const vector<int>& dimension);
 vector<unsigned int> normalization_L(const vector<unsigned int>& face_edges);
 vector<unsigned int> norm_cyclic(const vector<unsigned int>& current_edges);
    
@@ -80,9 +79,8 @@ struct minimo_output {
 //duale?!**************************
 
 	void dual_calc(PolyhedralMesh& meshTriangulated, PolyhedralMesh& meshDual, map<pair<unsigned int, unsigned int>, vector<unsigned int>> edgeToFacesMap);
+Vector3d baricenter_Fetch(const PolyhedralMesh& meshTriangolazione, const unsigned int Id_F);
 	
-	Vector3d baricenter_Fetch(const PolyhedralMesh& meshTriangulated, const unsigned int faceId);
-    map <pair<unsigned int, unsigned int>, vector<unsigned int>> buildMap_LF(const PolyhedralMesh& meshTriangulated);
 	map<unsigned int, vector<unsigned int>> buildMap_VF(const PolyhedralMesh& meshTriangolazione);
 	
 	map<unsigned int, vector<unsigned int>> buildMap_VE(const PolyhedralMesh& meshTriangolazione);
@@ -106,4 +104,4 @@ struct minimo_output {
 
 	
 	
-	}
+}
