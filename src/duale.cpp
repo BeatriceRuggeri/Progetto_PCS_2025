@@ -9,6 +9,9 @@
 using namespace std;
 using namespace Eigen;
 
+
+//???????????????????????
+
 vector<vector<double>> vertici_originali = mesh.M0D; //vertici
 vector<vector<double>> spigoli_originali = mesh.M1D;
 vector<vector<double>> facce_originali = mesh.M2D; //facce

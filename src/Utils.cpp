@@ -11,6 +11,9 @@ using namespace std;
 using namespace Eigen;
 
 
+
+//DOBBIAMO FINIRE STA COSA RAGa
+
 void gen_tetraedro(PolyhedralMesh& mesh){ //gli Id vanno modificati dalla 1D e 2D
     mesh.M0D = {
 			{1, 1.0 / sqrt(3.0), -1.0 / sqrt(3.0), -1.0 / sqrt(3.0)}, 

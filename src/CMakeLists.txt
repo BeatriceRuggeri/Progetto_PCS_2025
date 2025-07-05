@@ -1,7 +1,3 @@
-###########src################
-
-
-
 # message(${CMAKE_SOURCE_DIR})
 # message(${CMAKE_CURRENT_SOURCE_DIR})
 # message(${CMAKE_BINARY_DIR})
@@ -18,8 +14,7 @@ list(APPEND src_headers ${CMAKE_CURRENT_SOURCE_DIR}/Utils.hpp)
 ##########################################################################
 
 list(APPEND src_sources ${CMAKE_CURRENT_SOURCE_DIR}/supporto_triangolazione.cpp)
-list(APPEND src_sources ${CMAKE_CURRENT_SOURCE_DIR}/triangolazione_I.cpp)
-list(APPEND src_sources ${CMAKE_CURRENT_SOURCE_DIR}/triangolazione_II.cpp)
+list(APPEND src_sources ${CMAKE_CURRENT_SOURCE_DIR}/triangolazione.cpp)
 
 ###########################################################################
 
