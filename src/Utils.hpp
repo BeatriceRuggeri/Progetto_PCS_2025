@@ -29,7 +29,7 @@ void octaedro_gen(PolyhedralMesh& mesh);
 void icosaedro_gen(PolyhedralMesh& mesh);
 	
 //Quali input?-> cambiamo a se p==3
-	
+void gestione_input(PolyhedralMesh& meshT, const vector<int>& dim);
 void triangolazione_I(const int q,const int b,const int c,PolyhedralMesh& mesh,PolyhedralMesh& meshOutput);
 //****************************** utili
 void edge_correction(const unsigned int a, const unsigned int b, PolyhedralMesh& meshTriangolazione, unsigned int& id_edge, const unsigned int id_triangle); //correct those missing ones here
