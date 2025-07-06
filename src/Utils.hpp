@@ -16,10 +16,10 @@ vector<int> topological_Calc_I(const int q, const int b, const int c);
 vector<int> duplicates_Calc(const int q, const int b, const int c, const vector<int>& dim);
 vector<int> topological_Calc_II(const int b, const int q);
 	
-//cleaning 
-void v_duplicates_rm(PolyhedralMesh& meshTriangulated);
-void l_duplicates_rm(PolyhedralMesh& meshTriangulated);
-void meshClean(const PolyhedralMesh& meshTriangulated, PolyhedralMesh& meshFinal, const vector<int>& dimension);	
+//cleaning (some changes made for testing)
+void v_duplicates_rm(PolyhedralMesh& meshTriangolata);
+void l_duplicates_rm(PolyhedralMesh& meshTriangolata);
+void meshClean(const PolyhedralMesh& meshTriangolata, PolyhedralMesh& meshOutput, const vector<int>& dim);
 	
 	
 	
