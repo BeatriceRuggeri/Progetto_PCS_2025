@@ -136,12 +136,12 @@ src_test/clean:
 CMakeFiles/ProgettoPCS.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=1,2,3 "Built target ProgettoPCS"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target ProgettoPCS"
 .PHONY : CMakeFiles/ProgettoPCS.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ProgettoPCS.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ProgettoPCS.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles 0
 .PHONY : CMakeFiles/ProgettoPCS.dir/rule
@@ -162,12 +162,12 @@ CMakeFiles/ProgettoPCS.dir/clean:
 CMakeFiles/ProgettoPCS_TEST.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=4,5,6 "Built target ProgettoPCS_TEST"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=13,14,15,16,17,18,19,20,21,22,23,24 "Built target ProgettoPCS_TEST"
 .PHONY : CMakeFiles/ProgettoPCS_TEST.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ProgettoPCS_TEST.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ProgettoPCS_TEST.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles 0
 .PHONY : CMakeFiles/ProgettoPCS_TEST.dir/rule

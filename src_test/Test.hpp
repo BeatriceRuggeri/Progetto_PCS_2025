@@ -9,7 +9,7 @@
 #include "Utils.hpp"
 
 using namespace Eigen;
-using namespace PolyhedralLibrary
+using namespace PolyhedralLibrary;
 
 
 
@@ -30,19 +30,19 @@ namespace PolyhedralTests
 	//p=3,q=3 tetrahedro
 	int q1 = 3;
 	vector<int> expected1 = {10, 24, 16}; //expected value
-	vector<int> output1 = VEF_Calc(q1, b, c);
+	vector<int> output1 = topological_Calc_I(q1, b, c);
 	EXPECT_EQ(expected1, output1);
 	
 	//p=3, q=4 Ottaedro
 	int q2 = 4;
 	vector<int> expected2 = {18, 48, 32};
-	vector<int> output2 = VEF_Calc(q2, b, c);
+	vector<int> output2 = topological_Calc_I(q2, b, c);
 	EXPECT_EQ(expected2, output2);
 	
     //p=3, q=5 Icosaedro 
 	int q3 = 5;
 	vector<int> expected3 = {42, 120, 80};
-	vector<int> output3 = VEF_Calc(q3, b, c);
+	vector<int> output3 = topological_Calc_I(q3, b, c);
 	EXPECT_EQ(expected3, output3);
 	}
 	
@@ -61,21 +61,21 @@ namespace PolyhedralTests
 	int q1 = 3;
 	vector<int> dim1 = {10, 24, 16};
 	vector<int> expected1 = {24, 36, 16};
-	vector<int> output1 = duplicates(q1, b, c, dim1);
+	vector<int> output1 = duplicates_Calc(q1, b, c, dim1);
 	EXPECT_EQ(expected1, output1);
 	
 	//p=3, q=4
 	int q2 = 4;
 	vector<int> dim2 = {18, 48, 32};
 	vector<int> expected2 = {48, 72, 32};
-	vector<int> output2 = duplicates(q2, b, c, dim2);
+	vector<int> output2 = duplicates_Calc(q2, b, c, dim2);
 	EXPECT_EQ(expected2, output2);
 	
 	//p=3, q=5
 	int q3 = 5;
 	vector<int> dim3 = {42, 120, 80};
 	vector<int> expected3 = {120, 180 , 80};
-	vector<int> output3 = duplicates(q3, b, c, dim3);
+	vector<int> output3 = duplicates_Calc(q3, b, c, dim3);
 	EXPECT_EQ(expected3, output3);
    }
 
@@ -92,7 +92,7 @@ namespace PolyhedralTests
 //******************* vertici expected *************************************** Compatibilità (?** vector vector?)
 	meshExpected.Cell0DsId = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-	meshExpected.Cell0DsCoordinates = MatrixXd::Zeros(3, 10); //questa l'abbiamo cambiata, prima non era inizzializata 
+	meshExpected.Cell0DsCoordinates = MatrixXd(3, 10); //questa l'abbiamo cambiata, prima non era inizzializata 
 	
 	//cioè i punti che vado a controllare (Punti medi di ogni lato che generiamo nella triangolazione)
 	meshExpected.Cell0DsCoordinates.col(0)  <<  0, 0, 0.57735;
@@ -209,7 +209,7 @@ namespace PolyhedralTests
 	//manca fare queste funzioni
 	
 	vector<int> dim = topological_Calc_I(q, b, c);
-	vector<int> dim_duplicated = duplicates_Calc(q, b, c, dim);
+	vector<int> dim_duplicates = duplicates_Calc(q, b, c, dim);
 	
 	
 	
@@ -465,8 +465,8 @@ e = 3 → 4 % 4 = 0
 	int c = 0;
 	
 	//calculate topological values
-	vector<int> dim=VEF_Calc(q, b, c);
-	vector<int> dim_duplicates = duplicates(q, b, c, dim);
+	vector<int> dim=topological_Calc_I(q, b, c);
+	vector<int> dim_duplicates = duplicates_Calc(q, b, c, dim);
 	
 	//the thing to really replace
 	
@@ -542,7 +542,7 @@ TEST(Polyhedral_Test, Test_Lati_Tri_Due){
 	
 	//Dual of a tetrahedron is also a tetrahedron though guys (it is a self dual quantity) 
 	
-	tetraedri_gen(mesh);
+	tetraedro_gen(mesh);
 	//quindi se coincidono allora va bene l'algoritmo, e il test anche.
 	
 	int q = 3;
@@ -597,7 +597,7 @@ TEST(Polyhedral_Test, Test_Area_Tri_Due)
 	
 	//************************* !!!!!!!!!! our triangulation pipeline
 	tri_build_I(mesh, meshTriangolazione, b, 0,  dim_duplicates);
-	v_duplicates_rm(meshTriangolazione;
+	v_duplicates_rm(meshTriangolazione);
 	l_duplicates_rm(meshTriangolazione);
 	meshClean(meshTriangolazione, meshOutput, dim);
 	
@@ -610,11 +610,11 @@ TEST(Polyhedral_Test, Test_Area_Tri_Due)
 #include <string>
 
 std::map<std::string, int> ages;
-ages["Alice"] = 30;
+ages["Mary"] = 30;
 ages["Bob"] = 25;
 
-if (ages.find("Alice") != ages.end()) {
-    int a = ages["Alice"]; // = 30
+if (ages.find("Mary") != ages.end()) {
+    int a = ages["Mary"]; // = 30
 }
 
 	
@@ -624,7 +624,7 @@ if (ages.find("Alice") != ages.end()) {
 	map<pair<unsigned int, unsigned int>, vector<unsigned int>> LF_map = buildMap_LF(meshOutput); //look up table mapping the edges to the faces they belong to.
 	//edge (2,5) => [face 10, face 22] basically
 
-	tri_build_II(meshOutput, meshTriangolazione, dim2, edgeToFacesMap); //our other function
+	tri_build_II(meshOutput, meshTriangolazione, dim2, LF_map); //our other function
 	
 	// ciclo su tutti i triangoli
 	for (size_t i = 0; i < meshTriangolazione_Due.Cell2DsVertices.size(); ++i) {
@@ -672,14 +672,14 @@ TEST(Polyhedral_Test, Test_Duale){
 	vector<int> dimensionDuplicated = duplicates_Calc(q, b, c, dimension);
 	
 	
-	tri_build_I(mesh, meshTriangulated, b, c, dimensionDuplicated);
+	tri_build_I(mesh, meshTriangolazione, b, c, dimensionDuplicated);
 	v_duplicates_rm(meshTriangolazione);
 	l_duplicates_rm(meshTriangolazione);
-	meshClean(meshTriangolazione, meshOutout, dimension);//so then we put it in mesh final
+	meshClean(meshTriangolazione, meshOutput, dimension);//so then we put it in mesh final
 	//now we use a map to pair a key 
-	map <pair<unsigned int, unsigned int>, vector<unsigned int>> LF_map = buildMap_LF(meshFinal); //so for every edge v0,v1 we will record which face shares it
+	map <pair<unsigned int, unsigned int>, vector<unsigned int>> LF_map = buildMap_LF(meshOutput); //so for every edge v0,v1 we will record which face shares it
 	
-	topological_Calc_II(meshOutput, meshDual, LF_Map);
+	dual_calc(meshOutput, meshDual, LF_map);
 	
 	//define tolerances, which we will use for floating point comparisons
 	double eps = numeric_limits<double>::epsilon();
@@ -687,8 +687,8 @@ TEST(Polyhedral_Test, Test_Duale){
 	
 	
 //these will be our expected counts
-	size_t e_vert_dual= meshFinal.Cell2DsId.size(); // 16 facce triangolate → 16 vertici nel duale
-    size_t e_lati_dual= meshFinal.Cell1DsId.size(); // Calcolato dinamicamente, può essere 24 per subdivisionLevel=2
+	size_t e_vert_dual= meshOutput.Cell2DsId.size(); // 16 facce triangolate → 16 vertici nel duale
+    size_t e_lati_dual= meshOutput.Cell1DsId.size(); // Calcolato dinamicamente, può essere 24 per subdivisionLevel=2
    
     // numero di vertici (id)
 	// numero di lati(id)
@@ -720,17 +720,17 @@ TEST(Polyhedral_Test, Test_Duale){
         double sumZ = 0.0;
 		
         // accedo alla lista dei vertici che compongono la faccia
-        const vector<unsigned int>& faceVertices = meshOutput.Cell2DsVertices[faceId];
+        const vector<unsigned int>& face_vert = meshOutput.Cell2DsVertices[faceId];
 
         // sommo le coordinate dei vertici della faccia
-        for (unsigned int v_id : faceVertices) {
+        for (unsigned int v_id : face_vert) {
 			sumX += meshOutput.Cell0DsCoordinates(0, v_id); // coordinata x del vertice v_idMore actions
             sumY += meshOutput.Cell0DsCoordinates(1, v_id); // coordinata y del vertice v_id
             sumZ += meshOutput.Cell0DsCoordinates(2, v_id); // coordinata z del vertice v_id
         }
 
         // calcolo il baricentro
-        double n = (double) faceVertices.size(); // perché faceVertices.size() restituisce un tipo size_t quindi evito una conversione implicita
+        double n = (double) face_vert.size(); // perché faceVertices.size() restituisce un tipo size_t quindi evito una conversione implicita
         double baryX = sumX / n;
         double baryY = sumY / n;
         double baryZ = sumZ / n;
@@ -753,8 +753,8 @@ TEST(Polyhedral_Test, Test_Duale){
         int f2 = edge(1);
 		 // controlla che le due facce originali condividano un edge
     bool foundCommonEdge = false;
-    for (int e1 : meshFinal.Cell2DsEdges[f1]) {
-        for (int e2 : meshFinal.Cell2DsEdges[f2]) {
+    for (int e1 : meshOutput.Cell2DsEdges[f1]) {
+        for (int e2 : meshOutput.Cell2DsEdges[f2]) {
             if (e1 == e2) {
                 foundCommonEdge = true;
                 break;
@@ -778,10 +778,10 @@ TEST(Polyhedral_Test, Test_Duale){
 			unsigned int currentEdge = edges[e]; // lato corrente
             unsigned int nextEdge = edges[(e + 1) % E]; // lato successivo 
             
-            unsigned int currentEdgeOrigin = maxFlag; //similar procedure that we did above
-			unsigned int currentEdgeEnd = maxFlag;
-			unsigned int nextEdgeOrigin = maxFlag;
-			unsigned int nextEdgeEnd = maxFlag;
+            unsigned int currentEdge_start = maxFlag; //similar procedure that we did above
+			unsigned int currentEdge_end = maxFlag;
+			unsigned int nextEdge_start = maxFlag;
+			unsigned int nextEdge_end = maxFlag;
             
             bool foundCurrent = false;
             for (unsigned int i = 0; i < meshDual.Cell1DsId.size(); i++) {
@@ -808,7 +808,7 @@ TEST(Polyhedral_Test, Test_Duale){
             ASSERT_TRUE(foundNext);
 
             // Recupera il vertice della faccia
-            unsigned int faceVertex = vertices[e]; // ID master del vertice della faccia
+            unsigned int face_vert = vertices[e]; // ID master del vertice della faccia
 
             bool condition = (currentEdge_start == nextEdge_start) ||
                              (currentEdge_start == nextEdge_end) ||
@@ -832,7 +832,7 @@ TEST(Polyhedral_Test, Test_Duale){
 TEST(Test_Polyhedral, Test_Lati_II)
 { 
 	PolyhedralLibrary::PolyhedralMesh mesh;
-	PolyhedralLibrary::tetraedron_gen(mesh);
+	PolyhedralLibrary::tetraedro_gen(mesh);
 	
 	PolyhedralMesh meshTriangolazione;
 	PolyhedralMesh meshOutput;
@@ -843,7 +843,7 @@ TEST(Test_Polyhedral, Test_Lati_II)
 	unsigned int maxFlag = numeric_limits<unsigned int>::max();
 	
 	vector<int> dim = topological_Calc_I(q, b, 0);
-	vector<int> dim_dupli = duplicates_Calc(q, b, 0, dime);
+	vector<int> dim_dupli = duplicates_Calc(q, b, 0, dim);
 	tri_build_I(mesh, meshTriangolazione, b, 0,  dim_dupli);
 	v_duplicates_rm(meshTriangolazione);
 	l_duplicates_rm(meshTriangolazione);
@@ -900,21 +900,21 @@ TEST(Test_Polyhedral, Test_Lati_II)
             ASSERT_TRUE(foundNext) << "Master Edge ID " << nextEdge << " not found in Cell1DsId";
 
             // recupero il vertice della faccia
-            unsigned int faceVertex = vertices[e]; 
+            unsigned int face_vert= vertices[e]; 
 
-            bool condition = (currentEdgeOrigin == nextEdgeOrigin) ||
-                             (currentEdgeOrigin == nextEdgeEnd) ||
-                             (currentEdgeEnd == nextEdgeOrigin) ||
-                             (currentEdgeEnd == nextEdgeEnd);
+            bool condition = (currentEdge_start == nextEdge_start) ||
+                             (currentEdge_start == nextEdge_end) ||
+                             (currentEdge_end == nextEdge_start) ||
+                             (currentEdge_end == nextEdge_end);
             EXPECT_TRUE(condition);
 
             // Controllo che il vertice e-esimo della faccia coincida con l'origine del lato e-esimo
             
-            bool condition2 = (faceVertex == currentEdgeOrigin) ||
-            					(faceVertex == currentEdgeEnd);
+            bool condition2 = (face_vert == currentEdge_start) ||
+            					(face_vert == currentEdge_end);
             EXPECT_TRUE(condition2);
 
-		}		
+		}
 	}
 }
 
@@ -953,7 +953,7 @@ TEST(Polyhedral_Test, ShortestPath){
 	meshClean(meshTriangolazione, meshOutput, dim);
 	
 	minimo_output expected(2, 1.63299); //these values!! ?
-	MatrixXi adjMatrix = adjMatrix(meshOutput);
+	MatrixXi adjMatrix = adj_M(meshOutput);
 	minimo_output res = minimo_F_Dijkstra(meshOutput, adjMatrix, startVertexId, endVertexId);
 	
 	EXPECT_NEAR(res.num_lati, expected.num_lati, 1e-5) 
@@ -964,6 +964,4 @@ TEST(Polyhedral_Test, ShortestPath){
         << "error, not the shortest path"
         << " Expected: " << expected.length << ", Final: " << res.length;
 	 
-	}
- 
-}
+ }

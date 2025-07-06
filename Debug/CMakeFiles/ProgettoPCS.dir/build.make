@@ -83,10 +83,122 @@ CMakeFiles/ProgettoPCS.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/main.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/main.cpp -o CMakeFiles/ProgettoPCS.dir/main.cpp.s
 
+CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o: ../src/supporto_triangolazione.cpp
+CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o -MF CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/src/supporto_triangolazione.cpp
+
+CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/src/supporto_triangolazione.cpp > CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/src/supporto_triangolazione.cpp -o CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.s
+
+CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o: ../src/triangolazione.cpp
+CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o -MF CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/src/triangolazione.cpp
+
+CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/src/triangolazione.cpp > CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/src/triangolazione.cpp -o CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.s
+
+CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o: ../src/genesis.cpp
+CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o -MF CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/src/genesis.cpp
+
+CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/src/genesis.cpp > CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/src/genesis.cpp -o CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.s
+
+CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o: ../src/MeshClean.cpp
+CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o -MF CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/src/MeshClean.cpp
+
+CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/src/MeshClean.cpp > CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/src/MeshClean.cpp -o CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.s
+
+CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o: ../src/funzTopo.cpp
+CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o -MF CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/src/funzTopo.cpp
+
+CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/src/funzTopo.cpp > CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/src/funzTopo.cpp -o CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.s
+
+CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o: ../src/ExportMesh.cpp
+CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o -MF CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/src/ExportMesh.cpp
+
+CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/src/ExportMesh.cpp > CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/src/ExportMesh.cpp -o CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.s
+
+CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o: ../src/duale.cpp
+CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o -MF CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/src/duale.cpp
+
+CMakeFiles/ProgettoPCS.dir/src/duale.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/src/duale.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/src/duale.cpp > CMakeFiles/ProgettoPCS.dir/src/duale.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/src/duale.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/src/duale.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/src/duale.cpp -o CMakeFiles/ProgettoPCS.dir/src/duale.cpp.s
+
+CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o: ../src/grafo.cpp
+CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o -MF CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/src/grafo.cpp
+
+CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/src/grafo.cpp > CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/src/grafo.cpp -o CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.s
+
 CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
 CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o: ../ExportParaview/UCDUtilities.cpp
 CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o -MF CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/ExportParaview/UCDUtilities.cpp
 
 CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.i: cmake_force
@@ -97,16 +209,48 @@ CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/ExportParaview/UCDUtilities.cpp -o CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.s
 
+CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o: CMakeFiles/ProgettoPCS.dir/flags.make
+CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o: ../ExportParaview/ExportParaview.cpp
+CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o: CMakeFiles/ProgettoPCS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o -MF CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o.d -o CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o -c /home/appuser/Data/Progetto_PCS_2025/ExportParaview/ExportParaview.cpp
+
+CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/appuser/Data/Progetto_PCS_2025/ExportParaview/ExportParaview.cpp > CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.i
+
+CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/appuser/Data/Progetto_PCS_2025/ExportParaview/ExportParaview.cpp -o CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.s
+
 # Object files for target ProgettoPCS
 ProgettoPCS_OBJECTS = \
 "CMakeFiles/ProgettoPCS.dir/main.cpp.o" \
-"CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o"
+"CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o" \
+"CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o"
 
 # External object files for target ProgettoPCS
 ProgettoPCS_EXTERNAL_OBJECTS =
 
 ProgettoPCS: CMakeFiles/ProgettoPCS.dir/main.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o
 ProgettoPCS: CMakeFiles/ProgettoPCS.dir/ExportParaview/UCDUtilities.cpp.o
+ProgettoPCS: CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o
 ProgettoPCS: CMakeFiles/ProgettoPCS.dir/build.make
 ProgettoPCS: /usr/local/lib/libgtest.a
 ProgettoPCS: /usr/local/lib/libgtest_main.a
@@ -115,7 +259,7 @@ ProgettoPCS: /usr/local/lib/libgmock_main.a
 ProgettoPCS: /usr/local/lib/libgmock.a
 ProgettoPCS: /usr/local/lib/libgtest.a
 ProgettoPCS: CMakeFiles/ProgettoPCS.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ProgettoPCS"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/appuser/Data/Progetto_PCS_2025/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable ProgettoPCS"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ProgettoPCS.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

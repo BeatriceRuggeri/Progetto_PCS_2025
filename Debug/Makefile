@@ -142,6 +142,33 @@ ProgettoPCS_TEST/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/build
 .PHONY : ProgettoPCS_TEST/fast
 
+ExportParaview/ExportParaview.o: ExportParaview/ExportParaview.cpp.o
+.PHONY : ExportParaview/ExportParaview.o
+
+# target to build an object file
+ExportParaview/ExportParaview.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/ExportParaview/ExportParaview.cpp.o
+.PHONY : ExportParaview/ExportParaview.cpp.o
+
+ExportParaview/ExportParaview.i: ExportParaview/ExportParaview.cpp.i
+.PHONY : ExportParaview/ExportParaview.i
+
+# target to preprocess a source file
+ExportParaview/ExportParaview.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/ExportParaview/ExportParaview.cpp.i
+.PHONY : ExportParaview/ExportParaview.cpp.i
+
+ExportParaview/ExportParaview.s: ExportParaview/ExportParaview.cpp.s
+.PHONY : ExportParaview/ExportParaview.s
+
+# target to generate assembly for a file
+ExportParaview/ExportParaview.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/ExportParaview/ExportParaview.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/ExportParaview/ExportParaview.cpp.s
+.PHONY : ExportParaview/ExportParaview.cpp.s
+
 ExportParaview/UCDUtilities.o: ExportParaview/UCDUtilities.cpp.o
 .PHONY : ExportParaview/UCDUtilities.o
 
@@ -217,6 +244,222 @@ main_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/main_test.cpp.s
 .PHONY : main_test.cpp.s
 
+src/ExportMesh.o: src/ExportMesh.cpp.o
+.PHONY : src/ExportMesh.o
+
+# target to build an object file
+src/ExportMesh.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/ExportMesh.cpp.o
+.PHONY : src/ExportMesh.cpp.o
+
+src/ExportMesh.i: src/ExportMesh.cpp.i
+.PHONY : src/ExportMesh.i
+
+# target to preprocess a source file
+src/ExportMesh.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/ExportMesh.cpp.i
+.PHONY : src/ExportMesh.cpp.i
+
+src/ExportMesh.s: src/ExportMesh.cpp.s
+.PHONY : src/ExportMesh.s
+
+# target to generate assembly for a file
+src/ExportMesh.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/ExportMesh.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/ExportMesh.cpp.s
+.PHONY : src/ExportMesh.cpp.s
+
+src/MeshClean.o: src/MeshClean.cpp.o
+.PHONY : src/MeshClean.o
+
+# target to build an object file
+src/MeshClean.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/MeshClean.cpp.o
+.PHONY : src/MeshClean.cpp.o
+
+src/MeshClean.i: src/MeshClean.cpp.i
+.PHONY : src/MeshClean.i
+
+# target to preprocess a source file
+src/MeshClean.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/MeshClean.cpp.i
+.PHONY : src/MeshClean.cpp.i
+
+src/MeshClean.s: src/MeshClean.cpp.s
+.PHONY : src/MeshClean.s
+
+# target to generate assembly for a file
+src/MeshClean.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/MeshClean.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/MeshClean.cpp.s
+.PHONY : src/MeshClean.cpp.s
+
+src/duale.o: src/duale.cpp.o
+.PHONY : src/duale.o
+
+# target to build an object file
+src/duale.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/duale.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/duale.cpp.o
+.PHONY : src/duale.cpp.o
+
+src/duale.i: src/duale.cpp.i
+.PHONY : src/duale.i
+
+# target to preprocess a source file
+src/duale.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/duale.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/duale.cpp.i
+.PHONY : src/duale.cpp.i
+
+src/duale.s: src/duale.cpp.s
+.PHONY : src/duale.s
+
+# target to generate assembly for a file
+src/duale.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/duale.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/duale.cpp.s
+.PHONY : src/duale.cpp.s
+
+src/funzTopo.o: src/funzTopo.cpp.o
+.PHONY : src/funzTopo.o
+
+# target to build an object file
+src/funzTopo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/funzTopo.cpp.o
+.PHONY : src/funzTopo.cpp.o
+
+src/funzTopo.i: src/funzTopo.cpp.i
+.PHONY : src/funzTopo.i
+
+# target to preprocess a source file
+src/funzTopo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/funzTopo.cpp.i
+.PHONY : src/funzTopo.cpp.i
+
+src/funzTopo.s: src/funzTopo.cpp.s
+.PHONY : src/funzTopo.s
+
+# target to generate assembly for a file
+src/funzTopo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/funzTopo.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/funzTopo.cpp.s
+.PHONY : src/funzTopo.cpp.s
+
+src/genesis.o: src/genesis.cpp.o
+.PHONY : src/genesis.o
+
+# target to build an object file
+src/genesis.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/genesis.cpp.o
+.PHONY : src/genesis.cpp.o
+
+src/genesis.i: src/genesis.cpp.i
+.PHONY : src/genesis.i
+
+# target to preprocess a source file
+src/genesis.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/genesis.cpp.i
+.PHONY : src/genesis.cpp.i
+
+src/genesis.s: src/genesis.cpp.s
+.PHONY : src/genesis.s
+
+# target to generate assembly for a file
+src/genesis.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/genesis.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/genesis.cpp.s
+.PHONY : src/genesis.cpp.s
+
+src/grafo.o: src/grafo.cpp.o
+.PHONY : src/grafo.o
+
+# target to build an object file
+src/grafo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/grafo.cpp.o
+.PHONY : src/grafo.cpp.o
+
+src/grafo.i: src/grafo.cpp.i
+.PHONY : src/grafo.i
+
+# target to preprocess a source file
+src/grafo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/grafo.cpp.i
+.PHONY : src/grafo.cpp.i
+
+src/grafo.s: src/grafo.cpp.s
+.PHONY : src/grafo.s
+
+# target to generate assembly for a file
+src/grafo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/grafo.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/grafo.cpp.s
+.PHONY : src/grafo.cpp.s
+
+src/supporto_triangolazione.o: src/supporto_triangolazione.cpp.o
+.PHONY : src/supporto_triangolazione.o
+
+# target to build an object file
+src/supporto_triangolazione.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/supporto_triangolazione.cpp.o
+.PHONY : src/supporto_triangolazione.cpp.o
+
+src/supporto_triangolazione.i: src/supporto_triangolazione.cpp.i
+.PHONY : src/supporto_triangolazione.i
+
+# target to preprocess a source file
+src/supporto_triangolazione.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/supporto_triangolazione.cpp.i
+.PHONY : src/supporto_triangolazione.cpp.i
+
+src/supporto_triangolazione.s: src/supporto_triangolazione.cpp.s
+.PHONY : src/supporto_triangolazione.s
+
+# target to generate assembly for a file
+src/supporto_triangolazione.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/supporto_triangolazione.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/supporto_triangolazione.cpp.s
+.PHONY : src/supporto_triangolazione.cpp.s
+
+src/triangolazione.o: src/triangolazione.cpp.o
+.PHONY : src/triangolazione.o
+
+# target to build an object file
+src/triangolazione.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/triangolazione.cpp.o
+.PHONY : src/triangolazione.cpp.o
+
+src/triangolazione.i: src/triangolazione.cpp.i
+.PHONY : src/triangolazione.i
+
+# target to preprocess a source file
+src/triangolazione.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/triangolazione.cpp.i
+.PHONY : src/triangolazione.cpp.i
+
+src/triangolazione.s: src/triangolazione.cpp.s
+.PHONY : src/triangolazione.s
+
+# target to generate assembly for a file
+src/triangolazione.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS.dir/build.make CMakeFiles/ProgettoPCS.dir/src/triangolazione.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProgettoPCS_TEST.dir/build.make CMakeFiles/ProgettoPCS_TEST.dir/src/triangolazione.cpp.s
+.PHONY : src/triangolazione.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -227,6 +470,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... ProgettoPCS"
 	@echo "... ProgettoPCS_TEST"
+	@echo "... ExportParaview/ExportParaview.o"
+	@echo "... ExportParaview/ExportParaview.i"
+	@echo "... ExportParaview/ExportParaview.s"
 	@echo "... ExportParaview/UCDUtilities.o"
 	@echo "... ExportParaview/UCDUtilities.i"
 	@echo "... ExportParaview/UCDUtilities.s"
@@ -236,6 +482,30 @@ help:
 	@echo "... main_test.o"
 	@echo "... main_test.i"
 	@echo "... main_test.s"
+	@echo "... src/ExportMesh.o"
+	@echo "... src/ExportMesh.i"
+	@echo "... src/ExportMesh.s"
+	@echo "... src/MeshClean.o"
+	@echo "... src/MeshClean.i"
+	@echo "... src/MeshClean.s"
+	@echo "... src/duale.o"
+	@echo "... src/duale.i"
+	@echo "... src/duale.s"
+	@echo "... src/funzTopo.o"
+	@echo "... src/funzTopo.i"
+	@echo "... src/funzTopo.s"
+	@echo "... src/genesis.o"
+	@echo "... src/genesis.i"
+	@echo "... src/genesis.s"
+	@echo "... src/grafo.o"
+	@echo "... src/grafo.i"
+	@echo "... src/grafo.s"
+	@echo "... src/supporto_triangolazione.o"
+	@echo "... src/supporto_triangolazione.i"
+	@echo "... src/supporto_triangolazione.s"
+	@echo "... src/triangolazione.o"
+	@echo "... src/triangolazione.i"
+	@echo "... src/triangolazione.s"
 .PHONY : help
 
 

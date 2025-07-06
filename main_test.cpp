@@ -1,5 +1,3 @@
-
-
 #include <gtest/gtest.h>
 #include "Test.hpp"
 #include "PolyhedralMesh.hpp"
