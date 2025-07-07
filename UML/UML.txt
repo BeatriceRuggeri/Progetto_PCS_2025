@@ -1,0 +1,158 @@
+@startuml
+allowmixing
+skinparam namespaceSeparator ::
+
+' ===== CLASSES =====
+namespace PolyhedralLibrary {
+  class PolyhedralMesh {
+    + vector<size_t> Cell0DsId
+    + MatrixXd Cell0DsCoordinates
+    + vector<size_t> Cell1DsId
+    + MatrixXi Cell1DsExtrema
+    + vector<size_t> Cell2DsId
+    + vector<vector<unsigned int>> Cell2DsVertices
+    + vector<vector<unsigned int>> Cell2DsEdges
+    + vector<unsigned int> Cell3DsId
+    + vector<unsigned int> Cell3DsVertices
+    + vector<unsigned int> Cell3DsEdges
+    + vector<unsigned int> Cell3DsFaces
+    + vector<unsigned int> Cell0DsMarker
+    + vector<unsigned int> Cell1DsMarker
+    + vector<vector<unsigned int>> Cell0DsFlag
+    + vector<unsigned int> Cell1DsOriginalFlag
+    + unsigned int NumCells0Ds
+    + unsigned int NumCells1Ds
+    + unsigned int NumCells2Ds
+  }
+
+  class minimo_output {
+    + unsigned int num_lati
+    + double length
+    + minimo_output(unsigned int, double)
+  }
+}
+
+namespace Gedim {
+  class UCDUtilities{}
+  class UCDCell{}
+  class UCDProperty{}
+}
+
+' ===== FUNCTION NOTES =====
+note as N1
+Generazione:
+ - tetraedro_gen()
+ - icosaedro_gen()
+ - octaedro_gen()
+Triangulation:
+ - triangolazione_I()
+ - triangolazione_dual()
+ - triangolazione_II()
+ -tri_build_I
+ -tri_build_II
+ -Assemble_3D
+Cleaning:
+ - v_duplicates_rm()
+ - l_duplicates_rm()
+ - meshClean()
+Graph:
+ - adj_M()
+ - minimo_F_Dijkstra()
+Export:
+ - ExportParaview()
+ - WriteCell0Ds/1Ds/2Ds/3Ds()
+Topology:
+ -swap_val
+ -topological_Calc_I
+ -topological_Calc_II
+ -duplicates_Calc
+
+And more...
+ 
+end note
+
+PolyhedralLibrary::PolyhedralMesh .. N1
+
+' ===== UTILS =====
+package "Utils" {
+  
+  package "Generazione" {
+    rectangle tetraedro_gen
+    rectangle icosaedro_gen
+    rectangle octaedro_gen
+  }
+
+  package "Triangolazione" {
+    package "supporto_triangolazione" {
+      rectangle tri_build_I
+      rectangle tri_build_II
+      rectangle Assemble_3D
+    }
+    rectangle triangolazione_I
+    rectangle triangolazione_II
+    rectangle triangolazione_dual
+  }
+
+  package "Cleaning" {
+    rectangle v_duplicates_rm
+    rectangle l_duplicates_rm
+    rectangle meshClean
+  }
+
+  package "Graph" {
+    rectangle adj_M
+    rectangle minimo_F_Dijkstra
+  }
+
+  package "Export" {
+    rectangle ExportParaview
+    rectangle WriteCell0Ds
+    rectangle WriteCell1Ds
+    rectangle WriteCell2Ds
+    rectangle WriteCell3Ds
+  }
+  
+  package "Dual" {
+  rectangle dual_calc
+  rectangle baricenter_Fetch
+  rectangle buildMap_LF
+  rectangle buildMap_VF
+  rectangle buildMap_VE
+  rectangle proj_sphere
+  }
+package "Topology" {
+  rectangle swap_val
+  rectangle topological_Calc_I
+  rectangle topological_Calc_II
+  rectangle duplicates_Calc
+  }
+}
+
+' ===== RELATIONSHIPS =====
+PolyhedralLibrary::PolyhedralMesh --> Gedim::UCDUtilities : uses for export
+PolyhedralLibrary::PolyhedralMesh --> PolyhedralLibrary::minimo_output : returns
+
+
+
+package PolyhedralTests {
+  rectangle "GoogleTest Polyhedral_Test" as Tests
+}
+
+Tests ..> PolyhedralLibrary::PolyhedralMesh
+Tests ..> PolyhedralLibrary::minimo_output 
+
+note right of Tests
+Test Cases:
+- Test_Topological
+- Test_Duplicates
+- Test_Triangulation_Tetrahedron
+- Test_Ordine_Lati
+- Test_Area
+- Test_Lati
+- Test_Lati_Duale
+- Test_Lati_Tri_Due
+- Test_Area_Tri_Due
+- Test_Duale
+- Test_Min_path
+end note
+@enduml

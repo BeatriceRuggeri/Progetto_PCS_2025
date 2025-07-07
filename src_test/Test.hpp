@@ -22,7 +22,7 @@ namespace PolyhedralTests
 
 
 	
-    TEST(Polyhedral_Test,Test_Formula_VEF)
+    TEST(Polyhedral_Test,Test_Topological)
 	{
 	int b = 2;
 	int c = 0;
@@ -925,7 +925,7 @@ TEST(Test_Polyhedral, Test_Lati_II)
 //******************* test cammini minimi (shortest path) ***************************************
 //******adapt*******
 
-TEST(Polyhedral_Test, ShortestPath){
+TEST(Polyhedral_Test, Min_path){
 	
 	PolyhedralMesh mesh;
 	PolyhedralMesh meshTriangolazione; //fissata expected
