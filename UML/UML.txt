@@ -82,15 +82,15 @@ package "Utils" {
     rectangle octaedro_gen
   }
 
-  package "Triangolazione" {
-    package "supporto_triangolazione" {
+  package "Supporto Triangolazione" {
+    package "Triangolazione" {
       rectangle tri_build_I
       rectangle tri_build_II
-      rectangle Assemble_3D
     }
     rectangle triangolazione_I
     rectangle triangolazione_II
     rectangle triangolazione_dual
+    rectangle Assemble_3D
   }
 
   package "Cleaning" {
